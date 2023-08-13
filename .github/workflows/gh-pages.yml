@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: redoc-cli make docs
         uses: kefasjw/redoc-cli-github-action@v1
@@ -22,4 +22,4 @@ jobs:
         with:
           deploy_key: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          exclude_assets: "!(public/*)"
+   #       exclude_assets: "!(public/*)"
