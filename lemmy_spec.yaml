@@ -16,6 +16,8 @@ servers:
 paths:
   /site:
     get:
+      tags:
+        - Site
       parameters:
         - name: GetSite
           in: query
@@ -30,6 +32,8 @@ paths:
               schema:
                 $ref: 'components.yaml#/components/schemas/SiteResponse'
     post:
+      tags:
+        - Site
       requestBody:
         content:
           application/json:
@@ -39,6 +43,8 @@ paths:
         "201":
           description: Created
     put:
+      tags:
+        - Site
       requestBody:
         content:
           application/json:
@@ -458,3 +464,388 @@ paths:
             application/json:
               schema:
                 $ref: 'components.yaml#/components/schemas/PostReportResponse'
+  /post/report/resolve:
+    put:
+      tags:
+        - Post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/ResolvePostReport'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PostReportResponse'
+  /post/report/list:
+    get:
+      tags:
+        - Post
+      parameters:
+        - name: ListPostReports
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/ListPostReports'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/ListPostReportsResponse'
+  /post/site_metadata:
+    get:
+      tags:
+        - Post
+      parameters:
+        - name: GetSiteMetadata
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/GetSiteMetadata'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/GetSiteMetadataResponse'
+
+  /comment:
+    get:
+      tags:
+        - Comment
+      parameters:
+        - name: GetComment
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/GetComment'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CommentResponse'
+    post:
+      tags:
+        - Comment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/CreateComment'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CommentResponse'
+    put:
+      tags:
+        - Comment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/EditComment'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CommentResponse'
+  /comment/list:
+    get:
+      tags:
+        - Comment
+      parameters:
+        - in: query
+          name: GetComments
+          schema:
+            $ref: 'components.yaml#/components/schemas/GetComments'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/GetCommentsResponse'
+
+  /comment/delete:
+    post:
+      tags:
+        - Comment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/DeleteComment'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CommentResponse'
+  /comment/remove:
+    post:
+      tags:
+        - Comment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/RemoveComment'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CommentResponse'
+  /comment/mark_as_read:
+    post:
+      tags:
+        - Comment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/MarkCommentReplyAsRead'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CommentReplyResponse'
+  /comment/distinguish:
+    post:
+      tags:
+        - Comment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/DistinguishComment'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CommentResponse'
+  /comment/like:
+    post:
+      tags:
+        - Post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/CreatePostLike'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PostResponse'
+  /comment/save:
+    post:
+      tags:
+        - Comment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/SaveComment'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CommentResponse'
+  /comment/report:
+    post:
+      tags:
+        - Comment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/CreateCommentReport'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CommentReportResponse'
+  /comment/report/resolve:
+    put:
+      tags:
+        - Comment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/ResolveCommentReport'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CommentReportResponse'
+  /comment/report/list:
+    get:
+      tags:
+        - Comment
+      parameters:
+        - name: ListCommentReports
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/ListCommentReports'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/ListCommentReportsResponse'
+
+  /private_message:
+    put:
+      tags:
+        - PrivateMessage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/EditPrivateMessage'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PrivateMessageResponse'
+
+    post:
+      tags:
+        - PrivateMessage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/CreatePrivateMessage'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PrivateMessageResponse'
+  /private_message/list:
+    get:
+      tags:
+        - PrivateMessages
+      parameters:
+        - in: query
+          name: GetPrivateMessages
+          schema:
+            $ref: 'components.yaml#/components/schemas/GetPrivateMessages'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PrivateMessagesResponse'
+  /private_message/delete:
+    post:
+      tags:
+        - PrivateMessage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/DeletePrivateMessage'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PrivateMessageResponse'
+  /private_message/mark_as_read:
+    post:
+      tags:
+        - PrivateMessage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/MarkPrivateMessageAsRead'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PrivateMessageResponse'
+  /private_message/report:
+    post:
+      tags:
+        - PrivateMessage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/CreatePrivateMessageReport'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PrivateMessageReportResponse'
+  /private_message/report/resolve:
+    put:
+      tags:
+        - Private_Message
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/ResolvePrivateMessageReport'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PrivateMessageReportResponse'
+  /private_message/report/list:
+    get:
+      tags:
+        - PrivateMessage
+      parameters:
+        - name: ListPrivateMessageReports
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/ListPrivateMessageReports'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/ListPrivateMessageReportsResponse'
