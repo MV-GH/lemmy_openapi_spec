@@ -8,7 +8,9 @@ info:
   x-logo:
     url: https://raw.githubusercontent.com/LemmyNet/lemmy-ui/main/src/assets/icons/favicon.svg
     altText: Lemmy Icon
-    href: https://github.com/MV-GH/lemmy_openapi3_spec
+    href: https://github.com/MV-GH/lemmy_openapi_spec
+  contact:
+    url: https://github.com/MV-GH/lemmy_openapi_spec
 servers:
   - url: https://lemmy.ml/api/v3
 paths:
@@ -59,3 +61,400 @@ paths:
             application/json:
               schema:
                 $ref: 'components.yaml#/components/schemas/GetModlogResponse'
+
+  /search:
+    get:
+      parameters:
+        - name: Search
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/Search'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/SearchResponse'
+
+  /resolve_object:
+    get:
+      parameters:
+        - name: ResolveObject
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/ResolveObject'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/ResolveObjectResponse'
+  /community:
+    get:
+      tags:
+        - Community
+      parameters:
+        - name: Community
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/Community'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CommunityResponse'
+    post:
+      tags:
+        - Community
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/CreateCommunity'
+      responses:
+        "201":
+          description: CREATED
+    put:
+      tags:
+        - Community
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/CreateCommunity'
+      responses:
+        "200":
+          description: OK
+  /community/hide:
+    put:
+      tags:
+        - Community
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/HideCommunity'
+      responses:
+        "200":
+          description: OK
+  /community/list:
+    get:
+      tags:
+          - Community
+      parameters:
+        - name: ListCommunities
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/ListCommunities'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/ListCommunitiesResponse'
+  /community/follow:
+    post:
+      tags:
+        - Community
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/FollowCommunity'
+      responses:
+        "201":
+          description: OK
+  /community/block:
+    post:
+      tags:
+        - Community
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/BlockCommunity'
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/BlockCommunityResponse'
+  /community/delete:
+    post:
+      tags:
+        - Community
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/DeleteCommunity'
+      responses:
+        "201":
+          description: OK
+  /community/remove:
+    post:
+      tags:
+        - Community
+        - Mod
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/RemoveCommunity'
+      responses:
+        "201":
+          description: OK
+  /community/transfer:
+    post:
+      tags:
+        - Community
+        - Mod
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/TransferCommunity'
+      responses:
+        "201":
+          description: OK
+  /community/ban_user:
+    post:
+      tags:
+        - Community
+        - Mod
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/BanFromCommunity'
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/BanFromCommunityResponse'
+  /community/mod:
+    post:
+      tags:
+        - Community
+        - Mod
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/AddModToCommunity'
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/AddModToCommunityResponse'
+  /federated_instances:
+    get:
+      parameters:
+        - name: GetFederatedInstances
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/GetFederatedInstances'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/GetFederatedInstancesResponse'
+  /post:
+    get:
+      tags:
+        - Post
+      parameters:
+        - name: GetPost
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/GetPost'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/GetPostResponse'
+    put:
+      tags:
+        - Post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/EditPost'
+      responses:
+        200:
+          description: OK
+
+    post:
+      tags:
+        - Post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/CreatePost'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PostResponse'
+  /post/list:
+    get:
+      tags:
+        - Post
+      parameters:
+        - name: ListPosts
+          in: query
+          schema:
+            $ref: "components.yaml#/components/schemas/GetPosts"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/GetPostsResponse'
+  /post/delete:
+    post:
+      tags:
+        - Post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/DeletePost'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PostResponse'
+  /post/remove:
+    post:
+      tags:
+        - Post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/RemovePost'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PostResponse'
+  /post/mark_as_read:
+    post:
+      tags:
+        - Post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/MarkPostAsRead'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PostResponse'
+  /post/lock:
+    post:
+      tags:
+        - Post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/LockPost'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PostResponse'
+  /post/feature:
+    post:
+      tags:
+        - Post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/FeaturePost'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PostResponse'
+  /post/like:
+    post:
+      tags:
+        - Post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/CreatePostLike'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PostResponse'
+  /post/save:
+    post:
+      tags:
+        - Post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/SavePost'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PostResponse'
+  /post/report:
+    post:
+      tags:
+        - Post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/CreatePostReport'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PostReportResponse'

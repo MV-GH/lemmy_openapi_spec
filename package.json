@@ -1,10 +1,10 @@
 {
-  "name": "lemmy_openapi3_spec",
+  "name": "lemmy_openapi_spec",
   "version": "1.0.0",
-  "description": "Unofficial Lemmy OpenAPI3 specification",
+  "description": "Unofficial Lemmy OpenAPI specification",
   "main": "src/gen_spec.ts",
   "type": "module",
-  "repository": "https://github.com/MV-GH/lemmy_openapi3_spec",
+  "repository": "https://github.com/MV-GH/lemmy_openapi_spec",
   "author": "maarten.vercruysse <maarten.vercruysse@outlook.be>",
   "license": "AGPL-3.0",
   "private": false,
