@@ -1,0 +1,25 @@
+name: Build docs
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: redoc-cli make docs
+        uses: kefasjw/redoc-cli-github-action@v1
+        with:
+          args: 'redocly build-docs lemmy_spec.yaml -o ./public/index.html'
+
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          exclude_assets: "!(public/*)"

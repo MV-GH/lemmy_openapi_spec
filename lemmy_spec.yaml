@@ -1,9 +1,14 @@
 openapi: "3.0.3"
 info:
-  title: Unofficial Lemmy Spec
+  title: Unofficial Lemmy OpenAPI Spec
   version: v0.18.3
   license:
     name: AGPLv3
+    url: https://www.gnu.org/licenses/agpl-3.0.en.html#license-text
+  x-logo:
+    url: https://raw.githubusercontent.com/LemmyNet/lemmy-ui/main/src/assets/icons/favicon.svg
+    altText: Lemmy Icon
+    href: https://github.com/MV-GH/lemmy_openapi3_spec
 servers:
   - url: https://lemmy.ml/api/v3
 paths:
