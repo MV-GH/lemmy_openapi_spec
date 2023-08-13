@@ -17,7 +17,7 @@ jobs:
       - name: redoc-cli make docs
         uses: CiTroNaK/redocly-cli-github-action@master
         with:
-          args: 'build-docs lemmy_spec.yaml -o public/index.html'
+          args: 'build-docs lemmy_spec.yaml -o ./public/index.html'
 
       - name: List files in the repository
         run: |
