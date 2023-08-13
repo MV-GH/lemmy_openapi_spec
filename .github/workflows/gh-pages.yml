@@ -17,14 +17,15 @@ jobs:
       - name: redoc-cli make docs
         uses: kefasjw/redoc-cli-github-action@v1
         with:
-          args: 'build-docs lemmy_spec.yaml -o ./public/index.html'
+          args: 'build-docs lemmy_spec.yaml -o public/index.html'
 
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          force_orphan: true
           publish_branch: gh-pages
           publish_dir: ./public
-   #       exclude_assets: "!(public/*)"
