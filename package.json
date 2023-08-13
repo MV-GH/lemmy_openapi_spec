@@ -1,0 +1,25 @@
+{
+  "name": "lemmy_openapi3_spec",
+  "version": "1.0.0",
+  "description": "Unofficial Lemmy OpenAPI3 specification",
+  "main": "src/gen_spec.ts",
+  "type": "module",
+  "repository": "https://github.com/MV-GH/lemmy_openapi3_spec",
+  "author": "maarten.vercruysse <maarten.vercruysse@outlook.be>",
+  "license": "AGPL-3.0",
+  "private": false,
+  "scripts": {
+    "gen_types": "ts-node src/gen_types.ts",
+    "gen_components": "ts-node src/gen_components.ts"
+  },
+  "dependencies": {
+    "lemmy-js-client": "^0.18.3-rc.3",
+    "typeconv": "^2.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.10",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
+}

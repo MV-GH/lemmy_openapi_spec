@@ -1,0 +1,56 @@
+openapi: "3.0.3"
+info:
+  title: Unofficial Lemmy Spec
+  version: v0.18.3
+  license:
+    name: AGPLv3
+servers:
+  - url: https://lemmy.ml/api/v3
+paths:
+  /site:
+    get:
+      parameters:
+        - name: GetSite
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/GetSite'
+
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/SiteResponse'
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/CreateSite'
+      responses:
+        "201":
+          description: Created
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/EditSite'
+      responses:
+        "200":
+          description: Ok
+  /modlog:
+    get:
+      parameters:
+        - name: GetModlog
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/GetModlog'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/GetModlogResponse'
