@@ -17,7 +17,7 @@ jobs:
       - name: redoc-cli make docs
         uses: kefasjw/redoc-cli-github-action@v1
         with:
-          args: 'redocly build-docs lemmy_spec.yaml -o ./public/index.html'
+          args: 'build-docs lemmy_spec.yaml -o ./public/index.html'
 
 
       - name: Deploy to GitHub Pages
