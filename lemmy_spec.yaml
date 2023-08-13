@@ -13,6 +13,24 @@ info:
     url: https://github.com/MV-GH/lemmy_openapi_spec
 servers:
   - url: https://lemmy.ml/api/v3
+components:
+  schemas:
+    errorResponseRegistration:
+     properties:
+       error:
+         type: string
+         enum:
+           - registration_closed
+           - email_required
+           - registration_application_answer_required
+           - passwords_do_not_match
+           - captcha_incorrect
+           - email_already_exists
+           - user_already_exists
+
+
+
+
 paths:
   /site:
     get:
@@ -756,7 +774,7 @@ paths:
   /private_message/list:
     get:
       tags:
-        - PrivateMessages
+        - PrivateMessage
       parameters:
         - in: query
           name: GetPrivateMessages
@@ -820,7 +838,7 @@ paths:
   /private_message/report/resolve:
     put:
       tags:
-        - Private_Message
+        - PrivateMessage
       requestBody:
         content:
           application/json:
@@ -849,3 +867,26 @@ paths:
             application/json:
               schema:
                 $ref: 'components.yaml#/components/schemas/ListPrivateMessageReportsResponse'
+  /user/register:
+    post:
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/Register'
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/LoginResponse'
+                description: JWT will be empty if registration requires email verification or application approval
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponseRegistration'
