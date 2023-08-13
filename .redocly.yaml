@@ -1,3 +1,8 @@
 extends:
   - recommended
 
+rules:
+  security-defined: off
+  operation-operationId: off
+  operation-4xx-response: off
+  operation-summary: off
