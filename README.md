@@ -9,8 +9,9 @@
 # Unofficial Lemmy OpenAPI documentation
 
 <p align="center">
-<a href="https://mv-gh.github.io/lemmy_openapi_spec">Click here for the documentation</a> | 
+<a href="https://mv-gh.github.io/lemmy_openapi_spec">View Redoc API documentation</a> | 
 <a href="https://mv-gh.github.io/lemmy_openapi_spec/single_pane.html">Single pane view</a> | 
+<a href="https://mv-gh.github.io/lemmy_openapi_spec/swagger_ui.html">Swagger UI</a> | 
 <a href="https://github.com/MV-GH/lemmy_openapi_spec/blob/master/lemmy_spec.yaml">Lemmy OpenAPI spec</a> 
 </p>
 
