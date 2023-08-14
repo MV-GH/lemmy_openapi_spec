@@ -1,6 +1,6 @@
 openapi: "3.0.3"
 info:
-  title: Unofficial Lemmy OpenAPI Spec
+  title: Unofficial Lemmy OpenAPI Documentation
   version: v0.18.3
   license:
     name: AGPLv3
@@ -27,7 +27,18 @@ components:
            - captcha_incorrect
            - email_already_exists
            - user_already_exists
-
+    errorResponseLogin:
+      properties:
+        error:
+          type: string
+          enum:
+            - incorrect_login
+            - email_not_verified
+            - registration_denied
+            - registration_application_pending # Not sure about these two, I found references to both, maybe one was only used in older version
+            - registration_application_is_pending
+            - missing_totp_token
+            - incorrect_totp_toke
 
 
 
@@ -867,6 +878,22 @@ paths:
             application/json:
               schema:
                 $ref: 'components.yaml#/components/schemas/ListPrivateMessageReportsResponse'
+  /user:
+    get:
+      tags:
+        - User
+      parameters:
+        - name: ListPrivateMessageReports
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/GetPersonDetails'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/GetPersonDetailsResponse'
   /user/register:
     post:
       tags:
@@ -890,3 +917,479 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorResponseRegistration'
+
+  /user/get_captcha:
+    get:
+      tags:
+        - User
+      parameters:
+        - name: GetCaptcha
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/GetCaptcha'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/GetCaptchaResponse'
+  /user/mention:
+    get:
+      tags:
+        - User
+      parameters:
+        - name: GetPersonMentions
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/GetPersonMentions'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/GetPersonMentionsResponse'
+  /user/mention/mark_as_read:
+    post:
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/MarkPersonMentionAsRead'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PersonMentionResponse'
+  /user/replies:
+    get:
+      tags:
+        - User
+      parameters:
+        - name: GetCaptcha
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/GetReplies'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/GetRepliesResponse'
+  /user/ban:
+    post:
+      tags:
+        - User
+        - Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/BanPerson'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/BanPersonResponse'
+  /user/banned:
+    get:
+      tags:
+        - User
+        - Admin
+      parameters:
+        - name: GetCaptcha
+          in: query
+          schema:
+            $ref: 'components.yaml#/components/schemas/GetBannedPersons'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/BannedPersonsResponse'
+  /user/block:
+    post:
+      tags:
+        - User
+        - Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/BlockPerson'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/BlockPersonResponse'
+  /user/login:
+    post:
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/Login'
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/LoginResponse'
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponseLogin'
+  /user/delete_account:
+    post:
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/DeleteAccount'
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/DeleteAccountResponse'
+  /user/password_reset:
+    post:
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/PasswordReset'
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PasswordResetResponse'
+  /user/password_change:
+    post:
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/PasswordChangeAfterReset'
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                description: JWT always empty, could bypass 2FA else, response hardcoded to ("",false,false)
+                $ref: 'components.yaml#/components/schemas/LoginResponse'
+  /user/mark_all_as_read:
+    post:
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/MarkAllAsRead'
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/GetRepliesResponse'
+  /user/save_user_settings:
+    put:
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/SaveUserSettings'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/LoginResponse'
+  /user/change_password:
+    put:
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/ChangePassword'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/LoginResponse'
+  /user/report_count:
+    get:
+      tags:
+        - User
+      parameters:
+        - in: query
+          name: GetReportCount
+          schema:
+            $ref: "components.yaml#/components/schemas/GetReportCount"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/GetReportCountResponse'
+  /user/unread_count:
+    get:
+      tags:
+        - User
+      parameters:
+        - in: query
+          name: GetUnreadCount
+          schema:
+            $ref: "components.yaml#/components/schemas/GetUnreadCount"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/GetUnreadCountResponse'
+  /user/verify_email:
+    post:
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/VerifyEmail'
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/VerifyEmailResponse'
+  /user/leave_admin:
+    post:
+      tags:
+        - User
+        - Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/LeaveAdmin'
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/GetSiteResponse'
+  /admin/add:
+    post:
+      tags:
+        - Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/AddAdmin'
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/AddAdminResponse'
+  /admin/registration_application/count:
+   get:
+      tags:
+        - Admin
+      parameters:
+        - in: query
+          name: GetUnreadRegistrationApplicationCount
+          schema:
+            $ref: 'components.yaml#/components/schemas/GetUnreadRegistrationApplicationCount'
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/GetUnreadRegistrationApplicationCountResponse'
+  /admin/registration_application/list:
+    get:
+      tags:
+        - Admin
+      parameters:
+        - in: query
+          name: ListRegistrationApplications
+          schema:
+            $ref: 'components.yaml#/components/schemas/ListRegistrationApplications'
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/ListRegistrationApplicationsResponse'
+  /admin/registration_application/approve:
+    put:
+      tags:
+        - Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/ApproveRegistrationApplication'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/RegistrationApplicationView'
+  /admin/purge/person:
+    post:
+      tags:
+        - Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/PurgePerson'
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PurgeItemResponse'
+  /admin/purge/community:
+    post:
+      tags:
+        - Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/PurgeCommunity'
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PurgeItemResponse'
+  /admin/purge/post:
+    post:
+      tags:
+        - Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/PurgePost'
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PurgeItemResponse'
+  /admin/purge/comment:
+    post:
+      tags:
+        - Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/PurgeComment'
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PurgeItemResponse'
+  /custom_emoji:
+    put:
+      tags:
+        - CustomEmoji
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/EditCustomEmoji'
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CustomEmojiResponse'
+    post:
+      tags:
+        - CustomEmoji
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/CreateCustomEmoji'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CustomEmojiResponse'
+
+  /custom_emoji/delete:
+    post:
+      tags:
+        - CustomEmoji
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/DeleteCustomEmoji'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/DeleteCustomEmojiResponse'

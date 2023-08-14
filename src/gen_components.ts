@@ -8,7 +8,7 @@ const reader = getTypeScriptReader();
 
 const writer = getOpenApiWriter({
     format: 'yaml',
-    title: 'Unofficial Lemmy Spec',
+    title: 'Unofficial Lemmy Documentation',
     version: 'v0.18.3',
     schemaVersion: "3.0.3"
 }
