@@ -13,6 +13,7 @@ info:
     url: https://github.com/MV-GH/lemmy_openapi_spec
 servers:
   - url: https://lemmy.ml/api/v3
+security: []
 paths:
   /site:
     get:

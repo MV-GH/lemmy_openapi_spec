@@ -40,7 +40,7 @@ components:
             - missing_totp_token
             - incorrect_totp_toke
 
-
+security: []
 
 paths:
   /site:
