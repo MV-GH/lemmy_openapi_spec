@@ -1,0 +1,18 @@
+name: "Check lint"
+
+on:
+  pull_request:
+
+
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Check OpenAPI lint
+        uses: MV-GH/redocly-cli-github-action@master
+        with:
+          args: 'lint lemmy_spec.yaml'
