@@ -22,7 +22,7 @@ jobs:
       - name: redoc-cli make single-pane API DOCs
         uses: MV-GH/redocly-cli-github-action@master
         with:
-          args: 'build-docs lemmy_spec.yaml -o ./public/single_pane.html --theme.openapi.layout=stacked'
+          args: 'build-docs lemmy_spec.yaml -o ./public/single_pane.html --theme.openapi.layout stacked'
 
       - name: List files in the repository
         run: |
