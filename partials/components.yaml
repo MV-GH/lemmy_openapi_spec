@@ -2,9 +2,9 @@ openapi: 3.0.3
 info:
   title: Unofficial Lemmy Documentation
   version: v0.18.3
-  x-id: components.yaml
+  x-id: partials/components.yaml
   x-comment: >-
-    Generated from auto_gen_types.ts by core-types-json-schema
+    Generated from partials/auto_gen_types.ts by core-types-json-schema
     (https://github.com/grantila/core-types-json-schema) on behalf of typeconv
     (https://github.com/grantila/typeconv)
 paths: {}

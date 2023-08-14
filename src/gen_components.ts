@@ -18,5 +18,5 @@ const {convert} = makeConverter(reader, writer);
 
 
 await convert(
-    {filename: "partials/auto_gen_types.ts", cwd: "../"},  {filename: "components.yaml"}
+    {filename: "partials/auto_gen_types.ts", cwd: "../"},  {filename: "partials/components.yaml"}
 );

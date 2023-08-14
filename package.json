@@ -13,10 +13,11 @@
     "gen_components": "ts-node src/gen_components.ts",
     "build_docs": "redocly build-docs lemmy_spec.yaml -o ./public/index.html",
     "lint_spec": "redocly lint lemmy_spec.yaml",
-    "gen_spec": "redocly bundle partials/api_routes.yaml -o lemmy_spec.yaml"
+    "gen_spec": "redocly bundle partials/api_routes.yaml -o lemmy_spec.yaml",
+    "full_gen": "yarn gen_types && yarn gen_components && yarn gen_spec",
+    "preview_docs": "redocly preview-docs -p 8888 lemmy_spec.yaml"
   },
   "dependencies": {
-    "lemmy-js-client": "^0.18.3-rc.3",
     "typeconv": "^2.3.1"
   },
   "devDependencies": {
