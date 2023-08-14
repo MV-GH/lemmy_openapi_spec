@@ -1,8 +1,11 @@
 name: Build docs
 on:
   push:
+    paths:
+      - lemmy_spec.yaml
     branches:
       - master
+
 
 permissions:
   contents: write
