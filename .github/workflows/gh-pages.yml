@@ -29,11 +29,6 @@ jobs:
         with:
           args: 'build-docs lemmy_spec.yaml -o ./public/index.html'
 
-      - name: redoc-cli make single-pane API DOCs
-        uses: MV-GH/redocly-cli-github-action@master
-        with:
-          args: 'build-docs lemmy_spec.yaml --theme.openapi.layout="stacked" -o ./public/single_pane.html'
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
