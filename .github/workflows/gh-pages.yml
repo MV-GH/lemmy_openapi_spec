@@ -14,10 +14,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: redoc-cli make docs
+      - name: redoc-cli make home API DOCs
         uses: MV-GH/redocly-cli-github-action@master
         with:
           args: 'build-docs lemmy_spec.yaml -o ./public/index.html'
+
+      - name: redoc-cli make single-pane API DOCs
+        uses: MV-GH/redocly-cli-github-action@master
+        with:
+          args: 'build-docs lemmy_spec.yaml -o ./public/single_pane.html --theme.openapi.layout=stacked'
 
       - name: List files in the repository
         run: |
