@@ -11,7 +11,9 @@
   "scripts": {
     "gen_types": "ts-node src/gen_types.ts",
     "gen_components": "ts-node src/gen_components.ts",
-    "build_docs": "redocly build-docs lemmy_spec.yaml -o ./public/index.html"
+    "build_docs": "redocly build-docs lemmy_spec.yaml -o ./public/index.html",
+    "lint_spec": "redocly lint lemmy_spec.yaml",
+    "gen_spec": "redocly bundle partials/api_routes.yaml -o lemmy_spec.yaml"
   },
   "dependencies": {
     "lemmy-js-client": "^0.18.3-rc.3",

@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Unofficial Lemmy Spec
+  title: Unofficial Lemmy Documentation
   version: v0.18.3
   x-id: components.yaml
   x-comment: >-

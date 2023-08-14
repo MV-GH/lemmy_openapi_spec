@@ -3,7 +3,7 @@
 
 import {readdir, readFile, writeFile} from "fs"
 
-const targetFile = "auto_gen_types.ts"
+const targetFile = "partials/auto_gen_types.ts"
 const subPath = "./lemmy-js-client/src/types/"
 
 const header = `
