@@ -17,6 +17,7 @@ security: []
 paths:
   /site:
     get:
+      summary: Retrieve General Site info about this instance and possibly the authenticated user
       tags:
         - Site
       parameters:
@@ -43,6 +44,7 @@ paths:
         '201':
           description: Created
     put:
+      summary: Update the /site endpoint
       tags:
         - Site
       requestBody:
@@ -55,6 +57,7 @@ paths:
           description: Ok
   /modlog:
     get:
+      summary: Returns All the mod actions
       parameters:
         - name: GetModlog
           in: query
@@ -69,6 +72,7 @@ paths:
                 $ref: '#/components/schemas/GetModlogResponse'
   /search:
     get:
+      summary: Search for comments/posts/communities/users in this lemmy instance
       parameters:
         - name: Search
           in: query
@@ -83,6 +87,7 @@ paths:
                 $ref: '#/components/schemas/SearchResponse'
   /resolve_object:
     get:
+      summary: null
       parameters:
         - name: ResolveObject
           in: query
@@ -100,10 +105,10 @@ paths:
       tags:
         - Community
       parameters:
-        - name: Community
+        - name: GetCommunity
           in: query
           schema:
-            $ref: '#/components/schemas/Community'
+            $ref: '#/components/schemas/GetCommunity'
       responses:
         '200':
           description: OK
@@ -3589,6 +3594,20 @@ components:
           title: ResolveObjectResponse.person
       additionalProperties: false
       title: ResolveObjectResponse
+      type: object
+    GetCommunity:
+      properties:
+        id:
+          $ref: '#/components/schemas/CommunityId'
+          title: GetCommunity.id
+        name:
+          title: GetCommunity.name
+          type: string
+        auth:
+          title: GetCommunity.auth
+          type: string
+      additionalProperties: false
+      title: GetCommunity
       type: object
     CommunityResponse:
       properties:
