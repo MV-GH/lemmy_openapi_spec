@@ -45,6 +45,7 @@ security: []
 paths:
   /site:
     get:
+      summary: Retrieve General Site info about this instance and possibly the authenticated user
       tags:
         - Site
       parameters:
@@ -72,6 +73,7 @@ paths:
         "201":
           description: Created
     put:
+      summary: Update the /site endpoint
       tags:
         - Site
       requestBody:
@@ -84,6 +86,7 @@ paths:
           description: Ok
   /modlog:
     get:
+      summary: Returns All the mod actions
       parameters:
         - name: GetModlog
           in: query
@@ -99,6 +102,7 @@ paths:
 
   /search:
     get:
+      summary: Search for comments/posts/communities/users in this lemmy instance
       parameters:
         - name: Search
           in: query
@@ -131,10 +135,10 @@ paths:
       tags:
         - Community
       parameters:
-        - name: Community
+        - name: GetCommunity
           in: query
           schema:
-            $ref: 'components.yaml#/components/schemas/Community'
+            $ref: 'components.yaml#/components/schemas/GetCommunity'
       responses:
         "200":
           description: OK
