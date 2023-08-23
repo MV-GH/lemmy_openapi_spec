@@ -118,7 +118,6 @@ paths:
 
   /resolve_object:
     get:
-      summary:
       parameters:
         - name: ResolveObject
           in: query
