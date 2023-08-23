@@ -87,7 +87,6 @@ paths:
                 $ref: '#/components/schemas/SearchResponse'
   /resolve_object:
     get:
-      summary: null
       parameters:
         - name: ResolveObject
           in: query
