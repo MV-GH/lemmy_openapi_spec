@@ -13,6 +13,10 @@ info:
     url: https://github.com/MV-GH/lemmy_openapi_spec
 servers:
   - url: https://lemmy.ml/api/v3
+  - url: https://enterprise.lemmy.ml/api/v3
+  - url: https://ds9.lemmy.ml/api/v3
+  - url: https://voyager.lemmy.ml/api/v3
+
 components:
   schemas:
     errorResponseRegistration:
@@ -38,7 +42,7 @@ components:
             - registration_application_pending # Not sure about these two, I found references to both, maybe one was only used in older version
             - registration_application_is_pending
             - missing_totp_token
-            - incorrect_totp_toke
+            - incorrect_totp_token
 
 security: []
 
@@ -87,6 +91,8 @@ paths:
   /modlog:
     get:
       summary: Returns All the mod actions
+      tags:
+        - miscellaneous
       parameters:
         - name: GetModlog
           in: query
@@ -102,6 +108,8 @@ paths:
 
   /search:
     get:
+      tags:
+        - miscellaneous
       summary: Search for comments/posts/communities/users in this lemmy instance
       parameters:
         - name: Search
@@ -118,6 +126,8 @@ paths:
 
   /resolve_object:
     get:
+      tags:
+        - miscellaneous
       parameters:
         - name: ResolveObject
           in: query
@@ -298,6 +308,8 @@ paths:
                 $ref: 'components.yaml#/components/schemas/AddModToCommunityResponse'
   /federated_instances:
     get:
+      tags:
+        - miscellaneous
       parameters:
         - name: GetFederatedInstances
           in: query
