@@ -4,4 +4,3 @@ extends:
 rules:
   operation-operationId: off
   operation-4xx-response: off
-  operation-summary: off

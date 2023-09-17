@@ -10,6 +10,7 @@
   "private": false,
   "scripts": {
     "gen_types": "ts-node src/gen_types.ts",
+    "add_summaries": "ts-node src/add_summaries.ts",
     "gen_components": "ts-node src/gen_components.ts",
     "build_docs": "redocly build-docs lemmy_spec.yaml -o ./public/index.html",
     "lint_spec": "redocly lint lemmy_spec.yaml",
@@ -18,7 +19,9 @@
     "preview_docs": "redocly preview-docs -p 8888 lemmy_spec.yaml"
   },
   "dependencies": {
-    "typeconv": "^2.3.1"
+    "tsutils": "^3.21.0",
+    "typeconv": "^2.3.1",
+    "yaml": "^2.3.2"
   },
   "devDependencies": {
     "@redocly/cli": "^1.1.0",
