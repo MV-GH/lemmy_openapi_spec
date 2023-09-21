@@ -24,7 +24,7 @@
     "yaml": "^2.3.2"
   },
   "devDependencies": {
-    "@redocly/cli": "^1.1.0",
+    "@redocly/cli": "^1.2.0",
     "@types/node": "^20.4.10",
     "nodemon": "^3.0.1",
     "ts-node": "^10.9.1",
