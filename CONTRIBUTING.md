@@ -31,6 +31,20 @@ You can check if it passes the lint by doing `yarn lint_spec`
 
 You can preview your changes by doing `yarn preview_docs`
 
+## Ways to contribute
+- Spec incorrect? Make a issue or submit a PR
+If the incorrectness is part of the manual `api_routes.yaml` file, edit that else edit the scripts in `src/`
+- Automate the generation further
+- Add workflow to publish artefact of the spec
+I still need to figure out the correct versioning scheme I am going for, but the atm I am thinking of using the lemmy Major Minor as prefix and the rest full semver.
+Example 0.18-0.1.0.
+- Documentation
+- Description of endpoints in `api_routes.yaml`
+- Anything else please make a issue or discussion first.
+
+### Don't forget to push the lemmy_spec.yaml file with all your edits
+
+
 ## Questions?
 Don't hesitate to make a issue/discussion
 

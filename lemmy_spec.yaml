@@ -25,6 +25,7 @@ paths:
         - Site
       parameters:
         - name: GetSite
+          explode: true
           in: query
           schema:
             $ref: '#/components/schemas/GetSite'
@@ -63,9 +64,10 @@ paths:
     get:
       summary: Get the modlog.
       tags:
-        - miscellaneous
+        - Miscellaneous
       parameters:
         - name: GetModlog
+          explode: true
           in: query
           schema:
             $ref: '#/components/schemas/GetModlog'
@@ -79,11 +81,12 @@ paths:
   /search:
     get:
       tags:
-        - miscellaneous
+        - Miscellaneous
       summary: Search lemmy.
       parameters:
         - name: Search
           in: query
+          explode: true
           schema:
             $ref: '#/components/schemas/Search'
       responses:
@@ -96,7 +99,7 @@ paths:
   /resolve_object:
     get:
       tags:
-        - miscellaneous
+        - Miscellaneous
       parameters:
         - name: ResolveObject
           in: query
@@ -116,6 +119,7 @@ paths:
         - Community
       parameters:
         - name: GetCommunity
+          explode: true
           in: query
           schema:
             $ref: '#/components/schemas/GetCommunity'
@@ -171,6 +175,7 @@ paths:
       parameters:
         - name: ListCommunities
           in: query
+          explode: true
           schema:
             $ref: '#/components/schemas/ListCommunities'
       responses:
@@ -291,9 +296,10 @@ paths:
   /federated_instances:
     get:
       tags:
-        - miscellaneous
+        - Miscellaneous
       parameters:
         - name: GetFederatedInstances
+          explode: true
           in: query
           schema:
             $ref: '#/components/schemas/GetFederatedInstances'
@@ -312,6 +318,7 @@ paths:
       parameters:
         - name: GetPost
           in: query
+          explode: true
           schema:
             $ref: '#/components/schemas/GetPost'
       responses:
@@ -356,6 +363,7 @@ paths:
         - Post
       parameters:
         - name: ListPosts
+          explode: true
           in: query
           schema:
             $ref: '#/components/schemas/GetPosts'
@@ -526,6 +534,7 @@ paths:
         - Post
       parameters:
         - name: ListPostReports
+          explode: true
           in: query
           schema:
             $ref: '#/components/schemas/ListPostReports'
@@ -544,6 +553,7 @@ paths:
       parameters:
         - name: GetSiteMetadata
           in: query
+          explode: true
           schema:
             $ref: '#/components/schemas/GetSiteMetadata'
       responses:
@@ -561,6 +571,7 @@ paths:
       parameters:
         - name: GetComment
           in: query
+          explode: true
           schema:
             $ref: '#/components/schemas/GetComment'
       responses:
@@ -898,6 +909,7 @@ paths:
       parameters:
         - name: ListPrivateMessageReports
           in: query
+          explode: true
           schema:
             $ref: '#/components/schemas/ListPrivateMessageReports'
       responses:
@@ -915,6 +927,7 @@ paths:
       parameters:
         - name: ListPrivateMessageReports
           in: query
+          explode: true
           schema:
             $ref: '#/components/schemas/GetPersonDetails'
       responses:
@@ -956,6 +969,7 @@ paths:
       parameters:
         - name: GetCaptcha
           in: query
+          explode: true
           schema:
             $ref: '#/components/schemas/GetCaptcha'
       responses:
@@ -973,6 +987,7 @@ paths:
       parameters:
         - name: GetPersonMentions
           in: query
+          explode: true
           schema:
             $ref: '#/components/schemas/GetPersonMentions'
       responses:
@@ -1007,6 +1022,7 @@ paths:
       parameters:
         - name: GetCaptcha
           in: query
+          explode: true
           schema:
             $ref: '#/components/schemas/GetReplies'
       responses:
@@ -1196,6 +1212,7 @@ paths:
       parameters:
         - in: query
           name: GetReportCount
+          explode: true
           schema:
             $ref: '#/components/schemas/GetReportCount'
       responses:
@@ -1213,6 +1230,7 @@ paths:
       parameters:
         - in: query
           name: GetUnreadCount
+          explode: true
           schema:
             $ref: '#/components/schemas/GetUnreadCount'
       responses:
@@ -1277,6 +1295,7 @@ paths:
         - Admin
       parameters:
         - in: query
+          explode: true
           name: GetUnreadRegistrationApplicationCount
           schema:
             $ref: '#/components/schemas/GetUnreadRegistrationApplicationCount'
@@ -1294,6 +1313,7 @@ paths:
         - Admin
       parameters:
         - in: query
+          explode: true
           name: ListRegistrationApplications
           schema:
             $ref: '#/components/schemas/ListRegistrationApplications'
