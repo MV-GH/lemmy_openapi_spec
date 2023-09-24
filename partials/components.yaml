@@ -78,7 +78,7 @@ components:
       properties:
         id:
           title: AdminPurgeComment.id
-          type: number
+          type: integer
         admin_person_id:
           $ref: '#/components/schemas/PersonId'
           title: AdminPurgeComment.admin_person_id
@@ -120,7 +120,7 @@ components:
       properties:
         id:
           title: AdminPurgeCommunity.id
-          type: number
+          type: integer
         admin_person_id:
           $ref: '#/components/schemas/PersonId'
           title: AdminPurgeCommunity.admin_person_id
@@ -154,7 +154,7 @@ components:
       properties:
         id:
           title: AdminPurgePerson.id
-          type: number
+          type: integer
         admin_person_id:
           $ref: '#/components/schemas/PersonId'
           title: AdminPurgePerson.admin_person_id
@@ -188,7 +188,7 @@ components:
       properties:
         id:
           title: AdminPurgePost.id
-          type: number
+          type: integer
         admin_person_id:
           $ref: '#/components/schemas/PersonId'
           title: AdminPurgePost.admin_person_id
@@ -230,7 +230,7 @@ components:
       properties:
         id:
           title: ApproveRegistrationApplication.id
-          type: number
+          type: integer
         approve:
           title: ApproveRegistrationApplication.approve
           type: boolean
@@ -266,7 +266,7 @@ components:
           type: string
         expires:
           title: BanFromCommunity.expires
-          type: number
+          type: integer
         auth:
           title: BanFromCommunity.auth
           type: string
@@ -320,7 +320,7 @@ components:
           type: string
         expires:
           title: BanPerson.expires
-          type: number
+          type: integer
         auth:
           title: BanPerson.auth
           type: string
@@ -510,28 +510,28 @@ components:
       properties:
         id:
           title: CommentAggregates.id
-          type: number
+          type: integer
         comment_id:
           $ref: '#/components/schemas/CommentId'
           title: CommentAggregates.comment_id
         score:
           title: CommentAggregates.score
-          type: number
+          type: integer
         upvotes:
           title: CommentAggregates.upvotes
-          type: number
+          type: integer
         downvotes:
           title: CommentAggregates.downvotes
-          type: number
+          type: integer
         published:
           title: CommentAggregates.published
           type: string
         child_count:
           title: CommentAggregates.child_count
-          type: number
+          type: integer
         hot_rank:
           title: CommentAggregates.hot_rank
-          type: number
+          type: integer
       required:
         - id
         - comment_id
@@ -546,7 +546,7 @@ components:
       type: object
     CommentId:
       title: CommentId
-      type: number
+      type: integer
     CommentReply:
       properties:
         id:
@@ -575,7 +575,7 @@ components:
       type: object
     CommentReplyId:
       title: CommentReplyId
-      type: number
+      type: integer
     CommentReplyResponse:
       properties:
         comment_reply_view:
@@ -623,7 +623,7 @@ components:
           type: boolean
         my_vote:
           title: CommentReplyView.my_vote
-          type: number
+          type: integer
       required:
         - comment_reply
         - comment
@@ -681,7 +681,7 @@ components:
       type: object
     CommentReportId:
       title: CommentReportId
-      type: number
+      type: integer
     CommentReportResponse:
       properties:
         comment_report_view:
@@ -720,7 +720,7 @@ components:
           type: boolean
         my_vote:
           title: CommentReportView.my_vote
-          type: number
+          type: integer
         resolver:
           $ref: '#/components/schemas/Person'
           title: CommentReportView.resolver
@@ -756,13 +756,24 @@ components:
       title: CommentResponse
       type: object
     CommentSortType:
-      enum:
-        - Hot
-        - Top
-        - New
-        - Old
+      anyOf:
+        - title: CommentSortType
+          enum:
+            - Hot
+          type: string
+        - title: CommentSortType
+          enum:
+            - Top
+          type: string
+        - title: CommentSortType
+          enum:
+            - New
+          type: string
+        - title: CommentSortType
+          enum:
+            - Old
+          type: string
       title: CommentSortType
-      type: string
     CommentView:
       properties:
         comment:
@@ -794,7 +805,7 @@ components:
           type: boolean
         my_vote:
           title: CommentView.my_vote
-          type: number
+          type: integer
       required:
         - comment
         - creator
@@ -886,37 +897,37 @@ components:
       properties:
         id:
           title: CommunityAggregates.id
-          type: number
+          type: integer
         community_id:
           $ref: '#/components/schemas/CommunityId'
           title: CommunityAggregates.community_id
         subscribers:
           title: CommunityAggregates.subscribers
-          type: number
+          type: integer
         posts:
           title: CommunityAggregates.posts
-          type: number
+          type: integer
         comments:
           title: CommunityAggregates.comments
-          type: number
+          type: integer
         published:
           title: CommunityAggregates.published
           type: string
         users_active_day:
           title: CommunityAggregates.users_active_day
-          type: number
+          type: integer
         users_active_week:
           title: CommunityAggregates.users_active_week
-          type: number
+          type: integer
         users_active_month:
           title: CommunityAggregates.users_active_month
-          type: number
+          type: integer
         users_active_half_year:
           title: CommunityAggregates.users_active_half_year
-          type: number
+          type: integer
         hot_rank:
           title: CommunityAggregates.hot_rank
-          type: number
+          type: integer
       required:
         - id
         - community_id
@@ -934,7 +945,7 @@ components:
       type: object
     CommunityBlockId:
       title: CommunityBlockId
-      type: number
+      type: integer
     CommunityBlockView:
       properties:
         person:
@@ -965,7 +976,7 @@ components:
       type: object
     CommunityId:
       title: CommunityId
-      type: number
+      type: integer
     CommunityJoin:
       properties:
         community_id:
@@ -1072,7 +1083,7 @@ components:
           title: CreateCommentLike.comment_id
         score:
           title: CreateCommentLike.score
-          type: number
+          type: integer
         auth:
           title: CreateCommentLike.auth
           type: string
@@ -1211,7 +1222,7 @@ components:
           title: CreatePostLike.post_id
         score:
           title: CreatePostLike.score
-          type: number
+          type: integer
         auth:
           title: CreatePostLike.auth
           type: string
@@ -1336,43 +1347,43 @@ components:
           type: string
         actor_name_max_length:
           title: CreateSite.actor_name_max_length
-          type: number
+          type: integer
         rate_limit_message:
           title: CreateSite.rate_limit_message
-          type: number
+          type: integer
         rate_limit_message_per_second:
           title: CreateSite.rate_limit_message_per_second
-          type: number
+          type: integer
         rate_limit_post:
           title: CreateSite.rate_limit_post
-          type: number
+          type: integer
         rate_limit_post_per_second:
           title: CreateSite.rate_limit_post_per_second
-          type: number
+          type: integer
         rate_limit_register:
           title: CreateSite.rate_limit_register
-          type: number
+          type: integer
         rate_limit_register_per_second:
           title: CreateSite.rate_limit_register_per_second
-          type: number
+          type: integer
         rate_limit_image:
           title: CreateSite.rate_limit_image
-          type: number
+          type: integer
         rate_limit_image_per_second:
           title: CreateSite.rate_limit_image_per_second
-          type: number
+          type: integer
         rate_limit_comment:
           title: CreateSite.rate_limit_comment
-          type: number
+          type: integer
         rate_limit_comment_per_second:
           title: CreateSite.rate_limit_comment_per_second
-          type: number
+          type: integer
         rate_limit_search:
           title: CreateSite.rate_limit_search
-          type: number
+          type: integer
         rate_limit_search_per_second:
           title: CreateSite.rate_limit_search_per_second
-          type: number
+          type: integer
         federation_enabled:
           title: CreateSite.federation_enabled
           type: boolean
@@ -1451,12 +1462,12 @@ components:
       type: object
     CustomEmojiId:
       title: CustomEmojiId
-      type: number
+      type: integer
     CustomEmojiKeyword:
       properties:
         id:
           title: CustomEmojiKeyword.id
-          type: number
+          type: integer
         custom_emoji_id:
           $ref: '#/components/schemas/CustomEmojiId'
           title: CustomEmojiKeyword.custom_emoji_id
@@ -1830,43 +1841,43 @@ components:
           type: string
         actor_name_max_length:
           title: EditSite.actor_name_max_length
-          type: number
+          type: integer
         rate_limit_message:
           title: EditSite.rate_limit_message
-          type: number
+          type: integer
         rate_limit_message_per_second:
           title: EditSite.rate_limit_message_per_second
-          type: number
+          type: integer
         rate_limit_post:
           title: EditSite.rate_limit_post
-          type: number
+          type: integer
         rate_limit_post_per_second:
           title: EditSite.rate_limit_post_per_second
-          type: number
+          type: integer
         rate_limit_register:
           title: EditSite.rate_limit_register
-          type: number
+          type: integer
         rate_limit_register_per_second:
           title: EditSite.rate_limit_register_per_second
-          type: number
+          type: integer
         rate_limit_image:
           title: EditSite.rate_limit_image
-          type: number
+          type: integer
         rate_limit_image_per_second:
           title: EditSite.rate_limit_image_per_second
-          type: number
+          type: integer
         rate_limit_comment:
           title: EditSite.rate_limit_comment
-          type: number
+          type: integer
         rate_limit_comment_per_second:
           title: EditSite.rate_limit_comment_per_second
-          type: number
+          type: integer
         rate_limit_search:
           title: EditSite.rate_limit_search
-          type: number
+          type: integer
         rate_limit_search_per_second:
           title: EditSite.rate_limit_search_per_second
-          type: number
+          type: integer
         federation_enabled:
           title: EditSite.federation_enabled
           type: boolean
@@ -2021,13 +2032,13 @@ components:
           title: GetComments.sort
         max_depth:
           title: GetComments.max_depth
-          type: number
+          type: integer
         page:
           title: GetComments.page
-          type: number
+          type: integer
         limit:
           title: GetComments.limit
-          type: number
+          type: integer
         community_id:
           $ref: '#/components/schemas/CommunityId'
           title: GetComments.community_id
@@ -2126,10 +2137,10 @@ components:
           title: GetModlog.community_id
         page:
           title: GetModlog.page
-          type: number
+          type: integer
         limit:
           title: GetModlog.limit
-          type: number
+          type: integer
         type_:
           $ref: '#/components/schemas/ModlogActionType'
           title: GetModlog.type_
@@ -2251,10 +2262,10 @@ components:
           title: GetPersonDetails.sort
         page:
           title: GetPersonDetails.page
-          type: number
+          type: integer
         limit:
           title: GetPersonDetails.limit
-          type: number
+          type: integer
         community_id:
           $ref: '#/components/schemas/CommunityId'
           title: GetPersonDetails.community_id
@@ -2302,10 +2313,10 @@ components:
           title: GetPersonMentions.sort
         page:
           title: GetPersonMentions.page
-          type: number
+          type: integer
         limit:
           title: GetPersonMentions.limit
-          type: number
+          type: integer
         unread_only:
           title: GetPersonMentions.unread_only
           type: boolean
@@ -2379,10 +2390,10 @@ components:
           title: GetPosts.sort
         page:
           title: GetPosts.page
-          type: number
+          type: integer
         limit:
           title: GetPosts.limit
-          type: number
+          type: integer
         community_id:
           $ref: '#/components/schemas/CommunityId'
           title: GetPosts.community_id
@@ -2420,10 +2431,10 @@ components:
           type: boolean
         page:
           title: GetPrivateMessages.page
-          type: number
+          type: integer
         limit:
           title: GetPrivateMessages.limit
-          type: number
+          type: integer
         auth:
           title: GetPrivateMessages.auth
           type: string
@@ -2439,10 +2450,10 @@ components:
           title: GetReplies.sort
         page:
           title: GetReplies.page
-          type: number
+          type: integer
         limit:
           title: GetReplies.limit
-          type: number
+          type: integer
         unread_only:
           title: GetReplies.unread_only
           type: boolean
@@ -2486,13 +2497,13 @@ components:
           title: GetReportCountResponse.community_id
         comment_reports:
           title: GetReportCountResponse.comment_reports
-          type: number
+          type: integer
         post_reports:
           title: GetReportCountResponse.post_reports
-          type: number
+          type: integer
         private_message_reports:
           title: GetReportCountResponse.private_message_reports
-          type: number
+          type: integer
       required:
         - comment_reports
         - post_reports
@@ -2588,13 +2599,13 @@ components:
       properties:
         replies:
           title: GetUnreadCountResponse.replies
-          type: number
+          type: integer
         mentions:
           title: GetUnreadCountResponse.mentions
-          type: number
+          type: integer
         private_messages:
           title: GetUnreadCountResponse.private_messages
-          type: number
+          type: integer
       required:
         - replies
         - mentions
@@ -2617,7 +2628,7 @@ components:
         registration_applications:
           title: >-
             GetUnreadRegistrationApplicationCountResponse.registration_applications
-          type: number
+          type: integer
       required:
         - registration_applications
       additionalProperties: false
@@ -2673,7 +2684,7 @@ components:
       type: object
     InstanceId:
       title: InstanceId
-      type: number
+      type: integer
     Language:
       properties:
         id:
@@ -2694,7 +2705,7 @@ components:
       type: object
     LanguageId:
       title: LanguageId
-      type: number
+      type: integer
     LeaveAdmin:
       properties:
         auth:
@@ -4224,10 +4235,10 @@ components:
       properties:
         page:
           title: ListCommentReports.page
-          type: number
+          type: integer
         limit:
           title: ListCommentReports.limit
-          type: number
+          type: integer
         unresolved_only:
           title: ListCommentReports.unresolved_only
           type: boolean
@@ -4267,10 +4278,10 @@ components:
           type: boolean
         page:
           title: ListCommunities.page
-          type: number
+          type: integer
         limit:
           title: ListCommunities.limit
-          type: number
+          type: integer
         auth:
           title: ListCommunities.auth
           type: string
@@ -4290,20 +4301,28 @@ components:
       title: ListCommunitiesResponse
       type: object
     ListingType:
-      enum:
-        - All
-        - Local
-        - Subscribed
+      anyOf:
+        - title: ListingType
+          enum:
+            - All
+          type: string
+        - title: ListingType
+          enum:
+            - Local
+          type: string
+        - title: ListingType
+          enum:
+            - Subscribed
+          type: string
       title: ListingType
-      type: string
     ListPostReports:
       properties:
         page:
           title: ListPostReports.page
-          type: number
+          type: integer
         limit:
           title: ListPostReports.limit
-          type: number
+          type: integer
         unresolved_only:
           title: ListPostReports.unresolved_only
           type: boolean
@@ -4334,10 +4353,10 @@ components:
       properties:
         page:
           title: ListPrivateMessageReports.page
-          type: number
+          type: integer
         limit:
           title: ListPrivateMessageReports.limit
-          type: number
+          type: integer
         unresolved_only:
           title: ListPrivateMessageReports.unresolved_only
           type: boolean
@@ -4368,10 +4387,10 @@ components:
           type: boolean
         page:
           title: ListRegistrationApplications.page
-          type: number
+          type: integer
         limit:
           title: ListRegistrationApplications.limit
-          type: number
+          type: integer
         auth:
           title: ListRegistrationApplications.auth
           type: string
@@ -4441,7 +4460,7 @@ components:
           type: string
         actor_name_max_length:
           title: LocalSite.actor_name_max_length
-          type: number
+          type: integer
         federation_enabled:
           title: LocalSite.federation_enabled
           type: boolean
@@ -4488,51 +4507,51 @@ components:
       type: object
     LocalSiteId:
       title: LocalSiteId
-      type: number
+      type: integer
     LocalSiteRateLimit:
       properties:
         id:
           title: LocalSiteRateLimit.id
-          type: number
+          type: integer
         local_site_id:
           $ref: '#/components/schemas/LocalSiteId'
           title: LocalSiteRateLimit.local_site_id
         message:
           title: LocalSiteRateLimit.message
-          type: number
+          type: integer
         message_per_second:
           title: LocalSiteRateLimit.message_per_second
-          type: number
+          type: integer
         post:
           title: LocalSiteRateLimit.post
-          type: number
+          type: integer
         post_per_second:
           title: LocalSiteRateLimit.post_per_second
-          type: number
+          type: integer
         register:
           title: LocalSiteRateLimit.register
-          type: number
+          type: integer
         register_per_second:
           title: LocalSiteRateLimit.register_per_second
-          type: number
+          type: integer
         image:
           title: LocalSiteRateLimit.image
-          type: number
+          type: integer
         image_per_second:
           title: LocalSiteRateLimit.image_per_second
-          type: number
+          type: integer
         comment:
           title: LocalSiteRateLimit.comment
-          type: number
+          type: integer
         comment_per_second:
           title: LocalSiteRateLimit.comment_per_second
-          type: number
+          type: integer
         search:
           title: LocalSiteRateLimit.search
-          type: number
+          type: integer
         search_per_second:
           title: LocalSiteRateLimit.search_per_second
-          type: number
+          type: integer
         published:
           title: LocalSiteRateLimit.published
           type: string
@@ -4648,7 +4667,7 @@ components:
       type: object
     LocalUserId:
       title: LocalUserId
-      type: number
+      type: integer
     LocalUserView:
       properties:
         local_user:
@@ -4805,7 +4824,7 @@ components:
       properties:
         id:
           title: ModAdd.id
-          type: number
+          type: integer
         mod_person_id:
           $ref: '#/components/schemas/PersonId'
           title: ModAdd.mod_person_id
@@ -4831,7 +4850,7 @@ components:
       properties:
         id:
           title: ModAddCommunity.id
-          type: number
+          type: integer
         mod_person_id:
           $ref: '#/components/schemas/PersonId'
           title: ModAddCommunity.mod_person_id
@@ -4899,7 +4918,7 @@ components:
       properties:
         id:
           title: ModBan.id
-          type: number
+          type: integer
         mod_person_id:
           $ref: '#/components/schemas/PersonId'
           title: ModBan.mod_person_id
@@ -4931,7 +4950,7 @@ components:
       properties:
         id:
           title: ModBanFromCommunity.id
-          type: number
+          type: integer
         mod_person_id:
           $ref: '#/components/schemas/PersonId'
           title: ModBanFromCommunity.mod_person_id
@@ -5005,7 +5024,7 @@ components:
       properties:
         id:
           title: ModFeaturePost.id
-          type: number
+          type: integer
         mod_person_id:
           $ref: '#/components/schemas/PersonId'
           title: ModFeaturePost.mod_person_id
@@ -5056,7 +5075,7 @@ components:
       properties:
         id:
           title: ModHideCommunity.id
-          type: number
+          type: integer
         community_id:
           $ref: '#/components/schemas/CommunityId'
           title: ModHideCommunity.community_id
@@ -5122,7 +5141,7 @@ components:
       properties:
         id:
           title: ModLockPost.id
-          type: number
+          type: integer
         mod_person_id:
           $ref: '#/components/schemas/PersonId'
           title: ModLockPost.mod_person_id
@@ -5166,25 +5185,72 @@ components:
       title: ModLockPostView
       type: object
     ModlogActionType:
-      enum:
-        - All
-        - ModRemovePost
-        - ModLockPost
-        - ModFeaturePost
-        - ModRemoveComment
-        - ModRemoveCommunity
-        - ModBanFromCommunity
-        - ModAddCommunity
-        - ModTransferCommunity
-        - ModAdd
-        - ModBan
-        - ModHideCommunity
-        - AdminPurgePerson
-        - AdminPurgeCommunity
-        - AdminPurgePost
-        - AdminPurgeComment
+      anyOf:
+        - title: ModlogActionType
+          enum:
+            - All
+          type: string
+        - title: ModlogActionType
+          enum:
+            - ModRemovePost
+          type: string
+        - title: ModlogActionType
+          enum:
+            - ModLockPost
+          type: string
+        - title: ModlogActionType
+          enum:
+            - ModFeaturePost
+          type: string
+        - title: ModlogActionType
+          enum:
+            - ModRemoveComment
+          type: string
+        - title: ModlogActionType
+          enum:
+            - ModRemoveCommunity
+          type: string
+        - title: ModlogActionType
+          enum:
+            - ModBanFromCommunity
+          type: string
+        - title: ModlogActionType
+          enum:
+            - ModAddCommunity
+          type: string
+        - title: ModlogActionType
+          enum:
+            - ModTransferCommunity
+          type: string
+        - title: ModlogActionType
+          enum:
+            - ModAdd
+          type: string
+        - title: ModlogActionType
+          enum:
+            - ModBan
+          type: string
+        - title: ModlogActionType
+          enum:
+            - ModHideCommunity
+          type: string
+        - title: ModlogActionType
+          enum:
+            - AdminPurgePerson
+          type: string
+        - title: ModlogActionType
+          enum:
+            - AdminPurgeCommunity
+          type: string
+        - title: ModlogActionType
+          enum:
+            - AdminPurgePost
+          type: string
+        - title: ModlogActionType
+          enum:
+            - AdminPurgeComment
+          type: string
       title: ModlogActionType
-      type: string
     ModlogListParams:
       properties:
         community_id:
@@ -5198,10 +5264,10 @@ components:
           title: ModlogListParams.other_person_id
         page:
           title: ModlogListParams.page
-          type: number
+          type: integer
         limit:
           title: ModlogListParams.limit
-          type: number
+          type: integer
         hide_modlog_names:
           title: ModlogListParams.hide_modlog_names
           type: boolean
@@ -5214,7 +5280,7 @@ components:
       properties:
         id:
           title: ModRemoveComment.id
-          type: number
+          type: integer
         mod_person_id:
           $ref: '#/components/schemas/PersonId'
           title: ModRemoveComment.mod_person_id
@@ -5272,7 +5338,7 @@ components:
       properties:
         id:
           title: ModRemoveCommunity.id
-          type: number
+          type: integer
         mod_person_id:
           $ref: '#/components/schemas/PersonId'
           title: ModRemoveCommunity.mod_person_id
@@ -5321,7 +5387,7 @@ components:
       properties:
         id:
           title: ModRemovePost.id
-          type: number
+          type: integer
         mod_person_id:
           $ref: '#/components/schemas/PersonId'
           title: ModRemovePost.mod_person_id
@@ -5371,7 +5437,7 @@ components:
       properties:
         id:
           title: ModTransferCommunity.id
-          type: number
+          type: integer
         mod_person_id:
           $ref: '#/components/schemas/PersonId'
           title: ModTransferCommunity.mod_person_id
@@ -5613,22 +5679,22 @@ components:
       properties:
         id:
           title: PersonAggregates.id
-          type: number
+          type: integer
         person_id:
           $ref: '#/components/schemas/PersonId'
           title: PersonAggregates.person_id
         post_count:
           title: PersonAggregates.post_count
-          type: number
+          type: integer
         post_score:
           title: PersonAggregates.post_score
-          type: number
+          type: integer
         comment_count:
           title: PersonAggregates.comment_count
-          type: number
+          type: integer
         comment_score:
           title: PersonAggregates.comment_score
-          type: number
+          type: integer
       required:
         - id
         - person_id
@@ -5641,7 +5707,7 @@ components:
       type: object
     PersonBlockId:
       title: PersonBlockId
-      type: number
+      type: integer
     PersonBlockView:
       properties:
         person:
@@ -5658,7 +5724,7 @@ components:
       type: object
     PersonId:
       title: PersonId
-      type: number
+      type: integer
     PersonMention:
       properties:
         id:
@@ -5687,7 +5753,7 @@ components:
       type: object
     PersonMentionId:
       title: PersonMentionId
-      type: number
+      type: integer
     PersonMentionResponse:
       properties:
         person_mention_view:
@@ -5735,7 +5801,7 @@ components:
           type: boolean
         my_vote:
           title: PersonMentionView.my_vote
-          type: number
+          type: integer
       required:
         - person_mention
         - comment
@@ -5852,22 +5918,22 @@ components:
       properties:
         id:
           title: PostAggregates.id
-          type: number
+          type: integer
         post_id:
           $ref: '#/components/schemas/PostId'
           title: PostAggregates.post_id
         comments:
           title: PostAggregates.comments
-          type: number
+          type: integer
         score:
           title: PostAggregates.score
-          type: number
+          type: integer
         upvotes:
           title: PostAggregates.upvotes
-          type: number
+          type: integer
         downvotes:
           title: PostAggregates.downvotes
-          type: number
+          type: integer
         published:
           title: PostAggregates.published
           type: string
@@ -5885,10 +5951,10 @@ components:
           type: boolean
         hot_rank:
           title: PostAggregates.hot_rank
-          type: number
+          type: integer
         hot_rank_active:
           title: PostAggregates.hot_rank_active
-          type: number
+          type: integer
       required:
         - id
         - post_id
@@ -5907,14 +5973,19 @@ components:
       title: PostAggregates
       type: object
     PostFeatureType:
-      enum:
-        - Local
-        - Community
+      anyOf:
+        - title: PostFeatureType
+          enum:
+            - Local
+          type: string
+        - title: PostFeatureType
+          enum:
+            - Community
+          type: string
       title: PostFeatureType
-      type: string
     PostId:
       title: PostId
-      type: number
+      type: integer
     PostJoin:
       properties:
         post_id:
@@ -6004,7 +6075,7 @@ components:
       type: object
     PostReportId:
       title: PostReportId
-      type: number
+      type: integer
     PostReportResponse:
       properties:
         post_report_view:
@@ -6037,7 +6108,7 @@ components:
           type: boolean
         my_vote:
           title: PostReportView.my_vote
-          type: number
+          type: integer
         counts:
           $ref: '#/components/schemas/PostAggregates'
           title: PostReportView.counts
@@ -6096,10 +6167,10 @@ components:
           type: boolean
         my_vote:
           title: PostView.my_vote
-          type: number
+          type: integer
         unread_comments:
           title: PostView.unread_comments
-          type: number
+          type: integer
       required:
         - post
         - creator
@@ -6161,7 +6232,7 @@ components:
       type: object
     PrivateMessageId:
       title: PrivateMessageId
-      type: number
+      type: integer
     PrivateMessageReport:
       properties:
         id:
@@ -6204,7 +6275,7 @@ components:
       type: object
     PrivateMessageReportId:
       title: PrivateMessageReportId
-      type: number
+      type: integer
     PrivateMessageReportResponse:
       properties:
         private_message_report_view:
@@ -6399,7 +6470,7 @@ components:
       properties:
         id:
           title: RegistrationApplication.id
-          type: number
+          type: integer
         local_user_id:
           $ref: '#/components/schemas/LocalUserId'
           title: RegistrationApplication.local_user_id
@@ -6455,12 +6526,20 @@ components:
       title: RegistrationApplicationView
       type: object
     RegistrationMode:
-      enum:
-        - Closed
-        - RequireApplication
-        - Open
+      anyOf:
+        - title: RegistrationMode
+          enum:
+            - Closed
+          type: string
+        - title: RegistrationMode
+          enum:
+            - RequireApplication
+          type: string
+        - title: RegistrationMode
+          enum:
+            - Open
+          type: string
       title: RegistrationMode
-      type: string
     RemoveComment:
       properties:
         comment_id:
@@ -6495,7 +6574,7 @@ components:
           type: string
         expires:
           title: RemoveCommunity.expires
-          type: number
+          type: integer
         auth:
           title: RemoveCommunity.auth
           type: string
@@ -6754,10 +6833,10 @@ components:
           title: Search.listing_type
         page:
           title: Search.page
-          type: number
+          type: integer
         limit:
           title: Search.limit
-          type: number
+          type: integer
         auth:
           title: Search.auth
           type: string
@@ -6801,15 +6880,32 @@ components:
       title: SearchResponse
       type: object
     SearchType:
-      enum:
-        - All
-        - Comments
-        - Posts
-        - Communities
-        - Users
-        - Url
+      anyOf:
+        - title: SearchType
+          enum:
+            - All
+          type: string
+        - title: SearchType
+          enum:
+            - Comments
+          type: string
+        - title: SearchType
+          enum:
+            - Posts
+          type: string
+        - title: SearchType
+          enum:
+            - Communities
+          type: string
+        - title: SearchType
+          enum:
+            - Users
+          type: string
+        - title: SearchType
+          enum:
+            - Url
+          type: string
       title: SearchType
-      type: string
     Site:
       properties:
         id:
@@ -6870,34 +6966,34 @@ components:
       properties:
         id:
           title: SiteAggregates.id
-          type: number
+          type: integer
         site_id:
           $ref: '#/components/schemas/SiteId'
           title: SiteAggregates.site_id
         users:
           title: SiteAggregates.users
-          type: number
+          type: integer
         posts:
           title: SiteAggregates.posts
-          type: number
+          type: integer
         comments:
           title: SiteAggregates.comments
-          type: number
+          type: integer
         communities:
           title: SiteAggregates.communities
-          type: number
+          type: integer
         users_active_day:
           title: SiteAggregates.users_active_day
-          type: number
+          type: integer
         users_active_week:
           title: SiteAggregates.users_active_week
-          type: number
+          type: integer
         users_active_month:
           title: SiteAggregates.users_active_month
-          type: number
+          type: integer
         users_active_half_year:
           title: SiteAggregates.users_active_half_year
-          type: number
+          type: integer
       required:
         - id
         - site_id
@@ -6914,7 +7010,7 @@ components:
       type: object
     SiteId:
       title: SiteId
-      type: number
+      type: integer
     SiteMetadata:
       properties:
         title:
@@ -6971,38 +7067,96 @@ components:
       title: SiteView
       type: object
     SortType:
-      enum:
-        - Active
-        - Hot
-        - New
-        - Old
-        - TopDay
-        - TopWeek
-        - TopMonth
-        - TopYear
-        - TopAll
-        - MostComments
-        - NewComments
-        - TopHour
-        - TopSixHour
-        - TopTwelveHour
-        - TopThreeMonths
-        - TopSixMonths
-        - TopNineMonths
+      anyOf:
+        - title: SortType
+          enum:
+            - Active
+          type: string
+        - title: SortType
+          enum:
+            - Hot
+          type: string
+        - title: SortType
+          enum:
+            - New
+          type: string
+        - title: SortType
+          enum:
+            - Old
+          type: string
+        - title: SortType
+          enum:
+            - TopDay
+          type: string
+        - title: SortType
+          enum:
+            - TopWeek
+          type: string
+        - title: SortType
+          enum:
+            - TopMonth
+          type: string
+        - title: SortType
+          enum:
+            - TopYear
+          type: string
+        - title: SortType
+          enum:
+            - TopAll
+          type: string
+        - title: SortType
+          enum:
+            - MostComments
+          type: string
+        - title: SortType
+          enum:
+            - NewComments
+          type: string
+        - title: SortType
+          enum:
+            - TopHour
+          type: string
+        - title: SortType
+          enum:
+            - TopSixHour
+          type: string
+        - title: SortType
+          enum:
+            - TopTwelveHour
+          type: string
+        - title: SortType
+          enum:
+            - TopThreeMonths
+          type: string
+        - title: SortType
+          enum:
+            - TopSixMonths
+          type: string
+        - title: SortType
+          enum:
+            - TopNineMonths
+          type: string
       title: SortType
-      type: string
     SubscribedType:
-      enum:
-        - Subscribed
-        - NotSubscribed
-        - Pending
+      anyOf:
+        - title: SubscribedType
+          enum:
+            - Subscribed
+          type: string
+        - title: SubscribedType
+          enum:
+            - NotSubscribed
+          type: string
+        - title: SubscribedType
+          enum:
+            - Pending
+          type: string
       title: SubscribedType
-      type: string
     Tagline:
       properties:
         id:
           title: Tagline.id
-          type: number
+          type: integer
         local_site_id:
           $ref: '#/components/schemas/LocalSiteId'
           title: Tagline.local_site_id

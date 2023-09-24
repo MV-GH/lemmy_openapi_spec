@@ -1,22 +1,22 @@
 import {
-    getTypeScriptReader,
     getOpenApiWriter,
     makeConverter,
 } from 'typeconv'
+import {getTypeScriptReaderV2} from "../custom/extra.js";
 
-const reader = getTypeScriptReader();
+const reader = getTypeScriptReaderV2({unsupported: "warn"});
 
 const writer = getOpenApiWriter({
-    format: 'yaml',
-    title: 'Unofficial Lemmy Documentation',
-    version: 'v0.18.3',
-    schemaVersion: "3.0.3"
-}
+        format: 'yaml',
+        title: 'Unofficial Lemmy Documentation',
+        version: 'v0.18.3',
+        schemaVersion: "3.0.3"
+    },
 )
 
 const {convert} = makeConverter(reader, writer);
 
 
 await convert(
-    {filename: "partials/auto_gen_types.ts", cwd: "../"},  {filename: "partials/components.yaml"}
+    {filename: "partials/auto_gen_types.ts", cwd: "../"}, {filename: "partials/components.yaml"}
 );

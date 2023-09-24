@@ -1,3 +1,6 @@
 [submodule "lemmy-js-client"]
 	path = lemmy-js-client
 	url = https://github.com/LemmyNet/lemmy-js-client
+[submodule "custom/core-types-ts"]
+	path = custom/core-types-ts
+	url = https://github.com/MV-GH/core-types-ts
