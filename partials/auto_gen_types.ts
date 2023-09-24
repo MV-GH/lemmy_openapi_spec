@@ -26,7 +26,7 @@ export interface AddModToCommunityResponse {
 
 
 export interface AdminPurgeComment {
-  id: number;
+  id: bigint;
   admin_person_id: PersonId;
   post_id: PostId;
   reason?: string;
@@ -42,7 +42,7 @@ export interface AdminPurgeCommentView {
 
 
 export interface AdminPurgeCommunity {
-  id: number;
+  id: bigint;
   admin_person_id: PersonId;
   reason?: string;
   when_: string;
@@ -56,7 +56,7 @@ export interface AdminPurgeCommunityView {
 
 
 export interface AdminPurgePerson {
-  id: number;
+  id: bigint;
   admin_person_id: PersonId;
   reason?: string;
   when_: string;
@@ -70,7 +70,7 @@ export interface AdminPurgePersonView {
 
 
 export interface AdminPurgePost {
-  id: number;
+  id: bigint;
   admin_person_id: PersonId;
   community_id: CommunityId;
   reason?: string;
@@ -86,7 +86,7 @@ export interface AdminPurgePostView {
 
 
 export interface ApproveRegistrationApplication {
-  id: number;
+  id: bigint;
   approve: boolean;
   deny_reason?: string;
   auth: string;
@@ -99,7 +99,7 @@ export interface BanFromCommunity {
   ban: boolean;
   remove_data?: boolean;
   reason?: string;
-  expires?: number;
+  expires?: bigint;
   auth: string;
 }
 
@@ -120,7 +120,7 @@ export interface BanPerson {
   ban: boolean;
   remove_data?: boolean;
   reason?: string;
-  expires?: number;
+  expires?: bigint;
   auth: string;
 }
 
@@ -190,18 +190,18 @@ export interface Comment {
 
 
 export interface CommentAggregates {
-  id: number;
+  id: bigint;
   comment_id: CommentId;
-  score: number;
-  upvotes: number;
-  downvotes: number;
+  score: bigint;
+  upvotes: bigint;
+  downvotes: bigint;
   published: string;
-  child_count: number;
-  hot_rank: number;
+  child_count: bigint;
+  hot_rank: bigint;
 }
 
 
-export type CommentId = number;
+export type CommentId = bigint;
 
 
 export interface CommentReply {
@@ -213,7 +213,7 @@ export interface CommentReply {
 }
 
 
-export type CommentReplyId = number;
+export type CommentReplyId = bigint;
 
 
 export interface CommentReplyResponse {
@@ -233,7 +233,7 @@ export interface CommentReplyView {
   subscribed: SubscribedType;
   saved: boolean;
   creator_blocked: boolean;
-  my_vote?: number;
+  my_vote?: bigint;
 }
 
 
@@ -250,7 +250,7 @@ export interface CommentReport {
 }
 
 
-export type CommentReportId = number;
+export type CommentReportId = bigint;
 
 
 export interface CommentReportResponse {
@@ -267,7 +267,7 @@ export interface CommentReportView {
   comment_creator: Person;
   counts: CommentAggregates;
   creator_banned_from_community: boolean;
-  my_vote?: number;
+  my_vote?: bigint;
   resolver?: Person;
 }
 
@@ -292,7 +292,7 @@ export interface CommentView {
   subscribed: SubscribedType;
   saved: boolean;
   creator_blocked: boolean;
-  my_vote?: number;
+  my_vote?: bigint;
 }
 
 
@@ -319,21 +319,21 @@ export interface Community {
 
 
 export interface CommunityAggregates {
-  id: number;
+  id: bigint;
   community_id: CommunityId;
-  subscribers: number;
-  posts: number;
-  comments: number;
+  subscribers: bigint;
+  posts: bigint;
+  comments: bigint;
   published: string;
-  users_active_day: number;
-  users_active_week: number;
-  users_active_month: number;
-  users_active_half_year: number;
-  hot_rank: number;
+  users_active_day: bigint;
+  users_active_week: bigint;
+  users_active_month: bigint;
+  users_active_half_year: bigint;
+  hot_rank: bigint;
 }
 
 
-export type CommunityBlockId = number;
+export type CommunityBlockId = bigint;
 
 
 export interface CommunityBlockView {
@@ -348,7 +348,7 @@ export interface CommunityFollowerView {
 }
 
 
-export type CommunityId = number;
+export type CommunityId = bigint;
 
 
 export interface CommunityJoin {
@@ -393,7 +393,7 @@ export interface CreateComment {
 
 export interface CreateCommentLike {
   comment_id: CommentId;
-  score: number;
+  score: bigint;
   auth: string;
 }
 
@@ -442,7 +442,7 @@ export interface CreatePost {
 
 export interface CreatePostLike {
   post_id: PostId;
-  score: number;
+  score: bigint;
   auth: string;
 }
 
@@ -487,19 +487,19 @@ export interface CreateSite {
   hide_modlog_mod_names?: boolean;
   discussion_languages?: Array<LanguageId>;
   slur_filter_regex?: string;
-  actor_name_max_length?: number;
-  rate_limit_message?: number;
-  rate_limit_message_per_second?: number;
-  rate_limit_post?: number;
-  rate_limit_post_per_second?: number;
-  rate_limit_register?: number;
-  rate_limit_register_per_second?: number;
-  rate_limit_image?: number;
-  rate_limit_image_per_second?: number;
-  rate_limit_comment?: number;
-  rate_limit_comment_per_second?: number;
-  rate_limit_search?: number;
-  rate_limit_search_per_second?: number;
+  actor_name_max_length?: bigint;
+  rate_limit_message?: bigint;
+  rate_limit_message_per_second?: bigint;
+  rate_limit_post?: bigint;
+  rate_limit_post_per_second?: bigint;
+  rate_limit_register?: bigint;
+  rate_limit_register_per_second?: bigint;
+  rate_limit_image?: bigint;
+  rate_limit_image_per_second?: bigint;
+  rate_limit_comment?: bigint;
+  rate_limit_comment_per_second?: bigint;
+  rate_limit_search?: bigint;
+  rate_limit_search_per_second?: bigint;
   federation_enabled?: boolean;
   federation_debug?: boolean;
   captcha_enabled?: boolean;
@@ -524,11 +524,11 @@ export interface CustomEmoji {
 }
 
 
-export type CustomEmojiId = number;
+export type CustomEmojiId = bigint;
 
 
 export interface CustomEmojiKeyword {
-  id: number;
+  id: bigint;
   custom_emoji_id: CustomEmojiId;
   keyword: string;
 }
@@ -670,19 +670,19 @@ export interface EditSite {
   hide_modlog_mod_names?: boolean;
   discussion_languages?: Array<LanguageId>;
   slur_filter_regex?: string;
-  actor_name_max_length?: number;
-  rate_limit_message?: number;
-  rate_limit_message_per_second?: number;
-  rate_limit_post?: number;
-  rate_limit_post_per_second?: number;
-  rate_limit_register?: number;
-  rate_limit_register_per_second?: number;
-  rate_limit_image?: number;
-  rate_limit_image_per_second?: number;
-  rate_limit_comment?: number;
-  rate_limit_comment_per_second?: number;
-  rate_limit_search?: number;
-  rate_limit_search_per_second?: number;
+  actor_name_max_length?: bigint;
+  rate_limit_message?: bigint;
+  rate_limit_message_per_second?: bigint;
+  rate_limit_post?: bigint;
+  rate_limit_post_per_second?: bigint;
+  rate_limit_register?: bigint;
+  rate_limit_register_per_second?: bigint;
+  rate_limit_image?: bigint;
+  rate_limit_image_per_second?: bigint;
+  rate_limit_comment?: bigint;
+  rate_limit_comment_per_second?: bigint;
+  rate_limit_search?: bigint;
+  rate_limit_search_per_second?: bigint;
   federation_enabled?: boolean;
   federation_debug?: boolean;
   captcha_enabled?: boolean;
@@ -742,9 +742,9 @@ export interface GetComment {
 export interface GetComments {
   type_?: ListingType;
   sort?: CommentSortType;
-  max_depth?: number;
-  page?: number;
-  limit?: number;
+  max_depth?: bigint;
+  page?: bigint;
+  limit?: bigint;
   community_id?: CommunityId;
   community_name?: string;
   post_id?: PostId;
@@ -787,8 +787,8 @@ export interface GetFederatedInstancesResponse {
 export interface GetModlog {
   mod_person_id?: PersonId;
   community_id?: CommunityId;
-  page?: number;
-  limit?: number;
+  page?: bigint;
+  limit?: bigint;
   type_?: ModlogActionType;
   other_person_id?: PersonId;
   auth?: string;
@@ -818,8 +818,8 @@ export interface GetPersonDetails {
   person_id?: PersonId;
   username?: string;
   sort?: SortType;
-  page?: number;
-  limit?: number;
+  page?: bigint;
+  limit?: bigint;
   community_id?: CommunityId;
   saved_only?: boolean;
   auth?: string;
@@ -836,8 +836,8 @@ export interface GetPersonDetailsResponse {
 
 export interface GetPersonMentions {
   sort?: CommentSortType;
-  page?: number;
-  limit?: number;
+  page?: bigint;
+  limit?: bigint;
   unread_only?: boolean;
   auth: string;
 }
@@ -866,8 +866,8 @@ export interface GetPostResponse {
 export interface GetPosts {
   type_?: ListingType;
   sort?: SortType;
-  page?: number;
-  limit?: number;
+  page?: bigint;
+  limit?: bigint;
   community_id?: CommunityId;
   community_name?: string;
   saved_only?: boolean;
@@ -883,16 +883,16 @@ export interface GetPostsResponse {
 
 export interface GetPrivateMessages {
   unread_only?: boolean;
-  page?: number;
-  limit?: number;
+  page?: bigint;
+  limit?: bigint;
   auth: string;
 }
 
 
 export interface GetReplies {
   sort?: CommentSortType;
-  page?: number;
-  limit?: number;
+  page?: bigint;
+  limit?: bigint;
   unread_only?: boolean;
   auth: string;
 }
@@ -911,9 +911,9 @@ export interface GetReportCount {
 
 export interface GetReportCountResponse {
   community_id?: CommunityId;
-  comment_reports: number;
-  post_reports: number;
-  private_message_reports?: number;
+  comment_reports: bigint;
+  post_reports: bigint;
+  private_message_reports?: bigint;
 }
 
 
@@ -950,9 +950,9 @@ export interface GetUnreadCount {
 
 
 export interface GetUnreadCountResponse {
-  replies: number;
-  mentions: number;
-  private_messages: number;
+  replies: bigint;
+  mentions: bigint;
+  private_messages: bigint;
 }
 
 
@@ -962,7 +962,7 @@ export interface GetUnreadRegistrationApplicationCount {
 
 
 export interface GetUnreadRegistrationApplicationCountResponse {
-  registration_applications: number;
+  registration_applications: bigint;
 }
 
 
@@ -984,7 +984,7 @@ export interface Instance {
 }
 
 
-export type InstanceId = number;
+export type InstanceId = bigint;
 
 
 export interface Language {
@@ -994,7 +994,7 @@ export interface Language {
 }
 
 
-export type LanguageId = number;
+export type LanguageId = bigint;
 
 
 export interface LeaveAdmin {
@@ -1142,8 +1142,8 @@ export type LemmyErrorType =
 
 
 export interface ListCommentReports {
-  page?: number;
-  limit?: number;
+  page?: bigint;
+  limit?: bigint;
   unresolved_only?: boolean;
   community_id?: CommunityId;
   auth: string;
@@ -1159,8 +1159,8 @@ export interface ListCommunities {
   type_?: ListingType;
   sort?: SortType;
   show_nsfw?: boolean;
-  page?: number;
-  limit?: number;
+  page?: bigint;
+  limit?: bigint;
   auth?: string;
 }
 
@@ -1174,8 +1174,8 @@ export type ListingType = "All" | "Local" | "Subscribed";
 
 
 export interface ListPostReports {
-  page?: number;
-  limit?: number;
+  page?: bigint;
+  limit?: bigint;
   unresolved_only?: boolean;
   community_id?: CommunityId;
   auth: string;
@@ -1188,8 +1188,8 @@ export interface ListPostReportsResponse {
 
 
 export interface ListPrivateMessageReports {
-  page?: number;
-  limit?: number;
+  page?: bigint;
+  limit?: bigint;
   unresolved_only?: boolean;
   auth: string;
 }
@@ -1202,8 +1202,8 @@ export interface ListPrivateMessageReportsResponse {
 
 export interface ListRegistrationApplications {
   unread_only?: boolean;
-  page?: number;
-  limit?: number;
+  page?: bigint;
+  limit?: bigint;
   auth: string;
 }
 
@@ -1229,7 +1229,7 @@ export interface LocalSite {
   hide_modlog_mod_names: boolean;
   application_email_admins: boolean;
   slur_filter_regex?: string;
-  actor_name_max_length: number;
+  actor_name_max_length: bigint;
   federation_enabled: boolean;
   captcha_enabled: boolean;
   captcha_difficulty: string;
@@ -1240,24 +1240,24 @@ export interface LocalSite {
 }
 
 
-export type LocalSiteId = number;
+export type LocalSiteId = bigint;
 
 
 export interface LocalSiteRateLimit {
-  id: number;
+  id: bigint;
   local_site_id: LocalSiteId;
-  message: number;
-  message_per_second: number;
-  post: number;
-  post_per_second: number;
-  register: number;
-  register_per_second: number;
-  image: number;
-  image_per_second: number;
-  comment: number;
-  comment_per_second: number;
-  search: number;
-  search_per_second: number;
+  message: bigint;
+  message_per_second: bigint;
+  post: bigint;
+  post_per_second: bigint;
+  register: bigint;
+  register_per_second: bigint;
+  image: bigint;
+  image_per_second: bigint;
+  comment: bigint;
+  comment_per_second: bigint;
+  search: bigint;
+  search_per_second: bigint;
   published: string;
   updated?: string;
 }
@@ -1288,7 +1288,7 @@ export interface LocalUser {
 }
 
 
-export type LocalUserId = number;
+export type LocalUserId = bigint;
 
 
 export interface LocalUserView {
@@ -1353,7 +1353,7 @@ export interface MarkPrivateMessageAsRead {
 
 
 export interface ModAdd {
-  id: number;
+  id: bigint;
   mod_person_id: PersonId;
   other_person_id: PersonId;
   removed: boolean;
@@ -1362,7 +1362,7 @@ export interface ModAdd {
 
 
 export interface ModAddCommunity {
-  id: number;
+  id: bigint;
   mod_person_id: PersonId;
   other_person_id: PersonId;
   community_id: CommunityId;
@@ -1387,7 +1387,7 @@ export interface ModAddView {
 
 
 export interface ModBan {
-  id: number;
+  id: bigint;
   mod_person_id: PersonId;
   other_person_id: PersonId;
   reason?: string;
@@ -1398,7 +1398,7 @@ export interface ModBan {
 
 
 export interface ModBanFromCommunity {
-  id: number;
+  id: bigint;
   mod_person_id: PersonId;
   other_person_id: PersonId;
   community_id: CommunityId;
@@ -1425,7 +1425,7 @@ export interface ModBanView {
 
 
 export interface ModFeaturePost {
-  id: number;
+  id: bigint;
   mod_person_id: PersonId;
   post_id: PostId;
   featured: boolean;
@@ -1443,7 +1443,7 @@ export interface ModFeaturePostView {
 
 
 export interface ModHideCommunity {
-  id: number;
+  id: bigint;
   community_id: CommunityId;
   mod_person_id: PersonId;
   when_: string;
@@ -1470,7 +1470,7 @@ export interface ModJoinResponse {
 
 
 export interface ModLockPost {
-  id: number;
+  id: bigint;
   mod_person_id: PersonId;
   post_id: PostId;
   locked: boolean;
@@ -1509,14 +1509,14 @@ export interface ModlogListParams {
   community_id?: CommunityId;
   mod_person_id?: PersonId;
   other_person_id?: PersonId;
-  page?: number;
-  limit?: number;
+  page?: bigint;
+  limit?: bigint;
   hide_modlog_names: boolean;
 }
 
 
 export interface ModRemoveComment {
-  id: number;
+  id: bigint;
   mod_person_id: PersonId;
   comment_id: CommentId;
   reason?: string;
@@ -1536,7 +1536,7 @@ export interface ModRemoveCommentView {
 
 
 export interface ModRemoveCommunity {
-  id: number;
+  id: bigint;
   mod_person_id: PersonId;
   community_id: CommunityId;
   reason?: string;
@@ -1554,7 +1554,7 @@ export interface ModRemoveCommunityView {
 
 
 export interface ModRemovePost {
-  id: number;
+  id: bigint;
   mod_person_id: PersonId;
   post_id: PostId;
   reason?: string;
@@ -1572,7 +1572,7 @@ export interface ModRemovePostView {
 
 
 export interface ModTransferCommunity {
-  id: number;
+  id: bigint;
   mod_person_id: PersonId;
   other_person_id: PersonId;
   community_id: CommunityId;
@@ -1662,16 +1662,16 @@ export interface Person {
 
 
 export interface PersonAggregates {
-  id: number;
+  id: bigint;
   person_id: PersonId;
-  post_count: number;
-  post_score: number;
-  comment_count: number;
-  comment_score: number;
+  post_count: bigint;
+  post_score: bigint;
+  comment_count: bigint;
+  comment_score: bigint;
 }
 
 
-export type PersonBlockId = number;
+export type PersonBlockId = bigint;
 
 
 export interface PersonBlockView {
@@ -1680,7 +1680,7 @@ export interface PersonBlockView {
 }
 
 
-export type PersonId = number;
+export type PersonId = bigint;
 
 
 export interface PersonMention {
@@ -1692,7 +1692,7 @@ export interface PersonMention {
 }
 
 
-export type PersonMentionId = number;
+export type PersonMentionId = bigint;
 
 
 export interface PersonMentionResponse {
@@ -1712,7 +1712,7 @@ export interface PersonMentionView {
   subscribed: SubscribedType;
   saved: boolean;
   creator_blocked: boolean;
-  my_vote?: number;
+  my_vote?: bigint;
 }
 
 
@@ -1748,26 +1748,26 @@ export interface Post {
 
 
 export interface PostAggregates {
-  id: number;
+  id: bigint;
   post_id: PostId;
-  comments: number;
-  score: number;
-  upvotes: number;
-  downvotes: number;
+  comments: bigint;
+  score: bigint;
+  upvotes: bigint;
+  downvotes: bigint;
   published: string;
   newest_comment_time_necro: string;
   newest_comment_time: string;
   featured_community: boolean;
   featured_local: boolean;
-  hot_rank: number;
-  hot_rank_active: number;
+  hot_rank: bigint;
+  hot_rank_active: bigint;
 }
 
 
 export type PostFeatureType = "Local" | "Community";
 
 
-export type PostId = number;
+export type PostId = bigint;
 
 
 export interface PostJoin {
@@ -1798,7 +1798,7 @@ export interface PostReport {
 }
 
 
-export type PostReportId = number;
+export type PostReportId = bigint;
 
 
 export interface PostReportResponse {
@@ -1813,7 +1813,7 @@ export interface PostReportView {
   creator: Person;
   post_creator: Person;
   creator_banned_from_community: boolean;
-  my_vote?: number;
+  my_vote?: bigint;
   counts: PostAggregates;
   resolver?: Person;
 }
@@ -1834,8 +1834,8 @@ export interface PostView {
   saved: boolean;
   read: boolean;
   creator_blocked: boolean;
-  my_vote?: number;
-  unread_comments: number;
+  my_vote?: bigint;
+  unread_comments: bigint;
 }
 
 
@@ -1853,7 +1853,7 @@ export interface PrivateMessage {
 }
 
 
-export type PrivateMessageId = number;
+export type PrivateMessageId = bigint;
 
 
 export interface PrivateMessageReport {
@@ -1869,7 +1869,7 @@ export interface PrivateMessageReport {
 }
 
 
-export type PrivateMessageReportId = number;
+export type PrivateMessageReportId = bigint;
 
 
 export interface PrivateMessageReportResponse {
@@ -1950,7 +1950,7 @@ export interface Register {
 
 
 export interface RegistrationApplication {
-  id: number;
+  id: bigint;
   local_user_id: LocalUserId;
   answer: string;
   admin_id?: PersonId;
@@ -1987,7 +1987,7 @@ export interface RemoveCommunity {
   community_id: CommunityId;
   removed: boolean;
   reason?: string;
-  expires?: number;
+  expires?: bigint;
   auth: string;
 }
 
@@ -2085,8 +2085,8 @@ export interface Search {
   type_?: SearchType;
   sort?: SortType;
   listing_type?: ListingType;
-  page?: number;
-  limit?: number;
+  page?: bigint;
+  limit?: bigint;
   auth?: string;
 }
 
@@ -2128,20 +2128,20 @@ export interface Site {
 
 
 export interface SiteAggregates {
-  id: number;
+  id: bigint;
   site_id: SiteId;
-  users: number;
-  posts: number;
-  comments: number;
-  communities: number;
-  users_active_day: number;
-  users_active_week: number;
-  users_active_month: number;
-  users_active_half_year: number;
+  users: bigint;
+  posts: bigint;
+  comments: bigint;
+  communities: bigint;
+  users_active_day: bigint;
+  users_active_week: bigint;
+  users_active_month: bigint;
+  users_active_half_year: bigint;
 }
 
 
-export type SiteId = number;
+export type SiteId = bigint;
 
 
 export interface SiteMetadata {
@@ -2190,7 +2190,7 @@ export type SubscribedType = "Subscribed" | "NotSubscribed" | "Pending";
 
 
 export interface Tagline {
-  id: number;
+  id: bigint;
   local_site_id: LocalSiteId;
   content: string;
   published: string;

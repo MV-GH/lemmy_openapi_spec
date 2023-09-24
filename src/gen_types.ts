@@ -14,13 +14,16 @@ readdir(subPath, (err, files) => {
     if (err)
         console.log(err)
     else {
-        const promises = files.map(filePath => {
+        const promises: Promise<string>[] = files.map(filePath => {
             return new Promise((resolve, reject) => {
                 readFile(subPath + filePath, 'utf8', (err, data) => {
                     if (err) {
                         reject(err);
                     } else {
-                        resolve(data.substring(data.indexOf("export")));
+                        resolve(data.substring(data.indexOf("export")) // remove the import statements
+                            .replace(/: number/g, ": bigint")
+                            .replace(/= number/g, "= bigint")
+                        );
                     }
                 });
             });
