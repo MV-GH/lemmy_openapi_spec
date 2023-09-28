@@ -362,7 +362,7 @@ paths:
       tags:
         - Post
       parameters:
-        - name: ListPosts
+        - name: GetPosts
           explode: true
           in: query
           schema:
@@ -707,14 +707,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreatePostLike'
+              $ref: '#/components/schemas/CreateCommentLike'
       responses:
         '201':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PostResponse'
+                $ref: '#/components/schemas/CommentResponse'
       summary: Like / vote on a comment.
   /comment/save:
     put:
@@ -925,7 +925,7 @@ paths:
       tags:
         - User
       parameters:
-        - name: ListPrivateMessageReports
+        - name: GetPersonDetails
           in: query
           explode: true
           schema:
@@ -1020,7 +1020,7 @@ paths:
       tags:
         - User
       parameters:
-        - name: GetCaptcha
+        - name: GetReplies
           in: query
           explode: true
           schema:
@@ -1057,7 +1057,7 @@ paths:
         - User
         - Admin
       parameters:
-        - name: GetCaptcha
+        - name: GetBannedPersons
           in: query
           schema:
             $ref: '#/components/schemas/GetBannedPersons'
@@ -5065,6 +5065,24 @@ components:
         - auth
       additionalProperties: false
       title: DistinguishComment
+      type: object
+    CreateCommentLike:
+      properties:
+        comment_id:
+          $ref: '#/components/schemas/CommentId'
+          title: CreateCommentLike.comment_id
+        score:
+          title: CreateCommentLike.score
+          type: integer
+        auth:
+          title: CreateCommentLike.auth
+          type: string
+      required:
+        - comment_id
+        - score
+        - auth
+      additionalProperties: false
+      title: CreateCommentLike
       type: object
     SaveComment:
       properties:

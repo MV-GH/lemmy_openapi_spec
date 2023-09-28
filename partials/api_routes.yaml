@@ -395,7 +395,7 @@ paths:
       tags:
         - Post
       parameters:
-        - name: ListPosts
+        - name: GetPosts
           explode: true
           in: query
           schema:
@@ -743,14 +743,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'components.yaml#/components/schemas/CreatePostLike'
+              $ref: 'components.yaml#/components/schemas/CreateCommentLike'
       responses:
         201:
           description: OK
           content:
             application/json:
               schema:
-                $ref: 'components.yaml#/components/schemas/PostResponse'
+                $ref: 'components.yaml#/components/schemas/CommentResponse'
       summary: Like / vote on a comment.
   /comment/save:
     put:
@@ -963,7 +963,7 @@ paths:
       tags:
         - User
       parameters:
-        - name: ListPrivateMessageReports
+        - name: GetPersonDetails
           in: query
           explode: true
           schema:
@@ -1060,7 +1060,7 @@ paths:
       tags:
         - User
       parameters:
-        - name: GetCaptcha
+        - name: GetReplies
           in: query
           explode: true
           schema:
@@ -1097,7 +1097,7 @@ paths:
         - User
         - Admin
       parameters:
-        - name: GetCaptcha
+        - name: GetBannedPersons
           in: query
           schema:
             $ref: 'components.yaml#/components/schemas/GetBannedPersons'
