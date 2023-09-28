@@ -182,7 +182,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'components.yaml#/components/schemas/CreateCommunity'
+              $ref: 'components.yaml#/components/schemas/EditCommunity'
       responses:
         "200":
           description: OK
