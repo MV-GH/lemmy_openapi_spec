@@ -35,7 +35,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SiteResponse'
+                $ref: '#/components/schemas/GetSiteResponse'
     post:
       tags:
         - Site
@@ -47,6 +47,10 @@ paths:
       responses:
         '201':
           description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteResponse'
       summary: Create your site.
     put:
       summary: Edit your site.
@@ -60,6 +64,10 @@ paths:
       responses:
         '200':
           description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteResponse'
   /modlog:
     get:
       summary: Get the modlog.
@@ -129,7 +137,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CommunityResponse'
+                $ref: '#/components/schemas/GetCommunityResponse'
       summary: Get / fetch a community.
     post:
       tags:
@@ -142,6 +150,10 @@ paths:
       responses:
         '201':
           description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunityResponse'
       summary: Create a new community.
     put:
       tags:
@@ -154,6 +166,10 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunityResponse'
       summary: Edit a community.
   /community/hide:
     put:
@@ -168,6 +184,10 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunityResponse'
   /community/list:
     get:
       tags:
@@ -196,8 +216,12 @@ paths:
             schema:
               $ref: '#/components/schemas/FollowCommunity'
       responses:
-        '201':
+        '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunityResponse'
       summary: Follow / subscribe to a community.
   /community/block:
     post:
@@ -226,8 +250,12 @@ paths:
             schema:
               $ref: '#/components/schemas/DeleteCommunity'
       responses:
-        '201':
+        '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunityResponse'
       summary: Delete a community.
   /community/remove:
     post:
@@ -240,8 +268,12 @@ paths:
             schema:
               $ref: '#/components/schemas/RemoveCommunity'
       responses:
-        '201':
+        '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunityResponse'
       summary: A moderator remove for a community.
   /community/transfer:
     post:
@@ -254,8 +286,12 @@ paths:
             schema:
               $ref: '#/components/schemas/TransferCommunity'
       responses:
-        '201':
+        '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunityResponse'
       summary: Transfer your community to an existing moderator.
   /community/ban_user:
     post:
@@ -268,7 +304,7 @@ paths:
             schema:
               $ref: '#/components/schemas/BanFromCommunity'
       responses:
-        '201':
+        '200':
           description: OK
           content:
             application/json:
@@ -286,7 +322,7 @@ paths:
             schema:
               $ref: '#/components/schemas/AddModToCommunity'
       responses:
-        '201':
+        '200':
           description: OK
           content:
             application/json:
@@ -340,6 +376,10 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostResponse'
       summary: Edit a post.
     post:
       tags:
@@ -1146,13 +1186,8 @@ paths:
             schema:
               $ref: '#/components/schemas/PasswordChangeAfterReset'
       responses:
-        '201':
-          description: CREATED
-          content:
-            application/json:
-              schema:
-                description: JWT always empty, could bypass 2FA else, response hardcoded to ("",false,false)
-                $ref: '#/components/schemas/LoginResponse'
+        '200':
+          description: OK
       summary: Change your password from an email / token based reset.
   /user/mark_all_as_read:
     post:
@@ -1265,8 +1300,8 @@ paths:
             schema:
               $ref: '#/components/schemas/LeaveAdmin'
       responses:
-        '201':
-          description: CREATED
+        '200':
+          description: Ok
           content:
             application/json:
               schema:
@@ -1282,8 +1317,8 @@ paths:
             schema:
               $ref: '#/components/schemas/AddAdmin'
       responses:
-        '201':
-          description: CREATED
+        '200':
+          description: Ok
           content:
             application/json:
               schema:
@@ -1820,6 +1855,498 @@ components:
       additionalProperties: false
       title: SiteView
       type: object
+    PersonId:
+      title: PersonId
+      type: integer
+    Person:
+      properties:
+        id:
+          $ref: '#/components/schemas/PersonId'
+          title: Person.id
+        name:
+          title: Person.name
+          type: string
+        display_name:
+          title: Person.display_name
+          type: string
+        avatar:
+          title: Person.avatar
+          type: string
+        banned:
+          title: Person.banned
+          type: boolean
+        published:
+          title: Person.published
+          type: string
+        updated:
+          title: Person.updated
+          type: string
+        actor_id:
+          title: Person.actor_id
+          type: string
+        bio:
+          title: Person.bio
+          type: string
+        local:
+          title: Person.local
+          type: boolean
+        banner:
+          title: Person.banner
+          type: string
+        deleted:
+          title: Person.deleted
+          type: boolean
+        inbox_url:
+          title: Person.inbox_url
+          type: string
+        matrix_user_id:
+          title: Person.matrix_user_id
+          type: string
+        admin:
+          title: Person.admin
+          type: boolean
+        bot_account:
+          title: Person.bot_account
+          type: boolean
+        ban_expires:
+          title: Person.ban_expires
+          type: string
+        instance_id:
+          $ref: '#/components/schemas/InstanceId'
+          title: Person.instance_id
+      required:
+        - id
+        - name
+        - banned
+        - published
+        - actor_id
+        - local
+        - deleted
+        - inbox_url
+        - admin
+        - bot_account
+        - instance_id
+      additionalProperties: false
+      title: Person
+      type: object
+    PersonAggregates:
+      properties:
+        id:
+          title: PersonAggregates.id
+          type: integer
+        person_id:
+          $ref: '#/components/schemas/PersonId'
+          title: PersonAggregates.person_id
+        post_count:
+          title: PersonAggregates.post_count
+          type: integer
+        post_score:
+          title: PersonAggregates.post_score
+          type: integer
+        comment_count:
+          title: PersonAggregates.comment_count
+          type: integer
+        comment_score:
+          title: PersonAggregates.comment_score
+          type: integer
+      required:
+        - id
+        - person_id
+        - post_count
+        - post_score
+        - comment_count
+        - comment_score
+      additionalProperties: false
+      title: PersonAggregates
+      type: object
+    PersonView:
+      properties:
+        person:
+          $ref: '#/components/schemas/Person'
+          title: PersonView.person
+        counts:
+          $ref: '#/components/schemas/PersonAggregates'
+          title: PersonView.counts
+      required:
+        - person
+        - counts
+      additionalProperties: false
+      title: PersonView
+      type: object
+    LocalUserId:
+      title: LocalUserId
+      type: integer
+    SortType:
+      anyOf:
+        - title: SortType
+          enum:
+            - Active
+          type: string
+        - title: SortType
+          enum:
+            - Hot
+          type: string
+        - title: SortType
+          enum:
+            - New
+          type: string
+        - title: SortType
+          enum:
+            - Old
+          type: string
+        - title: SortType
+          enum:
+            - TopDay
+          type: string
+        - title: SortType
+          enum:
+            - TopWeek
+          type: string
+        - title: SortType
+          enum:
+            - TopMonth
+          type: string
+        - title: SortType
+          enum:
+            - TopYear
+          type: string
+        - title: SortType
+          enum:
+            - TopAll
+          type: string
+        - title: SortType
+          enum:
+            - MostComments
+          type: string
+        - title: SortType
+          enum:
+            - NewComments
+          type: string
+        - title: SortType
+          enum:
+            - TopHour
+          type: string
+        - title: SortType
+          enum:
+            - TopSixHour
+          type: string
+        - title: SortType
+          enum:
+            - TopTwelveHour
+          type: string
+        - title: SortType
+          enum:
+            - TopThreeMonths
+          type: string
+        - title: SortType
+          enum:
+            - TopSixMonths
+          type: string
+        - title: SortType
+          enum:
+            - TopNineMonths
+          type: string
+      title: SortType
+    LocalUser:
+      properties:
+        id:
+          $ref: '#/components/schemas/LocalUserId'
+          title: LocalUser.id
+        person_id:
+          $ref: '#/components/schemas/PersonId'
+          title: LocalUser.person_id
+        email:
+          title: LocalUser.email
+          type: string
+        show_nsfw:
+          title: LocalUser.show_nsfw
+          type: boolean
+        blur_nsfw:
+          title: LocalUser.blur_nsfw
+          type: boolean
+        auto_expand:
+          title: LocalUser.auto_expand
+          type: boolean
+        theme:
+          title: LocalUser.theme
+          type: string
+        default_sort_type:
+          $ref: '#/components/schemas/SortType'
+          title: LocalUser.default_sort_type
+        default_listing_type:
+          $ref: '#/components/schemas/ListingType'
+          title: LocalUser.default_listing_type
+        interface_language:
+          title: LocalUser.interface_language
+          type: string
+        show_avatars:
+          title: LocalUser.show_avatars
+          type: boolean
+        send_notifications_to_email:
+          title: LocalUser.send_notifications_to_email
+          type: boolean
+        validator_time:
+          title: LocalUser.validator_time
+          type: string
+        show_scores:
+          title: LocalUser.show_scores
+          type: boolean
+        show_bot_accounts:
+          title: LocalUser.show_bot_accounts
+          type: boolean
+        show_read_posts:
+          title: LocalUser.show_read_posts
+          type: boolean
+        show_new_post_notifs:
+          title: LocalUser.show_new_post_notifs
+          type: boolean
+        email_verified:
+          title: LocalUser.email_verified
+          type: boolean
+        accepted_application:
+          title: LocalUser.accepted_application
+          type: boolean
+        totp_2fa_url:
+          title: LocalUser.totp_2fa_url
+          type: string
+        open_links_in_new_tab:
+          title: LocalUser.open_links_in_new_tab
+          type: boolean
+      required:
+        - id
+        - person_id
+        - show_nsfw
+        - blur_nsfw
+        - auto_expand
+        - theme
+        - default_sort_type
+        - default_listing_type
+        - interface_language
+        - show_avatars
+        - send_notifications_to_email
+        - validator_time
+        - show_scores
+        - show_bot_accounts
+        - show_read_posts
+        - show_new_post_notifs
+        - email_verified
+        - accepted_application
+        - open_links_in_new_tab
+      additionalProperties: false
+      title: LocalUser
+      type: object
+    LocalUserView:
+      properties:
+        local_user:
+          $ref: '#/components/schemas/LocalUser'
+          title: LocalUserView.local_user
+        person:
+          $ref: '#/components/schemas/Person'
+          title: LocalUserView.person
+        counts:
+          $ref: '#/components/schemas/PersonAggregates'
+          title: LocalUserView.counts
+      required:
+        - local_user
+        - person
+        - counts
+      additionalProperties: false
+      title: LocalUserView
+      type: object
+    CommunityId:
+      title: CommunityId
+      type: integer
+    Community:
+      properties:
+        id:
+          $ref: '#/components/schemas/CommunityId'
+          title: Community.id
+        name:
+          title: Community.name
+          type: string
+        title:
+          title: Community.title
+          type: string
+        description:
+          title: Community.description
+          type: string
+        removed:
+          title: Community.removed
+          type: boolean
+        published:
+          title: Community.published
+          type: string
+        updated:
+          title: Community.updated
+          type: string
+        deleted:
+          title: Community.deleted
+          type: boolean
+        nsfw:
+          title: Community.nsfw
+          type: boolean
+        actor_id:
+          title: Community.actor_id
+          type: string
+        local:
+          title: Community.local
+          type: boolean
+        icon:
+          title: Community.icon
+          type: string
+        banner:
+          title: Community.banner
+          type: string
+        followers_url:
+          title: Community.followers_url
+          type: string
+        inbox_url:
+          title: Community.inbox_url
+          type: string
+        hidden:
+          title: Community.hidden
+          type: boolean
+        posting_restricted_to_mods:
+          title: Community.posting_restricted_to_mods
+          type: boolean
+        instance_id:
+          $ref: '#/components/schemas/InstanceId'
+          title: Community.instance_id
+      required:
+        - id
+        - name
+        - title
+        - removed
+        - published
+        - deleted
+        - nsfw
+        - actor_id
+        - local
+        - followers_url
+        - inbox_url
+        - hidden
+        - posting_restricted_to_mods
+        - instance_id
+      additionalProperties: false
+      title: Community
+      type: object
+    CommunityFollowerView:
+      properties:
+        community:
+          $ref: '#/components/schemas/Community'
+          title: CommunityFollowerView.community
+        follower:
+          $ref: '#/components/schemas/Person'
+          title: CommunityFollowerView.follower
+      required:
+        - community
+        - follower
+      additionalProperties: false
+      title: CommunityFollowerView
+      type: object
+    CommunityModeratorView:
+      properties:
+        community:
+          $ref: '#/components/schemas/Community'
+          title: CommunityModeratorView.community
+        moderator:
+          $ref: '#/components/schemas/Person'
+          title: CommunityModeratorView.moderator
+      required:
+        - community
+        - moderator
+      additionalProperties: false
+      title: CommunityModeratorView
+      type: object
+    CommunityBlockView:
+      properties:
+        person:
+          $ref: '#/components/schemas/Person'
+          title: CommunityBlockView.person
+        community:
+          $ref: '#/components/schemas/Community'
+          title: CommunityBlockView.community
+      required:
+        - person
+        - community
+      additionalProperties: false
+      title: CommunityBlockView
+      type: object
+    PersonBlockView:
+      properties:
+        person:
+          $ref: '#/components/schemas/Person'
+          title: PersonBlockView.person
+        target:
+          $ref: '#/components/schemas/Person'
+          title: PersonBlockView.target
+      required:
+        - person
+        - target
+      additionalProperties: false
+      title: PersonBlockView
+      type: object
+    LanguageId:
+      title: LanguageId
+      type: integer
+    MyUserInfo:
+      properties:
+        local_user_view:
+          $ref: '#/components/schemas/LocalUserView'
+          title: MyUserInfo.local_user_view
+        follows:
+          items:
+            $ref: '#/components/schemas/CommunityFollowerView'
+          title: MyUserInfo.follows
+          type: array
+        moderates:
+          items:
+            $ref: '#/components/schemas/CommunityModeratorView'
+          title: MyUserInfo.moderates
+          type: array
+        community_blocks:
+          items:
+            $ref: '#/components/schemas/CommunityBlockView'
+          title: MyUserInfo.community_blocks
+          type: array
+        person_blocks:
+          items:
+            $ref: '#/components/schemas/PersonBlockView'
+          title: MyUserInfo.person_blocks
+          type: array
+        discussion_languages:
+          items:
+            $ref: '#/components/schemas/LanguageId'
+          title: MyUserInfo.discussion_languages
+          type: array
+      required:
+        - local_user_view
+        - follows
+        - moderates
+        - community_blocks
+        - person_blocks
+        - discussion_languages
+      additionalProperties: false
+      title: MyUserInfo
+      type: object
+    Language:
+      properties:
+        id:
+          $ref: '#/components/schemas/LanguageId'
+          title: Language.id
+        code:
+          title: Language.code
+          type: string
+        name:
+          title: Language.name
+          type: string
+      required:
+        - id
+        - code
+        - name
+      additionalProperties: false
+      title: Language
+      type: object
     Tagline:
       properties:
         id:
@@ -1845,25 +2372,127 @@ components:
       additionalProperties: false
       title: Tagline
       type: object
-    SiteResponse:
+    CustomEmojiId:
+      title: CustomEmojiId
+      type: integer
+    CustomEmoji:
+      properties:
+        id:
+          $ref: '#/components/schemas/CustomEmojiId'
+          title: CustomEmoji.id
+        local_site_id:
+          $ref: '#/components/schemas/LocalSiteId'
+          title: CustomEmoji.local_site_id
+        shortcode:
+          title: CustomEmoji.shortcode
+          type: string
+        image_url:
+          title: CustomEmoji.image_url
+          type: string
+        alt_text:
+          title: CustomEmoji.alt_text
+          type: string
+        category:
+          title: CustomEmoji.category
+          type: string
+        published:
+          title: CustomEmoji.published
+          type: string
+        updated:
+          title: CustomEmoji.updated
+          type: string
+      required:
+        - id
+        - local_site_id
+        - shortcode
+        - image_url
+        - alt_text
+        - category
+        - published
+      additionalProperties: false
+      title: CustomEmoji
+      type: object
+    CustomEmojiKeyword:
+      properties:
+        id:
+          title: CustomEmojiKeyword.id
+          type: integer
+        custom_emoji_id:
+          $ref: '#/components/schemas/CustomEmojiId'
+          title: CustomEmojiKeyword.custom_emoji_id
+        keyword:
+          title: CustomEmojiKeyword.keyword
+          type: string
+      required:
+        - id
+        - custom_emoji_id
+        - keyword
+      additionalProperties: false
+      title: CustomEmojiKeyword
+      type: object
+    CustomEmojiView:
+      properties:
+        custom_emoji:
+          $ref: '#/components/schemas/CustomEmoji'
+          title: CustomEmojiView.custom_emoji
+        keywords:
+          items:
+            $ref: '#/components/schemas/CustomEmojiKeyword'
+          title: CustomEmojiView.keywords
+          type: array
+      required:
+        - custom_emoji
+        - keywords
+      additionalProperties: false
+      title: CustomEmojiView
+      type: object
+    GetSiteResponse:
       properties:
         site_view:
           $ref: '#/components/schemas/SiteView'
-          title: SiteResponse.site_view
+          title: GetSiteResponse.site_view
+        admins:
+          items:
+            $ref: '#/components/schemas/PersonView'
+          title: GetSiteResponse.admins
+          type: array
+        version:
+          title: GetSiteResponse.version
+          type: string
+        my_user:
+          $ref: '#/components/schemas/MyUserInfo'
+          title: GetSiteResponse.my_user
+        all_languages:
+          items:
+            $ref: '#/components/schemas/Language'
+          title: GetSiteResponse.all_languages
+          type: array
+        discussion_languages:
+          items:
+            $ref: '#/components/schemas/LanguageId'
+          title: GetSiteResponse.discussion_languages
+          type: array
         taglines:
           items:
             $ref: '#/components/schemas/Tagline'
-          title: SiteResponse.taglines
+          title: GetSiteResponse.taglines
+          type: array
+        custom_emojis:
+          items:
+            $ref: '#/components/schemas/CustomEmojiView'
+          title: GetSiteResponse.custom_emojis
           type: array
       required:
         - site_view
+        - admins
+        - version
+        - all_languages
+        - discussion_languages
         - taglines
+        - custom_emojis
       additionalProperties: false
-      title: SiteResponse
+      title: GetSiteResponse
       type: object
-    LanguageId:
-      title: LanguageId
-      type: integer
     EditSite:
       properties:
         name:
@@ -2002,6 +2631,22 @@ components:
       additionalProperties: false
       title: EditSite
       type: object
+    SiteResponse:
+      properties:
+        site_view:
+          $ref: '#/components/schemas/SiteView'
+          title: SiteResponse.site_view
+        taglines:
+          items:
+            $ref: '#/components/schemas/Tagline'
+          title: SiteResponse.taglines
+          type: array
+      required:
+        - site_view
+        - taglines
+      additionalProperties: false
+      title: SiteResponse
+      type: object
     CreateSite:
       properties:
         name:
@@ -2138,12 +2783,6 @@ components:
       additionalProperties: false
       title: CreateSite
       type: object
-    PersonId:
-      title: PersonId
-      type: integer
-    CommunityId:
-      title: CommunityId
-      type: integer
     ModlogActionType:
       anyOf:
         - title: ModlogActionType
@@ -2269,77 +2908,6 @@ components:
       additionalProperties: false
       title: ModRemovePost
       type: object
-    Person:
-      properties:
-        id:
-          $ref: '#/components/schemas/PersonId'
-          title: Person.id
-        name:
-          title: Person.name
-          type: string
-        display_name:
-          title: Person.display_name
-          type: string
-        avatar:
-          title: Person.avatar
-          type: string
-        banned:
-          title: Person.banned
-          type: boolean
-        published:
-          title: Person.published
-          type: string
-        updated:
-          title: Person.updated
-          type: string
-        actor_id:
-          title: Person.actor_id
-          type: string
-        bio:
-          title: Person.bio
-          type: string
-        local:
-          title: Person.local
-          type: boolean
-        banner:
-          title: Person.banner
-          type: string
-        deleted:
-          title: Person.deleted
-          type: boolean
-        inbox_url:
-          title: Person.inbox_url
-          type: string
-        matrix_user_id:
-          title: Person.matrix_user_id
-          type: string
-        admin:
-          title: Person.admin
-          type: boolean
-        bot_account:
-          title: Person.bot_account
-          type: boolean
-        ban_expires:
-          title: Person.ban_expires
-          type: string
-        instance_id:
-          $ref: '#/components/schemas/InstanceId'
-          title: Person.instance_id
-      required:
-        - id
-        - name
-        - banned
-        - published
-        - actor_id
-        - local
-        - deleted
-        - inbox_url
-        - admin
-        - bot_account
-        - instance_id
-      additionalProperties: false
-      title: Person
-      type: object
     Post:
       properties:
         id:
@@ -2422,80 +2990,6 @@ components:
         - featured_local
       additionalProperties: false
       title: Post
-      type: object
-    Community:
-      properties:
-        id:
-          $ref: '#/components/schemas/CommunityId'
-          title: Community.id
-        name:
-          title: Community.name
-          type: string
-        title:
-          title: Community.title
-          type: string
-        description:
-          title: Community.description
-          type: string
-        removed:
-          title: Community.removed
-          type: boolean
-        published:
-          title: Community.published
-          type: string
-        updated:
-          title: Community.updated
-          type: string
-        deleted:
-          title: Community.deleted
-          type: boolean
-        nsfw:
-          title: Community.nsfw
-          type: boolean
-        actor_id:
-          title: Community.actor_id
-          type: string
-        local:
-          title: Community.local
-          type: boolean
-        icon:
-          title: Community.icon
-          type: string
-        banner:
-          title: Community.banner
-          type: string
-        followers_url:
-          title: Community.followers_url
-          type: string
-        inbox_url:
-          title: Community.inbox_url
-          type: string
-        hidden:
-          title: Community.hidden
-          type: boolean
-        posting_restricted_to_mods:
-          title: Community.posting_restricted_to_mods
-          type: boolean
-        instance_id:
-          $ref: '#/components/schemas/InstanceId'
-          title: Community.instance_id
-      required:
-        - id
-        - name
-        - title
-        - removed
-        - published
-        - deleted
-        - nsfw
-        - actor_id
-        - local
-        - followers_url
-        - inbox_url
-        - hidden
-        - posting_restricted_to_mods
-        - instance_id
-      additionalProperties: false
-      title: Community
       type: object
     ModRemovePostView:
       properties:
@@ -3351,77 +3845,6 @@ components:
             - Url
           type: string
       title: SearchType
-    SortType:
-      anyOf:
-        - title: SortType
-          enum:
-            - Active
-          type: string
-        - title: SortType
-          enum:
-            - Hot
-          type: string
-        - title: SortType
-          enum:
-            - New
-          type: string
-        - title: SortType
-          enum:
-            - Old
-          type: string
-        - title: SortType
-          enum:
-            - TopDay
-          type: string
-        - title: SortType
-          enum:
-            - TopWeek
-          type: string
-        - title: SortType
-          enum:
-            - TopMonth
-          type: string
-        - title: SortType
-          enum:
-            - TopYear
-          type: string
-        - title: SortType
-          enum:
-            - TopAll
-          type: string
-        - title: SortType
-          enum:
-            - MostComments
-          type: string
-        - title: SortType
-          enum:
-            - NewComments
-          type: string
-        - title: SortType
-          enum:
-            - TopHour
-          type: string
-        - title: SortType
-          enum:
-            - TopSixHour
-          type: string
-        - title: SortType
-          enum:
-            - TopTwelveHour
-          type: string
-        - title: SortType
-          enum:
-            - TopThreeMonths
-          type: string
-        - title: SortType
-          enum:
-            - TopSixMonths
-          type: string
-        - title: SortType
-          enum:
-            - TopNineMonths
-          type: string
-      title: SortType
     Search:
       properties:
         q:
@@ -3736,50 +4159,6 @@ components:
       additionalProperties: false
       title: CommunityView
       type: object
-    PersonAggregates:
-      properties:
-        id:
-          title: PersonAggregates.id
-          type: integer
-        person_id:
-          $ref: '#/components/schemas/PersonId'
-          title: PersonAggregates.person_id
-        post_count:
-          title: PersonAggregates.post_count
-          type: integer
-        post_score:
-          title: PersonAggregates.post_score
-          type: integer
-        comment_count:
-          title: PersonAggregates.comment_count
-          type: integer
-        comment_score:
-          title: PersonAggregates.comment_score
-          type: integer
-      required:
-        - id
-        - person_id
-        - post_count
-        - post_score
-        - comment_count
-        - comment_score
-      additionalProperties: false
-      title: PersonAggregates
-      type: object
-    PersonView:
-      properties:
-        person:
-          $ref: '#/components/schemas/Person'
-          title: PersonView.person
-        counts:
-          $ref: '#/components/schemas/PersonAggregates'
-          title: PersonView.counts
-      required:
-        - person
-        - counts
-      additionalProperties: false
-      title: PersonView
-      type: object
     SearchResponse:
       properties:
         type_:
@@ -3859,21 +4238,30 @@ components:
       additionalProperties: false
       title: GetCommunity
       type: object
-    CommunityResponse:
+    GetCommunityResponse:
       properties:
         community_view:
           $ref: '#/components/schemas/CommunityView'
-          title: CommunityResponse.community_view
+          title: GetCommunityResponse.community_view
+        site:
+          $ref: '#/components/schemas/Site'
+          title: GetCommunityResponse.site
+        moderators:
+          items:
+            $ref: '#/components/schemas/CommunityModeratorView'
+          title: GetCommunityResponse.moderators
+          type: array
         discussion_languages:
           items:
             $ref: '#/components/schemas/LanguageId'
-          title: CommunityResponse.discussion_languages
+          title: GetCommunityResponse.discussion_languages
           type: array
       required:
         - community_view
+        - moderators
         - discussion_languages
       additionalProperties: false
-      title: CommunityResponse
+      title: GetCommunityResponse
       type: object
     EditCommunity:
       properties:
@@ -3911,6 +4299,22 @@ components:
         - auth
       additionalProperties: false
       title: EditCommunity
+      type: object
+    CommunityResponse:
+      properties:
+        community_view:
+          $ref: '#/components/schemas/CommunityView'
+          title: CommunityResponse.community_view
+        discussion_languages:
+          items:
+            $ref: '#/components/schemas/LanguageId'
+          title: CommunityResponse.discussion_languages
+          type: array
+      required:
+        - community_view
+        - discussion_languages
+      additionalProperties: false
+      title: CommunityResponse
       type: object
     CreateCommunity:
       properties:
@@ -4183,20 +4587,6 @@ components:
       additionalProperties: false
       title: AddModToCommunity
       type: object
-    CommunityModeratorView:
-      properties:
-        community:
-          $ref: '#/components/schemas/Community'
-          title: CommunityModeratorView.community
-        moderator:
-          $ref: '#/components/schemas/Person'
-          title: CommunityModeratorView.moderator
-      required:
-        - community
-        - moderator
-      additionalProperties: false
-      title: CommunityModeratorView
-      type: object
     AddModToCommunityResponse:
       properties:
         moderators:
@@ -4345,6 +4735,16 @@ components:
       additionalProperties: false
       title: EditPost
       type: object
+    PostResponse:
+      properties:
+        post_view:
+          $ref: '#/components/schemas/PostView'
+          title: PostResponse.post_view
+      required:
+        - post_view
+      additionalProperties: false
+      title: PostResponse
+      type: object
     CreatePost:
       properties:
         name:
@@ -4377,16 +4777,6 @@ components:
         - auth
       additionalProperties: false
       title: CreatePost
-      type: object
-    PostResponse:
-      properties:
-        post_view:
-          $ref: '#/components/schemas/PostView'
-          title: PostResponse.post_view
-      required:
-        - post_view
-      additionalProperties: false
-      title: PostResponse
       type: object
     GetPosts:
       properties:
@@ -4795,9 +5185,6 @@ components:
       additionalProperties: false
       title: GetComment
       type: object
-    LocalUserId:
-      title: LocalUserId
-      type: integer
     CommentResponse:
       properties:
         comment_view:
@@ -6300,333 +6687,6 @@ components:
         - auth
       additionalProperties: false
       title: LeaveAdmin
-      type: object
-    LocalUser:
-      properties:
-        id:
-          $ref: '#/components/schemas/LocalUserId'
-          title: LocalUser.id
-        person_id:
-          $ref: '#/components/schemas/PersonId'
-          title: LocalUser.person_id
-        email:
-          title: LocalUser.email
-          type: string
-        show_nsfw:
-          title: LocalUser.show_nsfw
-          type: boolean
-        blur_nsfw:
-          title: LocalUser.blur_nsfw
-          type: boolean
-        auto_expand:
-          title: LocalUser.auto_expand
-          type: boolean
-        theme:
-          title: LocalUser.theme
-          type: string
-        default_sort_type:
-          $ref: '#/components/schemas/SortType'
-          title: LocalUser.default_sort_type
-        default_listing_type:
-          $ref: '#/components/schemas/ListingType'
-          title: LocalUser.default_listing_type
-        interface_language:
-          title: LocalUser.interface_language
-          type: string
-        show_avatars:
-          title: LocalUser.show_avatars
-          type: boolean
-        send_notifications_to_email:
-          title: LocalUser.send_notifications_to_email
-          type: boolean
-        validator_time:
-          title: LocalUser.validator_time
-          type: string
-        show_scores:
-          title: LocalUser.show_scores
-          type: boolean
-        show_bot_accounts:
-          title: LocalUser.show_bot_accounts
-          type: boolean
-        show_read_posts:
-          title: LocalUser.show_read_posts
-          type: boolean
-        show_new_post_notifs:
-          title: LocalUser.show_new_post_notifs
-          type: boolean
-        email_verified:
-          title: LocalUser.email_verified
-          type: boolean
-        accepted_application:
-          title: LocalUser.accepted_application
-          type: boolean
-        totp_2fa_url:
-          title: LocalUser.totp_2fa_url
-          type: string
-        open_links_in_new_tab:
-          title: LocalUser.open_links_in_new_tab
-          type: boolean
-      required:
-        - id
-        - person_id
-        - show_nsfw
-        - blur_nsfw
-        - auto_expand
-        - theme
-        - default_sort_type
-        - default_listing_type
-        - interface_language
-        - show_avatars
-        - send_notifications_to_email
-        - validator_time
-        - show_scores
-        - show_bot_accounts
-        - show_read_posts
-        - show_new_post_notifs
-        - email_verified
-        - accepted_application
-        - open_links_in_new_tab
-      additionalProperties: false
-      title: LocalUser
-      type: object
-    LocalUserView:
-      properties:
-        local_user:
-          $ref: '#/components/schemas/LocalUser'
-          title: LocalUserView.local_user
-        person:
-          $ref: '#/components/schemas/Person'
-          title: LocalUserView.person
-        counts:
-          $ref: '#/components/schemas/PersonAggregates'
-          title: LocalUserView.counts
-      required:
-        - local_user
-        - person
-        - counts
-      additionalProperties: false
-      title: LocalUserView
-      type: object
-    CommunityFollowerView:
-      properties:
-        community:
-          $ref: '#/components/schemas/Community'
-          title: CommunityFollowerView.community
-        follower:
-          $ref: '#/components/schemas/Person'
-          title: CommunityFollowerView.follower
-      required:
-        - community
-        - follower
-      additionalProperties: false
-      title: CommunityFollowerView
-      type: object
-    CommunityBlockView:
-      properties:
-        person:
-          $ref: '#/components/schemas/Person'
-          title: CommunityBlockView.person
-        community:
-          $ref: '#/components/schemas/Community'
-          title: CommunityBlockView.community
-      required:
-        - person
-        - community
-      additionalProperties: false
-      title: CommunityBlockView
-      type: object
-    PersonBlockView:
-      properties:
-        person:
-          $ref: '#/components/schemas/Person'
-          title: PersonBlockView.person
-        target:
-          $ref: '#/components/schemas/Person'
-          title: PersonBlockView.target
-      required:
-        - person
-        - target
-      additionalProperties: false
-      title: PersonBlockView
-      type: object
-    MyUserInfo:
-      properties:
-        local_user_view:
-          $ref: '#/components/schemas/LocalUserView'
-          title: MyUserInfo.local_user_view
-        follows:
-          items:
-            $ref: '#/components/schemas/CommunityFollowerView'
-          title: MyUserInfo.follows
-          type: array
-        moderates:
-          items:
-            $ref: '#/components/schemas/CommunityModeratorView'
-          title: MyUserInfo.moderates
-          type: array
-        community_blocks:
-          items:
-            $ref: '#/components/schemas/CommunityBlockView'
-          title: MyUserInfo.community_blocks
-          type: array
-        person_blocks:
-          items:
-            $ref: '#/components/schemas/PersonBlockView'
-          title: MyUserInfo.person_blocks
-          type: array
-        discussion_languages:
-          items:
-            $ref: '#/components/schemas/LanguageId'
-          title: MyUserInfo.discussion_languages
-          type: array
-      required:
-        - local_user_view
-        - follows
-        - moderates
-        - community_blocks
-        - person_blocks
-        - discussion_languages
-      additionalProperties: false
-      title: MyUserInfo
-      type: object
-    Language:
-      properties:
-        id:
-          $ref: '#/components/schemas/LanguageId'
-          title: Language.id
-        code:
-          title: Language.code
-          type: string
-        name:
-          title: Language.name
-          type: string
-      required:
-        - id
-        - code
-        - name
-      additionalProperties: false
-      title: Language
-      type: object
-    CustomEmojiId:
-      title: CustomEmojiId
-      type: integer
-    CustomEmoji:
-      properties:
-        id:
-          $ref: '#/components/schemas/CustomEmojiId'
-          title: CustomEmoji.id
-        local_site_id:
-          $ref: '#/components/schemas/LocalSiteId'
-          title: CustomEmoji.local_site_id
-        shortcode:
-          title: CustomEmoji.shortcode
-          type: string
-        image_url:
-          title: CustomEmoji.image_url
-          type: string
-        alt_text:
-          title: CustomEmoji.alt_text
-          type: string
-        category:
-          title: CustomEmoji.category
-          type: string
-        published:
-          title: CustomEmoji.published
-          type: string
-        updated:
-          title: CustomEmoji.updated
-          type: string
-      required:
-        - id
-        - local_site_id
-        - shortcode
-        - image_url
-        - alt_text
-        - category
-        - published
-      additionalProperties: false
-      title: CustomEmoji
-      type: object
-    CustomEmojiKeyword:
-      properties:
-        id:
-          title: CustomEmojiKeyword.id
-          type: integer
-        custom_emoji_id:
-          $ref: '#/components/schemas/CustomEmojiId'
-          title: CustomEmojiKeyword.custom_emoji_id
-        keyword:
-          title: CustomEmojiKeyword.keyword
-          type: string
-      required:
-        - id
-        - custom_emoji_id
-        - keyword
-      additionalProperties: false
-      title: CustomEmojiKeyword
-      type: object
-    CustomEmojiView:
-      properties:
-        custom_emoji:
-          $ref: '#/components/schemas/CustomEmoji'
-          title: CustomEmojiView.custom_emoji
-        keywords:
-          items:
-            $ref: '#/components/schemas/CustomEmojiKeyword'
-          title: CustomEmojiView.keywords
-          type: array
-      required:
-        - custom_emoji
-        - keywords
-      additionalProperties: false
-      title: CustomEmojiView
-      type: object
-    GetSiteResponse:
-      properties:
-        site_view:
-          $ref: '#/components/schemas/SiteView'
-          title: GetSiteResponse.site_view
-        admins:
-          items:
-            $ref: '#/components/schemas/PersonView'
-          title: GetSiteResponse.admins
-          type: array
-        version:
-          title: GetSiteResponse.version
-          type: string
-        my_user:
-          $ref: '#/components/schemas/MyUserInfo'
-          title: GetSiteResponse.my_user
-        all_languages:
-          items:
-            $ref: '#/components/schemas/Language'
-          title: GetSiteResponse.all_languages
-          type: array
-        discussion_languages:
-          items:
-            $ref: '#/components/schemas/LanguageId'
-          title: GetSiteResponse.discussion_languages
-          type: array
-        taglines:
-          items:
-            $ref: '#/components/schemas/Tagline'
-          title: GetSiteResponse.taglines
-          type: array
-        custom_emojis:
-          items:
-            $ref: '#/components/schemas/CustomEmojiView'
-          title: GetSiteResponse.custom_emojis
-          type: array
-      required:
-        - site_view
-        - admins
-        - version
-        - all_languages
-        - discussion_languages
-        - taglines
-        - custom_emojis
-      additionalProperties: false
-      title: GetSiteResponse
       type: object
     AddAdmin:
       properties:
