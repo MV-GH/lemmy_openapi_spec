@@ -65,7 +65,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'components.yaml#/components/schemas/SiteResponse'
+                $ref: 'components.yaml#/components/schemas/GetSiteResponse'
     post:
       tags:
         - Site
@@ -77,6 +77,10 @@ paths:
       responses:
         "201":
           description: Created
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/SiteResponse'
       summary: Create your site.
     put:
       summary: Edit your site.
@@ -90,6 +94,10 @@ paths:
       responses:
         "200":
           description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/SiteResponse'
   /modlog:
     get:
       summary: Get the modlog.
@@ -161,7 +169,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'components.yaml#/components/schemas/CommunityResponse'
+                $ref: 'components.yaml#/components/schemas/GetCommunityResponse'
       summary: Get / fetch a community.
     post:
       tags:
@@ -174,6 +182,10 @@ paths:
       responses:
         "201":
           description: CREATED
+          content:
+            application/json:
+              schema:
+                  $ref: 'components.yaml#/components/schemas/CommunityResponse'
       summary: Create a new community.
     put:
       tags:
@@ -186,6 +198,10 @@ paths:
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CommunityResponse'
       summary: Edit a community.
   /community/hide:
     put:
@@ -200,6 +216,10 @@ paths:
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CommunityResponse'
   /community/list:
     get:
       tags:
@@ -228,8 +248,12 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/FollowCommunity'
       responses:
-        "201":
+        "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CommunityResponse'
       summary: Follow / subscribe to a community.
   /community/block:
     post:
@@ -258,9 +282,14 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/DeleteCommunity'
       responses:
-        "201":
+        "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CommunityResponse'
       summary: Delete a community.
+
   /community/remove:
     post:
       tags:
@@ -272,8 +301,12 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/RemoveCommunity'
       responses:
-        "201":
+        "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CommunityResponse'
       summary: A moderator remove for a community.
   /community/transfer:
     post:
@@ -286,8 +319,12 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/TransferCommunity'
       responses:
-        "201":
+        "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/CommunityResponse'
       summary: Transfer your community to an existing moderator.
   /community/ban_user:
     post:
@@ -300,7 +337,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/BanFromCommunity'
       responses:
-        "201":
+        "200":
           description: OK
           content:
             application/json:
@@ -318,7 +355,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/AddModToCommunity'
       responses:
-        "201":
+        "200":
           description: OK
           content:
             application/json:
@@ -372,6 +409,10 @@ paths:
       responses:
         200:
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PostResponse'
       summary: Edit a post.
 
     post:
@@ -1186,14 +1227,8 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/PasswordChangeAfterReset'
       responses:
-        201:
-          description: CREATED
-          content:
-            application/json:
-              schema:
-                description: JWT always empty, could bypass 2FA else, response hardcoded to
-                  ("",false,false)
-                $ref: 'components.yaml#/components/schemas/LoginResponse'
+        200:
+          description: OK
       summary: Change your password from an email / token based reset.
   /user/mark_all_as_read:
     post:
@@ -1307,8 +1342,8 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/LeaveAdmin'
       responses:
-        201:
-          description: CREATED
+        200:
+          description: Ok
           content:
             application/json:
               schema:
@@ -1324,8 +1359,8 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/AddAdmin'
       responses:
-        201:
-          description: CREATED
+        200:
+          description: Ok
           content:
             application/json:
               schema:
