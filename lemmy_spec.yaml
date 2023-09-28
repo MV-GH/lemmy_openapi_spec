@@ -150,7 +150,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateCommunity'
+              $ref: '#/components/schemas/EditCommunity'
       responses:
         '200':
           description: OK
@@ -3874,6 +3874,43 @@ components:
         - discussion_languages
       additionalProperties: false
       title: CommunityResponse
+      type: object
+    EditCommunity:
+      properties:
+        community_id:
+          $ref: '#/components/schemas/CommunityId'
+          title: EditCommunity.community_id
+        title:
+          title: EditCommunity.title
+          type: string
+        description:
+          title: EditCommunity.description
+          type: string
+        icon:
+          title: EditCommunity.icon
+          type: string
+        banner:
+          title: EditCommunity.banner
+          type: string
+        nsfw:
+          title: EditCommunity.nsfw
+          type: boolean
+        posting_restricted_to_mods:
+          title: EditCommunity.posting_restricted_to_mods
+          type: boolean
+        discussion_languages:
+          items:
+            $ref: '#/components/schemas/LanguageId'
+          title: EditCommunity.discussion_languages
+          type: array
+        auth:
+          title: EditCommunity.auth
+          type: string
+      required:
+        - community_id
+        - auth
+      additionalProperties: false
+      title: EditCommunity
       type: object
     CreateCommunity:
       properties:
