@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Unofficial Lemmy Documentation
-  version: v0.18.3
+  version: v0.19.0
   x-id: partials/components.yaml
   x-comment: >-
     Generated from partials/auto_gen_types.ts by core-types-json-schema
@@ -18,13 +18,9 @@ components:
         added:
           title: AddAdmin.added
           type: boolean
-        auth:
-          title: AddAdmin.auth
-          type: string
       required:
         - person_id
         - added
-        - auth
       additionalProperties: false
       title: AddAdmin
       type: object
@@ -51,14 +47,10 @@ components:
         added:
           title: AddModToCommunity.added
           type: boolean
-        auth:
-          title: AddModToCommunity.auth
-          type: string
       required:
         - community_id
         - person_id
         - added
-        - auth
       additionalProperties: false
       title: AddModToCommunity
       type: object
@@ -237,13 +229,9 @@ components:
         deny_reason:
           title: ApproveRegistrationApplication.deny_reason
           type: string
-        auth:
-          title: ApproveRegistrationApplication.auth
-          type: string
       required:
         - id
         - approve
-        - auth
       additionalProperties: false
       title: ApproveRegistrationApplication
       type: object
@@ -266,15 +254,11 @@ components:
           type: string
         expires:
           title: BanFromCommunity.expires
-          type: integer
-        auth:
-          title: BanFromCommunity.auth
-          type: string
+          type: number
       required:
         - community_id
         - person_id
         - ban
-        - auth
       additionalProperties: false
       title: BanFromCommunity
       type: object
@@ -320,14 +304,10 @@ components:
           type: string
         expires:
           title: BanPerson.expires
-          type: integer
-        auth:
-          title: BanPerson.auth
-          type: string
+          type: number
       required:
         - person_id
         - ban
-        - auth
       additionalProperties: false
       title: BanPerson
       type: object
@@ -353,13 +333,9 @@ components:
         block:
           title: BlockCommunity.block
           type: boolean
-        auth:
-          title: BlockCommunity.auth
-          type: string
       required:
         - community_id
         - block
-        - auth
       additionalProperties: false
       title: BlockCommunity
       type: object
@@ -377,6 +353,30 @@ components:
       additionalProperties: false
       title: BlockCommunityResponse
       type: object
+    BlockInstance:
+      properties:
+        instance_id:
+          $ref: '#/components/schemas/InstanceId'
+          title: BlockInstance.instance_id
+        block:
+          title: BlockInstance.block
+          type: boolean
+      required:
+        - instance_id
+        - block
+      additionalProperties: false
+      title: BlockInstance
+      type: object
+    BlockInstanceResponse:
+      properties:
+        blocked:
+          title: BlockInstanceResponse.blocked
+          type: boolean
+      required:
+        - blocked
+      additionalProperties: false
+      title: BlockInstanceResponse
+      type: object
     BlockPerson:
       properties:
         person_id:
@@ -385,13 +385,9 @@ components:
         block:
           title: BlockPerson.block
           type: boolean
-        auth:
-          title: BlockPerson.auth
-          type: string
       required:
         - person_id
         - block
-        - auth
       additionalProperties: false
       title: BlockPerson
       type: object
@@ -438,14 +434,10 @@ components:
         old_password:
           title: ChangePassword.old_password
           type: string
-        auth:
-          title: ChangePassword.auth
-          type: string
       required:
         - new_password
         - new_password_verify
         - old_password
-        - auth
       additionalProperties: false
       title: ChangePassword
       type: object
@@ -516,13 +508,13 @@ components:
           title: CommentAggregates.comment_id
         score:
           title: CommentAggregates.score
-          type: integer
+          type: number
         upvotes:
           title: CommentAggregates.upvotes
-          type: integer
+          type: number
         downvotes:
           title: CommentAggregates.downvotes
-          type: integer
+          type: number
         published:
           title: CommentAggregates.published
           type: string
@@ -531,6 +523,9 @@ components:
           type: integer
         hot_rank:
           title: CommentAggregates.hot_rank
+          type: number
+        controversy_rank:
+          title: CommentAggregates.controversy_rank
           type: integer
       required:
         - id
@@ -541,6 +536,7 @@ components:
         - published
         - child_count
         - hot_rank
+        - controversy_rank
       additionalProperties: false
       title: CommentAggregates
       type: object
@@ -746,9 +742,6 @@ components:
             $ref: '#/components/schemas/LocalUserId'
           title: CommentResponse.recipient_ids
           type: array
-        form_id:
-          title: CommentResponse.form_id
-          type: string
       required:
         - comment_view
         - recipient_ids
@@ -756,24 +749,14 @@ components:
       title: CommentResponse
       type: object
     CommentSortType:
-      anyOf:
-        - title: CommentSortType
-          enum:
-            - Hot
-          type: string
-        - title: CommentSortType
-          enum:
-            - Top
-          type: string
-        - title: CommentSortType
-          enum:
-            - New
-          type: string
-        - title: CommentSortType
-          enum:
-            - Old
-          type: string
+      enum:
+        - Hot
+        - Top
+        - New
+        - Old
+        - Controversial
       title: CommentSortType
+      type: string
     CommentView:
       properties:
         comment:
@@ -860,12 +843,6 @@ components:
         banner:
           title: Community.banner
           type: string
-        followers_url:
-          title: Community.followers_url
-          type: string
-        inbox_url:
-          title: Community.inbox_url
-          type: string
         hidden:
           title: Community.hidden
           type: boolean
@@ -885,8 +862,6 @@ components:
         - nsfw
         - actor_id
         - local
-        - followers_url
-        - inbox_url
         - hidden
         - posting_restricted_to_mods
         - instance_id
@@ -903,31 +878,31 @@ components:
           title: CommunityAggregates.community_id
         subscribers:
           title: CommunityAggregates.subscribers
-          type: integer
+          type: number
         posts:
           title: CommunityAggregates.posts
-          type: integer
+          type: number
         comments:
           title: CommunityAggregates.comments
-          type: integer
+          type: number
         published:
           title: CommunityAggregates.published
           type: string
         users_active_day:
           title: CommunityAggregates.users_active_day
-          type: integer
+          type: number
         users_active_week:
           title: CommunityAggregates.users_active_week
-          type: integer
+          type: number
         users_active_month:
           title: CommunityAggregates.users_active_month
-          type: integer
+          type: number
         users_active_half_year:
           title: CommunityAggregates.users_active_half_year
-          type: integer
+          type: number
         hot_rank:
           title: CommunityAggregates.hot_rank
-          type: integer
+          type: number
       required:
         - id
         - community_id
@@ -977,26 +952,6 @@ components:
     CommunityId:
       title: CommunityId
       type: integer
-    CommunityJoin:
-      properties:
-        community_id:
-          $ref: '#/components/schemas/CommunityId'
-          title: CommunityJoin.community_id
-      required:
-        - community_id
-      additionalProperties: false
-      title: CommunityJoin
-      type: object
-    CommunityJoinResponse:
-      properties:
-        joined:
-          title: CommunityJoinResponse.joined
-          type: boolean
-      required:
-        - joined
-      additionalProperties: false
-      title: CommunityJoinResponse
-      type: object
     CommunityModeratorView:
       properties:
         community:
@@ -1063,16 +1018,9 @@ components:
         language_id:
           $ref: '#/components/schemas/LanguageId'
           title: CreateComment.language_id
-        form_id:
-          title: CreateComment.form_id
-          type: string
-        auth:
-          title: CreateComment.auth
-          type: string
       required:
         - content
         - post_id
-        - auth
       additionalProperties: false
       title: CreateComment
       type: object
@@ -1084,13 +1032,9 @@ components:
         score:
           title: CreateCommentLike.score
           type: integer
-        auth:
-          title: CreateCommentLike.auth
-          type: string
       required:
         - comment_id
         - score
-        - auth
       additionalProperties: false
       title: CreateCommentLike
       type: object
@@ -1102,13 +1046,9 @@ components:
         reason:
           title: CreateCommentReport.reason
           type: string
-        auth:
-          title: CreateCommentReport.auth
-          type: string
       required:
         - comment_id
         - reason
-        - auth
       additionalProperties: false
       title: CreateCommentReport
       type: object
@@ -1140,13 +1080,9 @@ components:
             $ref: '#/components/schemas/LanguageId'
           title: CreateCommunity.discussion_languages
           type: array
-        auth:
-          title: CreateCommunity.auth
-          type: string
       required:
         - name
         - title
-        - auth
       additionalProperties: false
       title: CreateCommunity
       type: object
@@ -1169,16 +1105,12 @@ components:
             type: string
           title: CreateCustomEmoji.keywords
           type: array
-        auth:
-          title: CreateCustomEmoji.auth
-          type: string
       required:
         - category
         - shortcode
         - image_url
         - alt_text
         - keywords
-        - auth
       additionalProperties: false
       title: CreateCustomEmoji
       type: object
@@ -1205,13 +1137,9 @@ components:
         language_id:
           $ref: '#/components/schemas/LanguageId'
           title: CreatePost.language_id
-        auth:
-          title: CreatePost.auth
-          type: string
       required:
         - name
         - community_id
-        - auth
       additionalProperties: false
       title: CreatePost
       type: object
@@ -1223,13 +1151,9 @@ components:
         score:
           title: CreatePostLike.score
           type: integer
-        auth:
-          title: CreatePostLike.auth
-          type: string
       required:
         - post_id
         - score
-        - auth
       additionalProperties: false
       title: CreatePostLike
       type: object
@@ -1241,13 +1165,9 @@ components:
         reason:
           title: CreatePostReport.reason
           type: string
-        auth:
-          title: CreatePostReport.auth
-          type: string
       required:
         - post_id
         - reason
-        - auth
       additionalProperties: false
       title: CreatePostReport
       type: object
@@ -1259,13 +1179,9 @@ components:
         recipient_id:
           $ref: '#/components/schemas/PersonId'
           title: CreatePrivateMessage.recipient_id
-        auth:
-          title: CreatePrivateMessage.auth
-          type: string
       required:
         - content
         - recipient_id
-        - auth
       additionalProperties: false
       title: CreatePrivateMessage
       type: object
@@ -1277,13 +1193,9 @@ components:
         reason:
           title: CreatePrivateMessageReport.reason
           type: string
-        auth:
-          title: CreatePrivateMessageReport.auth
-          type: string
       required:
         - private_message_id
         - reason
-        - auth
       additionalProperties: false
       title: CreatePrivateMessageReport
       type: object
@@ -1414,12 +1326,8 @@ components:
         registration_mode:
           $ref: '#/components/schemas/RegistrationMode'
           title: CreateSite.registration_mode
-        auth:
-          title: CreateSite.auth
-          type: string
       required:
         - name
-        - auth
       additionalProperties: false
       title: CreateSite
       type: object
@@ -1512,12 +1420,12 @@ components:
         password:
           title: DeleteAccount.password
           type: string
-        auth:
-          title: DeleteAccount.auth
-          type: string
+        delete_content:
+          title: DeleteAccount.delete_content
+          type: boolean
       required:
         - password
-        - auth
+        - delete_content
       additionalProperties: false
       title: DeleteAccount
       type: object
@@ -1532,13 +1440,9 @@ components:
         deleted:
           title: DeleteComment.deleted
           type: boolean
-        auth:
-          title: DeleteComment.auth
-          type: string
       required:
         - comment_id
         - deleted
-        - auth
       additionalProperties: false
       title: DeleteComment
       type: object
@@ -1550,13 +1454,9 @@ components:
         deleted:
           title: DeleteCommunity.deleted
           type: boolean
-        auth:
-          title: DeleteCommunity.auth
-          type: string
       required:
         - community_id
         - deleted
-        - auth
       additionalProperties: false
       title: DeleteCommunity
       type: object
@@ -1565,12 +1465,8 @@ components:
         id:
           $ref: '#/components/schemas/CustomEmojiId'
           title: DeleteCustomEmoji.id
-        auth:
-          title: DeleteCustomEmoji.auth
-          type: string
       required:
         - id
-        - auth
       additionalProperties: false
       title: DeleteCustomEmoji
       type: object
@@ -1596,13 +1492,9 @@ components:
         deleted:
           title: DeletePost.deleted
           type: boolean
-        auth:
-          title: DeletePost.auth
-          type: string
       required:
         - post_id
         - deleted
-        - auth
       additionalProperties: false
       title: DeletePost
       type: object
@@ -1614,13 +1506,9 @@ components:
         deleted:
           title: DeletePrivateMessage.deleted
           type: boolean
-        auth:
-          title: DeletePrivateMessage.auth
-          type: string
       required:
         - private_message_id
         - deleted
-        - auth
       additionalProperties: false
       title: DeletePrivateMessage
       type: object
@@ -1632,13 +1520,9 @@ components:
         distinguished:
           title: DistinguishComment.distinguished
           type: boolean
-        auth:
-          title: DistinguishComment.auth
-          type: string
       required:
         - comment_id
         - distinguished
-        - auth
       additionalProperties: false
       title: DistinguishComment
       type: object
@@ -1653,15 +1537,8 @@ components:
         language_id:
           $ref: '#/components/schemas/LanguageId'
           title: EditComment.language_id
-        form_id:
-          title: EditComment.form_id
-          type: string
-        auth:
-          title: EditComment.auth
-          type: string
       required:
         - comment_id
-        - auth
       additionalProperties: false
       title: EditComment
       type: object
@@ -1693,12 +1570,8 @@ components:
             $ref: '#/components/schemas/LanguageId'
           title: EditCommunity.discussion_languages
           type: array
-        auth:
-          title: EditCommunity.auth
-          type: string
       required:
         - community_id
-        - auth
       additionalProperties: false
       title: EditCommunity
       type: object
@@ -1721,16 +1594,12 @@ components:
             type: string
           title: EditCustomEmoji.keywords
           type: array
-        auth:
-          title: EditCustomEmoji.auth
-          type: string
       required:
         - id
         - category
         - image_url
         - alt_text
         - keywords
-        - auth
       additionalProperties: false
       title: EditCustomEmoji
       type: object
@@ -1754,12 +1623,8 @@ components:
         language_id:
           $ref: '#/components/schemas/LanguageId'
           title: EditPost.language_id
-        auth:
-          title: EditPost.auth
-          type: string
       required:
         - post_id
-        - auth
       additionalProperties: false
       title: EditPost
       type: object
@@ -1771,13 +1636,9 @@ components:
         content:
           title: EditPrivateMessage.content
           type: string
-        auth:
-          title: EditPrivateMessage.auth
-          type: string
       required:
         - private_message_id
         - content
-        - auth
       additionalProperties: false
       title: EditPrivateMessage
       type: object
@@ -1911,11 +1772,6 @@ components:
         reports_email_admins:
           title: EditSite.reports_email_admins
           type: boolean
-        auth:
-          title: EditSite.auth
-          type: string
-      required:
-        - auth
       additionalProperties: false
       title: EditSite
       type: object
@@ -1930,14 +1786,10 @@ components:
         feature_type:
           $ref: '#/components/schemas/PostFeatureType'
           title: FeaturePost.feature_type
-        auth:
-          title: FeaturePost.auth
-          type: string
       required:
         - post_id
         - featured
         - feature_type
-        - auth
       additionalProperties: false
       title: FeaturePost
       type: object
@@ -1973,33 +1825,21 @@ components:
         follow:
           title: FollowCommunity.follow
           type: boolean
-        auth:
-          title: FollowCommunity.auth
-          type: string
       required:
         - community_id
         - follow
-        - auth
       additionalProperties: false
       title: FollowCommunity
       type: object
-    GetBannedPersons:
+    GenerateTotpSecretResponse:
       properties:
-        auth:
-          title: GetBannedPersons.auth
+        totp_secret_url:
+          title: GenerateTotpSecretResponse.totp_secret_url
           type: string
       required:
-        - auth
+        - totp_secret_url
       additionalProperties: false
-      title: GetBannedPersons
-      type: object
-    GetCaptcha:
-      properties:
-        auth:
-          title: GetCaptcha.auth
-          type: string
-      additionalProperties: false
-      title: GetCaptcha
+      title: GenerateTotpSecretResponse
       type: object
     GetCaptchaResponse:
       properties:
@@ -2014,9 +1854,6 @@ components:
         id:
           $ref: '#/components/schemas/CommentId'
           title: GetComment.id
-        auth:
-          title: GetComment.auth
-          type: string
       required:
         - id
       additionalProperties: false
@@ -2035,10 +1872,10 @@ components:
           type: integer
         page:
           title: GetComments.page
-          type: integer
+          type: number
         limit:
           title: GetComments.limit
-          type: integer
+          type: number
         community_id:
           $ref: '#/components/schemas/CommunityId'
           title: GetComments.community_id
@@ -2054,9 +1891,12 @@ components:
         saved_only:
           title: GetComments.saved_only
           type: boolean
-        auth:
-          title: GetComments.auth
-          type: string
+        liked_only:
+          title: GetComments.liked_only
+          type: boolean
+        disliked_only:
+          title: GetComments.disliked_only
+          type: boolean
       additionalProperties: false
       title: GetComments
       type: object
@@ -2079,9 +1919,6 @@ components:
           title: GetCommunity.id
         name:
           title: GetCommunity.name
-          type: string
-        auth:
-          title: GetCommunity.auth
           type: string
       additionalProperties: false
       title: GetCommunity
@@ -2111,14 +1948,6 @@ components:
       additionalProperties: false
       title: GetCommunityResponse
       type: object
-    GetFederatedInstances:
-      properties:
-        auth:
-          title: GetFederatedInstances.auth
-          type: string
-      additionalProperties: false
-      title: GetFederatedInstances
-      type: object
     GetFederatedInstancesResponse:
       properties:
         federated_instances:
@@ -2137,19 +1966,16 @@ components:
           title: GetModlog.community_id
         page:
           title: GetModlog.page
-          type: integer
+          type: number
         limit:
           title: GetModlog.limit
-          type: integer
+          type: number
         type_:
           $ref: '#/components/schemas/ModlogActionType'
           title: GetModlog.type_
         other_person_id:
           $ref: '#/components/schemas/PersonId'
           title: GetModlog.other_person_id
-        auth:
-          title: GetModlog.auth
-          type: string
       additionalProperties: false
       title: GetModlog
       type: object
@@ -2262,19 +2088,16 @@ components:
           title: GetPersonDetails.sort
         page:
           title: GetPersonDetails.page
-          type: integer
+          type: number
         limit:
           title: GetPersonDetails.limit
-          type: integer
+          type: number
         community_id:
           $ref: '#/components/schemas/CommunityId'
           title: GetPersonDetails.community_id
         saved_only:
           title: GetPersonDetails.saved_only
           type: boolean
-        auth:
-          title: GetPersonDetails.auth
-          type: string
       additionalProperties: false
       title: GetPersonDetails
       type: object
@@ -2313,18 +2136,13 @@ components:
           title: GetPersonMentions.sort
         page:
           title: GetPersonMentions.page
-          type: integer
+          type: number
         limit:
           title: GetPersonMentions.limit
-          type: integer
+          type: number
         unread_only:
           title: GetPersonMentions.unread_only
           type: boolean
-        auth:
-          title: GetPersonMentions.auth
-          type: string
-      required:
-        - auth
       additionalProperties: false
       title: GetPersonMentions
       type: object
@@ -2348,9 +2166,6 @@ components:
         comment_id:
           $ref: '#/components/schemas/CommentId'
           title: GetPost.comment_id
-        auth:
-          title: GetPost.auth
-          type: string
       additionalProperties: false
       title: GetPost
       type: object
@@ -2390,10 +2205,10 @@ components:
           title: GetPosts.sort
         page:
           title: GetPosts.page
-          type: integer
+          type: number
         limit:
           title: GetPosts.limit
-          type: integer
+          type: number
         community_id:
           $ref: '#/components/schemas/CommunityId'
           title: GetPosts.community_id
@@ -2403,12 +2218,15 @@ components:
         saved_only:
           title: GetPosts.saved_only
           type: boolean
-        moderator_view:
-          title: GetPosts.moderator_view
+        liked_only:
+          title: GetPosts.liked_only
           type: boolean
-        auth:
-          title: GetPosts.auth
-          type: string
+        disliked_only:
+          title: GetPosts.disliked_only
+          type: boolean
+        page_cursor:
+          $ref: '#/components/schemas/PaginationCursor'
+          title: GetPosts.page_cursor
       additionalProperties: false
       title: GetPosts
       type: object
@@ -2419,6 +2237,9 @@ components:
             $ref: '#/components/schemas/PostView'
           title: GetPostsResponse.posts
           type: array
+        next_page:
+          $ref: '#/components/schemas/PaginationCursor'
+          title: GetPostsResponse.next_page
       required:
         - posts
       additionalProperties: false
@@ -2431,15 +2252,13 @@ components:
           type: boolean
         page:
           title: GetPrivateMessages.page
-          type: integer
+          type: number
         limit:
           title: GetPrivateMessages.limit
-          type: integer
-        auth:
-          title: GetPrivateMessages.auth
-          type: string
-      required:
-        - auth
+          type: number
+        creator_id:
+          $ref: '#/components/schemas/PersonId'
+          title: GetPrivateMessages.creator_id
       additionalProperties: false
       title: GetPrivateMessages
       type: object
@@ -2450,18 +2269,13 @@ components:
           title: GetReplies.sort
         page:
           title: GetReplies.page
-          type: integer
+          type: number
         limit:
           title: GetReplies.limit
-          type: integer
+          type: number
         unread_only:
           title: GetReplies.unread_only
           type: boolean
-        auth:
-          title: GetReplies.auth
-          type: string
-      required:
-        - auth
       additionalProperties: false
       title: GetReplies
       type: object
@@ -2482,11 +2296,6 @@ components:
         community_id:
           $ref: '#/components/schemas/CommunityId'
           title: GetReportCount.community_id
-        auth:
-          title: GetReportCount.auth
-          type: string
-      required:
-        - auth
       additionalProperties: false
       title: GetReportCount
       type: object
@@ -2497,26 +2306,18 @@ components:
           title: GetReportCountResponse.community_id
         comment_reports:
           title: GetReportCountResponse.comment_reports
-          type: integer
+          type: number
         post_reports:
           title: GetReportCountResponse.post_reports
-          type: integer
+          type: number
         private_message_reports:
           title: GetReportCountResponse.private_message_reports
-          type: integer
+          type: number
       required:
         - comment_reports
         - post_reports
       additionalProperties: false
       title: GetReportCountResponse
-      type: object
-    GetSite:
-      properties:
-        auth:
-          title: GetSite.auth
-          type: string
-      additionalProperties: false
-      title: GetSite
       type: object
     GetSiteMetadata:
       properties:
@@ -2585,27 +2386,17 @@ components:
       additionalProperties: false
       title: GetSiteResponse
       type: object
-    GetUnreadCount:
-      properties:
-        auth:
-          title: GetUnreadCount.auth
-          type: string
-      required:
-        - auth
-      additionalProperties: false
-      title: GetUnreadCount
-      type: object
     GetUnreadCountResponse:
       properties:
         replies:
           title: GetUnreadCountResponse.replies
-          type: integer
+          type: number
         mentions:
           title: GetUnreadCountResponse.mentions
-          type: integer
+          type: number
         private_messages:
           title: GetUnreadCountResponse.private_messages
-          type: integer
+          type: number
       required:
         - replies
         - mentions
@@ -2613,22 +2404,12 @@ components:
       additionalProperties: false
       title: GetUnreadCountResponse
       type: object
-    GetUnreadRegistrationApplicationCount:
-      properties:
-        auth:
-          title: GetUnreadRegistrationApplicationCount.auth
-          type: string
-      required:
-        - auth
-      additionalProperties: false
-      title: GetUnreadRegistrationApplicationCount
-      type: object
     GetUnreadRegistrationApplicationCountResponse:
       properties:
         registration_applications:
           title: >-
             GetUnreadRegistrationApplicationCountResponse.registration_applications
-          type: integer
+          type: number
       required:
         - registration_applications
       additionalProperties: false
@@ -2645,16 +2426,41 @@ components:
         reason:
           title: HideCommunity.reason
           type: string
-        auth:
-          title: HideCommunity.auth
-          type: string
       required:
         - community_id
         - hidden
-        - auth
       additionalProperties: false
       title: HideCommunity
       type: object
+    ImageUpload:
+      properties:
+        id:
+          $ref: '#/components/schemas/ImageUploadId'
+          title: ImageUpload.id
+        local_user_id:
+          $ref: '#/components/schemas/LocalUserId'
+          title: ImageUpload.local_user_id
+        pictrs_alias:
+          title: ImageUpload.pictrs_alias
+          type: string
+        pictrs_delete_token:
+          title: ImageUpload.pictrs_delete_token
+          type: string
+        published:
+          title: ImageUpload.published
+          type: string
+      required:
+        - id
+        - local_user_id
+        - pictrs_alias
+        - pictrs_delete_token
+        - published
+      additionalProperties: false
+      title: ImageUpload
+      type: object
+    ImageUploadId:
+      title: ImageUploadId
+      type: integer
     Instance:
       properties:
         id:
@@ -2682,6 +2488,23 @@ components:
       additionalProperties: false
       title: Instance
       type: object
+    InstanceBlockView:
+      properties:
+        person:
+          $ref: '#/components/schemas/Person'
+          title: InstanceBlockView.person
+        instance:
+          $ref: '#/components/schemas/Instance'
+          title: InstanceBlockView.instance
+        site:
+          $ref: '#/components/schemas/Site'
+          title: InstanceBlockView.site
+      required:
+        - person
+        - instance
+      additionalProperties: false
+      title: InstanceBlockView
+      type: object
     InstanceId:
       title: InstanceId
       type: integer
@@ -2706,16 +2529,6 @@ components:
     LanguageId:
       title: LanguageId
       type: integer
-    LeaveAdmin:
-      properties:
-        auth:
-          title: LeaveAdmin.auth
-          type: string
-      required:
-        - auth
-      additionalProperties: false
-      title: LeaveAdmin
-      type: object
     LemmyErrorType:
       anyOf:
         - properties:
@@ -4235,21 +4048,16 @@ components:
       properties:
         page:
           title: ListCommentReports.page
-          type: integer
+          type: number
         limit:
           title: ListCommentReports.limit
-          type: integer
+          type: number
         unresolved_only:
           title: ListCommentReports.unresolved_only
           type: boolean
         community_id:
           $ref: '#/components/schemas/CommunityId'
           title: ListCommentReports.community_id
-        auth:
-          title: ListCommentReports.auth
-          type: string
-      required:
-        - auth
       additionalProperties: false
       title: ListCommentReports
       type: object
@@ -4278,13 +4086,10 @@ components:
           type: boolean
         page:
           title: ListCommunities.page
-          type: integer
+          type: number
         limit:
           title: ListCommunities.limit
-          type: integer
-        auth:
-          title: ListCommunities.auth
-          type: string
+          type: number
       additionalProperties: false
       title: ListCommunities
       type: object
@@ -4301,39 +4106,27 @@ components:
       title: ListCommunitiesResponse
       type: object
     ListingType:
-      anyOf:
-        - title: ListingType
-          enum:
-            - All
-          type: string
-        - title: ListingType
-          enum:
-            - Local
-          type: string
-        - title: ListingType
-          enum:
-            - Subscribed
-          type: string
+      enum:
+        - All
+        - Local
+        - Subscribed
+        - ModeratorView
       title: ListingType
+      type: string
     ListPostReports:
       properties:
         page:
           title: ListPostReports.page
-          type: integer
+          type: number
         limit:
           title: ListPostReports.limit
-          type: integer
+          type: number
         unresolved_only:
           title: ListPostReports.unresolved_only
           type: boolean
         community_id:
           $ref: '#/components/schemas/CommunityId'
           title: ListPostReports.community_id
-        auth:
-          title: ListPostReports.auth
-          type: string
-      required:
-        - auth
       additionalProperties: false
       title: ListPostReports
       type: object
@@ -4353,18 +4146,13 @@ components:
       properties:
         page:
           title: ListPrivateMessageReports.page
-          type: integer
+          type: number
         limit:
           title: ListPrivateMessageReports.limit
-          type: integer
+          type: number
         unresolved_only:
           title: ListPrivateMessageReports.unresolved_only
           type: boolean
-        auth:
-          title: ListPrivateMessageReports.auth
-          type: string
-      required:
-        - auth
       additionalProperties: false
       title: ListPrivateMessageReports
       type: object
@@ -4387,15 +4175,10 @@ components:
           type: boolean
         page:
           title: ListRegistrationApplications.page
-          type: integer
+          type: number
         limit:
           title: ListRegistrationApplications.limit
-          type: integer
-        auth:
-          title: ListRegistrationApplications.auth
-          type: string
-      required:
-        - auth
+          type: number
       additionalProperties: false
       title: ListRegistrationApplications
       type: object
@@ -4591,12 +4374,6 @@ components:
         show_nsfw:
           title: LocalUser.show_nsfw
           type: boolean
-        blur_nsfw:
-          title: LocalUser.blur_nsfw
-          type: boolean
-        auto_expand:
-          title: LocalUser.auto_expand
-          type: boolean
         theme:
           title: LocalUser.theme
           type: string
@@ -4615,9 +4392,6 @@ components:
         send_notifications_to_email:
           title: LocalUser.send_notifications_to_email
           type: boolean
-        validator_time:
-          title: LocalUser.validator_time
-          type: string
         show_scores:
           title: LocalUser.show_scores
           type: boolean
@@ -4636,25 +4410,37 @@ components:
         accepted_application:
           title: LocalUser.accepted_application
           type: boolean
-        totp_2fa_url:
-          title: LocalUser.totp_2fa_url
-          type: string
         open_links_in_new_tab:
           title: LocalUser.open_links_in_new_tab
+          type: boolean
+        blur_nsfw:
+          title: LocalUser.blur_nsfw
+          type: boolean
+        auto_expand:
+          title: LocalUser.auto_expand
+          type: boolean
+        infinite_scroll_enabled:
+          title: LocalUser.infinite_scroll_enabled
+          type: boolean
+        admin:
+          title: LocalUser.admin
+          type: boolean
+        post_listing_mode:
+          $ref: '#/components/schemas/PostListingMode'
+          title: LocalUser.post_listing_mode
+        totp_2fa_enabled:
+          title: LocalUser.totp_2fa_enabled
           type: boolean
       required:
         - id
         - person_id
         - show_nsfw
-        - blur_nsfw
-        - auto_expand
         - theme
         - default_sort_type
         - default_listing_type
         - interface_language
         - show_avatars
         - send_notifications_to_email
-        - validator_time
         - show_scores
         - show_bot_accounts
         - show_read_posts
@@ -4662,6 +4448,12 @@ components:
         - email_verified
         - accepted_application
         - open_links_in_new_tab
+        - blur_nsfw
+        - auto_expand
+        - infinite_scroll_enabled
+        - admin
+        - post_listing_mode
+        - totp_2fa_enabled
       additionalProperties: false
       title: LocalUser
       type: object
@@ -4694,13 +4486,9 @@ components:
         locked:
           title: LockPost.locked
           type: boolean
-        auth:
-          title: LockPost.auth
-          type: string
       required:
         - post_id
         - locked
-        - auth
       additionalProperties: false
       title: LockPost
       type: object
@@ -4738,16 +4526,6 @@ components:
       additionalProperties: false
       title: LoginResponse
       type: object
-    MarkAllAsRead:
-      properties:
-        auth:
-          title: MarkAllAsRead.auth
-          type: string
-      required:
-        - auth
-      additionalProperties: false
-      title: MarkAllAsRead
-      type: object
     MarkCommentReplyAsRead:
       properties:
         comment_reply_id:
@@ -4756,13 +4534,9 @@ components:
         read:
           title: MarkCommentReplyAsRead.read
           type: boolean
-        auth:
-          title: MarkCommentReplyAsRead.auth
-          type: string
       required:
         - comment_reply_id
         - read
-        - auth
       additionalProperties: false
       title: MarkCommentReplyAsRead
       type: object
@@ -4774,13 +4548,9 @@ components:
         read:
           title: MarkPersonMentionAsRead.read
           type: boolean
-        auth:
-          title: MarkPersonMentionAsRead.auth
-          type: string
       required:
         - person_mention_id
         - read
-        - auth
       additionalProperties: false
       title: MarkPersonMentionAsRead
       type: object
@@ -4792,13 +4562,9 @@ components:
         read:
           title: MarkPostAsRead.read
           type: boolean
-        auth:
-          title: MarkPostAsRead.auth
-          type: string
       required:
         - post_id
         - read
-        - auth
       additionalProperties: false
       title: MarkPostAsRead
       type: object
@@ -4810,13 +4576,9 @@ components:
         read:
           title: MarkPrivateMessageAsRead.read
           type: boolean
-        auth:
-          title: MarkPrivateMessageAsRead.auth
-          type: string
       required:
         - private_message_id
         - read
-        - auth
       additionalProperties: false
       title: MarkPrivateMessageAsRead
       type: object
@@ -5117,26 +4879,6 @@ components:
       additionalProperties: false
       title: ModHideCommunityView
       type: object
-    ModJoin:
-      properties:
-        community_id:
-          $ref: '#/components/schemas/CommunityId'
-          title: ModJoin.community_id
-      required:
-        - community_id
-      additionalProperties: false
-      title: ModJoin
-      type: object
-    ModJoinResponse:
-      properties:
-        joined:
-          title: ModJoinResponse.joined
-          type: boolean
-      required:
-        - joined
-      additionalProperties: false
-      title: ModJoinResponse
-      type: object
     ModLockPost:
       properties:
         id:
@@ -5185,72 +4927,25 @@ components:
       title: ModLockPostView
       type: object
     ModlogActionType:
-      anyOf:
-        - title: ModlogActionType
-          enum:
-            - All
-          type: string
-        - title: ModlogActionType
-          enum:
-            - ModRemovePost
-          type: string
-        - title: ModlogActionType
-          enum:
-            - ModLockPost
-          type: string
-        - title: ModlogActionType
-          enum:
-            - ModFeaturePost
-          type: string
-        - title: ModlogActionType
-          enum:
-            - ModRemoveComment
-          type: string
-        - title: ModlogActionType
-          enum:
-            - ModRemoveCommunity
-          type: string
-        - title: ModlogActionType
-          enum:
-            - ModBanFromCommunity
-          type: string
-        - title: ModlogActionType
-          enum:
-            - ModAddCommunity
-          type: string
-        - title: ModlogActionType
-          enum:
-            - ModTransferCommunity
-          type: string
-        - title: ModlogActionType
-          enum:
-            - ModAdd
-          type: string
-        - title: ModlogActionType
-          enum:
-            - ModBan
-          type: string
-        - title: ModlogActionType
-          enum:
-            - ModHideCommunity
-          type: string
-        - title: ModlogActionType
-          enum:
-            - AdminPurgePerson
-          type: string
-        - title: ModlogActionType
-          enum:
-            - AdminPurgeCommunity
-          type: string
-        - title: ModlogActionType
-          enum:
-            - AdminPurgePost
-          type: string
-        - title: ModlogActionType
-          enum:
-            - AdminPurgeComment
-          type: string
+      enum:
+        - All
+        - ModRemovePost
+        - ModLockPost
+        - ModFeaturePost
+        - ModRemoveComment
+        - ModRemoveCommunity
+        - ModBanFromCommunity
+        - ModAddCommunity
+        - ModTransferCommunity
+        - ModAdd
+        - ModBan
+        - ModHideCommunity
+        - AdminPurgePerson
+        - AdminPurgeCommunity
+        - AdminPurgePost
+        - AdminPurgeComment
       title: ModlogActionType
+      type: string
     ModlogListParams:
       properties:
         community_id:
@@ -5264,10 +4959,10 @@ components:
           title: ModlogListParams.other_person_id
         page:
           title: ModlogListParams.page
-          type: integer
+          type: number
         limit:
           title: ModlogListParams.limit
-          type: integer
+          type: number
         hide_modlog_names:
           title: ModlogListParams.hide_modlog_names
           type: boolean
@@ -5500,6 +5195,11 @@ components:
             $ref: '#/components/schemas/CommunityBlockView'
           title: MyUserInfo.community_blocks
           type: array
+        instance_blocks:
+          items:
+            $ref: '#/components/schemas/InstanceBlockView'
+          title: MyUserInfo.instance_blocks
+          type: array
         person_blocks:
           items:
             $ref: '#/components/schemas/PersonBlockView'
@@ -5515,6 +5215,7 @@ components:
         - follows
         - moderates
         - community_blocks
+        - instance_blocks
         - person_blocks
         - discussion_languages
       additionalProperties: false
@@ -5573,6 +5274,29 @@ components:
       additionalProperties: false
       title: ImageFile
       type: object
+    DeleteImage:
+      properties:
+        token:
+          title: DeleteImage.token
+          type: string
+        filename:
+          title: DeleteImage.filename
+          type: string
+        auth:
+          title: DeleteImage.auth
+          description: >-
+            Optional if cookie with jwt set is already present. Otherwise, auth
+            is required.
+          type: string
+      required:
+        - token
+        - filename
+      additionalProperties: false
+      title: DeleteImage
+      type: object
+    PaginationCursor:
+      title: PaginationCursor
+      type: string
     PasswordChangeAfterReset:
       properties:
         token:
@@ -5642,15 +5366,9 @@ components:
         deleted:
           title: Person.deleted
           type: boolean
-        inbox_url:
-          title: Person.inbox_url
-          type: string
         matrix_user_id:
           title: Person.matrix_user_id
           type: string
-        admin:
-          title: Person.admin
-          type: boolean
         bot_account:
           title: Person.bot_account
           type: boolean
@@ -5668,8 +5386,6 @@ components:
         - actor_id
         - local
         - deleted
-        - inbox_url
-        - admin
         - bot_account
         - instance_id
       additionalProperties: false
@@ -5685,16 +5401,16 @@ components:
           title: PersonAggregates.person_id
         post_count:
           title: PersonAggregates.post_count
-          type: integer
+          type: number
         post_score:
           title: PersonAggregates.post_score
-          type: integer
+          type: number
         comment_count:
           title: PersonAggregates.comment_count
-          type: integer
+          type: number
         comment_score:
           title: PersonAggregates.comment_score
-          type: integer
+          type: number
       required:
         - id
         - person_id
@@ -5817,6 +5533,16 @@ components:
       additionalProperties: false
       title: PersonMentionView
       type: object
+    PersonSortType:
+      enum:
+        - New
+        - Old
+        - MostComments
+        - CommentScore
+        - PostScore
+        - PostCount
+      title: PersonSortType
+      type: string
     PersonView:
       properties:
         person:
@@ -5924,16 +5650,16 @@ components:
           title: PostAggregates.post_id
         comments:
           title: PostAggregates.comments
-          type: integer
+          type: number
         score:
           title: PostAggregates.score
-          type: integer
+          type: number
         upvotes:
           title: PostAggregates.upvotes
-          type: integer
+          type: number
         downvotes:
           title: PostAggregates.downvotes
-          type: integer
+          type: number
         published:
           title: PostAggregates.published
           type: string
@@ -5951,9 +5677,24 @@ components:
           type: boolean
         hot_rank:
           title: PostAggregates.hot_rank
-          type: integer
+          type: number
         hot_rank_active:
           title: PostAggregates.hot_rank_active
+          type: number
+        community_id:
+          $ref: '#/components/schemas/CommunityId'
+          title: PostAggregates.community_id
+        creator_id:
+          $ref: '#/components/schemas/PersonId'
+          title: PostAggregates.creator_id
+        controversy_rank:
+          title: PostAggregates.controversy_rank
+          type: integer
+        instance_id:
+          $ref: '#/components/schemas/InstanceId'
+          title: PostAggregates.instance_id
+        scaled_rank:
+          title: PostAggregates.scaled_rank
           type: integer
       required:
         - id
@@ -5969,64 +5710,30 @@ components:
         - featured_local
         - hot_rank
         - hot_rank_active
+        - community_id
+        - creator_id
+        - controversy_rank
+        - instance_id
+        - scaled_rank
       additionalProperties: false
       title: PostAggregates
       type: object
     PostFeatureType:
-      anyOf:
-        - title: PostFeatureType
-          enum:
-            - Local
-          type: string
-        - title: PostFeatureType
-          enum:
-            - Community
-          type: string
+      enum:
+        - Local
+        - Community
       title: PostFeatureType
+      type: string
     PostId:
       title: PostId
       type: integer
-    PostJoin:
-      properties:
-        post_id:
-          $ref: '#/components/schemas/PostId'
-          title: PostJoin.post_id
-      required:
-        - post_id
-      additionalProperties: false
-      title: PostJoin
-      type: object
-    PostJoinResponse:
-      properties:
-        joined:
-          title: PostJoinResponse.joined
-          type: boolean
-      required:
-        - joined
-      additionalProperties: false
-      title: PostJoinResponse
-      type: object
-    PostOrCommentId:
-      anyOf:
-        - properties:
-            Post:
-              $ref: '#/components/schemas/PostId'
-              title: PostOrCommentId.Post
-          required:
-            - Post
-          additionalProperties: false
-          title: PostOrCommentId
-          type: object
-        - properties:
-            Comment:
-              $ref: '#/components/schemas/CommentId'
-              title: PostOrCommentId.Comment
-          required:
-            - Comment
-          additionalProperties: false
-          title: PostOrCommentId
-          type: object
-      title: PostOrCommentId
+    PostListingMode:
+      enum:
+        - List
+        - Card
+        - SmallCard
+      title: PostListingMode
+      type: string
     PostReport:
       properties:
         id:
@@ -6170,7 +5877,7 @@ components:
           type: integer
         unread_comments:
           title: PostView.unread_comments
-          type: integer
+          type: number
       required:
         - post
         - creator
@@ -6359,12 +6066,8 @@ components:
         reason:
           title: PurgeComment.reason
           type: string
-        auth:
-          title: PurgeComment.auth
-          type: string
       required:
         - comment_id
-        - auth
       additionalProperties: false
       title: PurgeComment
       type: object
@@ -6376,12 +6079,8 @@ components:
         reason:
           title: PurgeCommunity.reason
           type: string
-        auth:
-          title: PurgeCommunity.auth
-          type: string
       required:
         - community_id
-        - auth
       additionalProperties: false
       title: PurgeCommunity
       type: object
@@ -6403,12 +6102,8 @@ components:
         reason:
           title: PurgePerson.reason
           type: string
-        auth:
-          title: PurgePerson.auth
-          type: string
       required:
         - person_id
-        - auth
       additionalProperties: false
       title: PurgePerson
       type: object
@@ -6420,12 +6115,8 @@ components:
         reason:
           title: PurgePost.reason
           type: string
-        auth:
-          title: PurgePost.auth
-          type: string
       required:
         - post_id
-        - auth
       additionalProperties: false
       title: PurgePost
       type: object
@@ -6526,20 +6217,12 @@ components:
       title: RegistrationApplicationView
       type: object
     RegistrationMode:
-      anyOf:
-        - title: RegistrationMode
-          enum:
-            - Closed
-          type: string
-        - title: RegistrationMode
-          enum:
-            - RequireApplication
-          type: string
-        - title: RegistrationMode
-          enum:
-            - Open
-          type: string
+      enum:
+        - Closed
+        - RequireApplication
+        - Open
       title: RegistrationMode
+      type: string
     RemoveComment:
       properties:
         comment_id:
@@ -6551,13 +6234,9 @@ components:
         reason:
           title: RemoveComment.reason
           type: string
-        auth:
-          title: RemoveComment.auth
-          type: string
       required:
         - comment_id
         - removed
-        - auth
       additionalProperties: false
       title: RemoveComment
       type: object
@@ -6574,14 +6253,10 @@ components:
           type: string
         expires:
           title: RemoveCommunity.expires
-          type: integer
-        auth:
-          title: RemoveCommunity.auth
-          type: string
+          type: number
       required:
         - community_id
         - removed
-        - auth
       additionalProperties: false
       title: RemoveCommunity
       type: object
@@ -6596,13 +6271,9 @@ components:
         reason:
           title: RemovePost.reason
           type: string
-        auth:
-          title: RemovePost.auth
-          type: string
       required:
         - post_id
         - removed
-        - auth
       additionalProperties: false
       title: RemovePost
       type: object
@@ -6614,13 +6285,9 @@ components:
         resolved:
           title: ResolveCommentReport.resolved
           type: boolean
-        auth:
-          title: ResolveCommentReport.auth
-          type: string
       required:
         - report_id
         - resolved
-        - auth
       additionalProperties: false
       title: ResolveCommentReport
       type: object
@@ -6629,12 +6296,8 @@ components:
         q:
           title: ResolveObject.q
           type: string
-        auth:
-          title: ResolveObject.auth
-          type: string
       required:
         - q
-        - auth
       additionalProperties: false
       title: ResolveObject
       type: object
@@ -6663,13 +6326,9 @@ components:
         resolved:
           title: ResolvePostReport.resolved
           type: boolean
-        auth:
-          title: ResolvePostReport.auth
-          type: string
       required:
         - report_id
         - resolved
-        - auth
       additionalProperties: false
       title: ResolvePostReport
       type: object
@@ -6681,13 +6340,9 @@ components:
         resolved:
           title: ResolvePrivateMessageReport.resolved
           type: boolean
-        auth:
-          title: ResolvePrivateMessageReport.auth
-          type: string
       required:
         - report_id
         - resolved
-        - auth
       additionalProperties: false
       title: ResolvePrivateMessageReport
       type: object
@@ -6699,13 +6354,9 @@ components:
         save:
           title: SaveComment.save
           type: boolean
-        auth:
-          title: SaveComment.auth
-          type: string
       required:
         - comment_id
         - save
-        - auth
       additionalProperties: false
       title: SaveComment
       type: object
@@ -6717,13 +6368,9 @@ components:
         save:
           title: SavePost.save
           type: boolean
-        auth:
-          title: SavePost.auth
-          type: string
       required:
         - post_id
         - save
-        - auth
       additionalProperties: false
       title: SavePost
       type: object
@@ -6794,17 +6441,12 @@ components:
             $ref: '#/components/schemas/LanguageId'
           title: SaveUserSettings.discussion_languages
           type: array
-        generate_totp_2fa:
-          title: SaveUserSettings.generate_totp_2fa
-          type: boolean
-        auth:
-          title: SaveUserSettings.auth
-          type: string
         open_links_in_new_tab:
           title: SaveUserSettings.open_links_in_new_tab
           type: boolean
-      required:
-        - auth
+        infinite_scroll_enabled:
+          title: SaveUserSettings.infinite_scroll_enabled
+          type: boolean
       additionalProperties: false
       title: SaveUserSettings
       type: object
@@ -6833,13 +6475,10 @@ components:
           title: Search.listing_type
         page:
           title: Search.page
-          type: integer
+          type: number
         limit:
           title: Search.limit
-          type: integer
-        auth:
-          title: Search.auth
-          type: string
+          type: number
       required:
         - q
       additionalProperties: false
@@ -6880,32 +6519,15 @@ components:
       title: SearchResponse
       type: object
     SearchType:
-      anyOf:
-        - title: SearchType
-          enum:
-            - All
-          type: string
-        - title: SearchType
-          enum:
-            - Comments
-          type: string
-        - title: SearchType
-          enum:
-            - Posts
-          type: string
-        - title: SearchType
-          enum:
-            - Communities
-          type: string
-        - title: SearchType
-          enum:
-            - Users
-          type: string
-        - title: SearchType
-          enum:
-            - Url
-          type: string
+      enum:
+        - All
+        - Comments
+        - Posts
+        - Communities
+        - Users
+        - Url
       title: SearchType
+      type: string
     Site:
       properties:
         id:
@@ -6972,28 +6594,28 @@ components:
           title: SiteAggregates.site_id
         users:
           title: SiteAggregates.users
-          type: integer
+          type: number
         posts:
           title: SiteAggregates.posts
-          type: integer
+          type: number
         comments:
           title: SiteAggregates.comments
-          type: integer
+          type: number
         communities:
           title: SiteAggregates.communities
-          type: integer
+          type: number
         users_active_day:
           title: SiteAggregates.users_active_day
-          type: integer
+          type: number
         users_active_week:
           title: SiteAggregates.users_active_week
-          type: integer
+          type: number
         users_active_month:
           title: SiteAggregates.users_active_month
-          type: integer
+          type: number
         users_active_half_year:
           title: SiteAggregates.users_active_half_year
-          type: integer
+          type: number
       required:
         - id
         - site_id
@@ -7067,91 +6689,45 @@ components:
       title: SiteView
       type: object
     SortType:
-      anyOf:
-        - title: SortType
-          enum:
-            - Active
-          type: string
-        - title: SortType
-          enum:
-            - Hot
-          type: string
-        - title: SortType
-          enum:
-            - New
-          type: string
-        - title: SortType
-          enum:
-            - Old
-          type: string
-        - title: SortType
-          enum:
-            - TopDay
-          type: string
-        - title: SortType
-          enum:
-            - TopWeek
-          type: string
-        - title: SortType
-          enum:
-            - TopMonth
-          type: string
-        - title: SortType
-          enum:
-            - TopYear
-          type: string
-        - title: SortType
-          enum:
-            - TopAll
-          type: string
-        - title: SortType
-          enum:
-            - MostComments
-          type: string
-        - title: SortType
-          enum:
-            - NewComments
-          type: string
-        - title: SortType
-          enum:
-            - TopHour
-          type: string
-        - title: SortType
-          enum:
-            - TopSixHour
-          type: string
-        - title: SortType
-          enum:
-            - TopTwelveHour
-          type: string
-        - title: SortType
-          enum:
-            - TopThreeMonths
-          type: string
-        - title: SortType
-          enum:
-            - TopSixMonths
-          type: string
-        - title: SortType
-          enum:
-            - TopNineMonths
-          type: string
+      enum:
+        - Active
+        - Hot
+        - New
+        - Old
+        - TopDay
+        - TopWeek
+        - TopMonth
+        - TopYear
+        - TopAll
+        - MostComments
+        - NewComments
+        - TopHour
+        - TopSixHour
+        - TopTwelveHour
+        - TopThreeMonths
+        - TopSixMonths
+        - TopNineMonths
+        - Controversial
+        - Scaled
       title: SortType
+      type: string
     SubscribedType:
-      anyOf:
-        - title: SubscribedType
-          enum:
-            - Subscribed
-          type: string
-        - title: SubscribedType
-          enum:
-            - NotSubscribed
-          type: string
-        - title: SubscribedType
-          enum:
-            - Pending
-          type: string
+      enum:
+        - Subscribed
+        - NotSubscribed
+        - Pending
       title: SubscribedType
+      type: string
+    SuccessResponse:
+      properties:
+        success:
+          title: SuccessResponse.success
+          type: boolean
+      required:
+        - success
+      additionalProperties: false
+      title: SuccessResponse
+      type: object
     Tagline:
       properties:
         id:
@@ -7185,35 +6761,35 @@ components:
         person_id:
           $ref: '#/components/schemas/PersonId'
           title: TransferCommunity.person_id
-        auth:
-          title: TransferCommunity.auth
-          type: string
       required:
         - community_id
         - person_id
-        - auth
       additionalProperties: false
       title: TransferCommunity
       type: object
-    UserJoin:
+    UpdateTotp:
       properties:
-        auth:
-          title: UserJoin.auth
+        totp_token:
+          title: UpdateTotp.totp_token
           type: string
-      required:
-        - auth
-      additionalProperties: false
-      title: UserJoin
-      type: object
-    UserJoinResponse:
-      properties:
-        joined:
-          title: UserJoinResponse.joined
+        enabled:
+          title: UpdateTotp.enabled
           type: boolean
       required:
-        - joined
+        - totp_token
+        - enabled
       additionalProperties: false
-      title: UserJoinResponse
+      title: UpdateTotp
+      type: object
+    UpdateTotpResponse:
+      properties:
+        enabled:
+          title: UpdateTotpResponse.enabled
+          type: boolean
+      required:
+        - enabled
+      additionalProperties: false
+      title: UpdateTotpResponse
       type: object
     VerifyEmail:
       properties:

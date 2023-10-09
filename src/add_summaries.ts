@@ -36,7 +36,7 @@ function getComments(): string[] {
 }
 
 // This regex matches the summary and route from a comment.
-const rgxSummaryRoute = /\/\*\*\s*\*(.*)[\s*]*`(\S*)\s*(.*)`.*\s*\*\//
+const rgxSummaryRoute = /\/\*\*\s*\*(.*)[\s*]*`(\S*)\s*(.*)`.*\s*\*\// // TODO fix up work with multline comments
 
 
 function getSummaries(comments: string[]): Summary[] {
