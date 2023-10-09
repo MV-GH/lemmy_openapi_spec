@@ -52,13 +52,6 @@ paths:
       summary: Gets the site, and your user data.
       tags:
         - Site
-      parameters:
-        - name: GetSite
-          explode: true
-          in: query
-          schema:
-            $ref: 'components.yaml#/components/schemas/GetSite'
-
       responses:
         '200':
           description: OK
@@ -185,7 +178,7 @@ paths:
           content:
             application/json:
               schema:
-                  $ref: 'components.yaml#/components/schemas/CommunityResponse'
+                $ref: 'components.yaml#/components/schemas/CommunityResponse'
       summary: Create a new community.
     put:
       tags:
@@ -207,7 +200,7 @@ paths:
     put:
       tags:
         - Community
-      summary: "[MANUAL] Hide a community from the feed"
+      summary: "Hide a community from public view."
       requestBody:
         content:
           application/json:
@@ -366,12 +359,6 @@ paths:
     get:
       tags:
         - Miscellaneous
-      parameters:
-        - name: GetFederatedInstances
-          explode: true
-          in: query
-          schema:
-            $ref: 'components.yaml#/components/schemas/GetFederatedInstances'
       responses:
         200:
           description: OK
@@ -1047,12 +1034,6 @@ paths:
     get:
       tags:
         - User
-      parameters:
-        - name: GetCaptcha
-          in: query
-          explode: true
-          schema:
-            $ref: 'components.yaml#/components/schemas/GetCaptcha'
       responses:
         200:
           description: OK
@@ -1137,11 +1118,6 @@ paths:
       tags:
         - User
         - Admin
-      parameters:
-        - name: GetBannedPersons
-          in: query
-          schema:
-            $ref: 'components.yaml#/components/schemas/GetBannedPersons'
       responses:
         200:
           description: OK
@@ -1234,11 +1210,6 @@ paths:
     post:
       tags:
         - User
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: 'components.yaml#/components/schemas/MarkAllAsRead'
       responses:
         201:
           description: CREATED
@@ -1303,12 +1274,6 @@ paths:
     get:
       tags:
         - User
-      parameters:
-        - in: query
-          name: GetUnreadCount
-          explode: true
-          schema:
-            $ref: "components.yaml#/components/schemas/GetUnreadCount"
       responses:
         200:
           description: OK
@@ -1336,11 +1301,6 @@ paths:
       tags:
         - User
         - Admin
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: 'components.yaml#/components/schemas/LeaveAdmin'
       responses:
         200:
           description: Ok
@@ -1370,12 +1330,6 @@ paths:
     get:
       tags:
         - Admin
-      parameters:
-        - in: query
-          explode: true
-          name: GetUnreadRegistrationApplicationCount
-          schema:
-            $ref: 'components.yaml#/components/schemas/GetUnreadRegistrationApplicationCount'
       responses:
         201:
           description: CREATED
@@ -1538,3 +1492,75 @@ paths:
               schema:
                 $ref: 'components.yaml#/components/schemas/DeleteCustomEmojiResponse'
       summary: Delete a custom emoji
+  /site/block:
+    post:
+      tags:
+        - Site
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/BlockInstance'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/BlockInstanceResponse'
+      summary: Block an instance.
+  /user/totp/generate:
+    post:
+      tags: [ User ]
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/GenerateTotpSecretResponse'
+      summary: '[MANUAL] Generate a TOTP secret for your user.'
+  /user/totp/update:
+    post:
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/UpdateTotp'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/UpdateTotpResponse'
+      summary: '[MANUAl] Update the TOTP secret for your user.'
+  /user/export:
+    get:
+      tags:
+        - User
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              # TODO: add the schema, is not exported currently
+              schema:
+                type: string
+      summary: '[MANUAL] Export your user data.'
+  /user/import:
+    post:
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        200:
+          description: OK
+      summary: '[MANUAL] Import your user data.'
