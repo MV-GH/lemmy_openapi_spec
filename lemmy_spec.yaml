@@ -1501,6 +1501,7 @@ paths:
     get:
       tags:
         - User
+      operationId: getUserExport
       responses:
         '200':
           description: OK
@@ -1518,6 +1519,7 @@ paths:
           application/json:
             schema:
               type: string
+      operationId: getUserImport
       responses:
         '200':
           description: OK
