@@ -1520,7 +1520,8 @@ paths:
             application/json:
               schema:
                 $ref: 'components.yaml#/components/schemas/GenerateTotpSecretResponse'
-      summary: '[MANUAL] Generate a TOTP secret for your user.'
+      summary: "Generate a TOTP / two-factor secret.\r\r Afterwards you need to call
+        `/user/totp/update` with a valid token to enable it."
   /user/totp/update:
     post:
       tags:
@@ -1537,7 +1538,10 @@ paths:
             application/json:
               schema:
                 $ref: 'components.yaml#/components/schemas/UpdateTotpResponse'
-      summary: '[MANUAl] Update the TOTP secret for your user.'
+      summary: "Enable / Disable TOTP / two-factor authentication.\r\r To enable, you
+        need to first call `/user/totp/generate` and then pass a valid token to
+        this.\r\r Disabling is only possible if 2FA was previously enabled.
+        Again it is necessary to pass a valid token."
   /user/export:
     get:
       tags:
