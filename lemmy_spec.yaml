@@ -16,7 +16,9 @@ servers:
   - url: https://enterprise.lemmy.ml/api/v3
   - url: https://ds9.lemmy.ml/api/v3
   - url: https://voyager.lemmy.ml/api/v3
-security: []
+security:
+  - bearerAuth: []
+  - cookieAuth: []
 paths:
   /site:
     get:
@@ -1501,14 +1503,13 @@ paths:
     get:
       tags:
         - User
-      operationId: getUserExport
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                type: string
+                $ref: '#/components/schemas/GetUserExportResponse'
       summary: '[MANUAL] Export your user data.'
   /user/import:
     post:
@@ -1518,13 +1519,21 @@ paths:
         content:
           application/json:
             schema:
-              type: string
-      operationId: getUserImport
+              $ref: '#/components/schemas/GetUserImportResponse'
       responses:
         '200':
           description: OK
       summary: '[MANUAL] Import your user data.'
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: auth
   schemas:
     errorResponseRegistration:
       properties:
@@ -1550,6 +1559,10 @@ components:
             - registration_application_is_pending
             - missing_totp_token
             - incorrect_totp_token
+    GetUserExportResponse:
+      type: string
+    GetUserImportResponse:
+      type: string
     SiteId:
       title: SiteId
       type: integer
