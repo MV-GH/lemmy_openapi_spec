@@ -18,6 +18,15 @@ servers:
   - url: https://voyager.lemmy.ml/api/v3
 
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: auth
   schemas:
     errorResponseRegistration:
       properties:
@@ -43,8 +52,15 @@ components:
             - registration_application_is_pending
             - missing_totp_token
             - incorrect_totp_token
+      # TODO: add the schema, is not exported currently
+    GetUserExportResponse:
+      type: string
+    GetUserImportResponse:
+      type: string
 
-security: []
+security:
+  - bearerAuth: [ ]
+  - cookieAuth: [ ]
 
 paths:
   /site:
@@ -1546,15 +1562,13 @@ paths:
     get:
       tags:
         - User
-      operationId: getUserExport
       responses:
         200:
           description: OK
           content:
             application/json:
-              # TODO: add the schema, is not exported currently
               schema:
-                type: string
+                $ref: '#/components/schemas/GetUserExportResponse'
       summary: '[MANUAL] Export your user data.'
   /user/import:
     post:
@@ -1564,8 +1578,7 @@ paths:
         content:
           application/json:
             schema:
-              type: string
-      operationId: getUserImport
+              $ref: '#/components/schemas/GetUserImportResponse'
       responses:
         200:
           description: OK
