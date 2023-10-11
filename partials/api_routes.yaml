@@ -55,7 +55,7 @@ components:
       # TODO: add the schema, is not exported currently
     GetUserExportResponse:
       type: string
-    GetUserImportResponse:
+    GetUserImport:
       type: string
 
 security:
@@ -1134,6 +1134,7 @@ paths:
       tags:
         - User
         - Admin
+      operationId: getBannedPersons
       responses:
         200:
           description: OK
@@ -1226,6 +1227,7 @@ paths:
     post:
       tags:
         - User
+      operationId: markAllAsRead
       responses:
         201:
           description: CREATED
@@ -1317,6 +1319,7 @@ paths:
       tags:
         - User
         - Admin
+      operationId: leaveAdmin
       responses:
         200:
           description: Ok
@@ -1578,7 +1581,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GetUserImportResponse'
+              $ref: '#/components/schemas/GetUserImport'
       responses:
         200:
           description: OK
