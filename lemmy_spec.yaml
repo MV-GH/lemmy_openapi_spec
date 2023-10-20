@@ -180,10 +180,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommunityResponse'
   /community/list:
     get:
       tags:
@@ -1194,10 +1190,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LoginResponse'
       summary: Save your user settings.
   /user/change_password:
     put:
@@ -1349,10 +1341,6 @@ paths:
       responses:
         '200':
           description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PurgeItemResponse'
       summary: Purge / Delete a person from the database.
   /admin/purge/community:
     post:
@@ -1366,10 +1354,6 @@ paths:
       responses:
         '200':
           description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PurgeItemResponse'
       summary: Purge / Delete a community from the database.
   /admin/purge/post:
     post:
@@ -1383,10 +1367,6 @@ paths:
       responses:
         '200':
           description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PurgeItemResponse'
       summary: Purge / Delete a post from the database.
   /admin/purge/comment:
     post:
@@ -1400,10 +1380,6 @@ paths:
       responses:
         '200':
           description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PurgeItemResponse'
       summary: Purge / Delete a comment from the database.
   /custom_emoji:
     put:
@@ -1450,10 +1426,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteCustomEmojiResponse'
       summary: Delete a custom emoji
   /site/block:
     post:
@@ -6462,16 +6434,6 @@ components:
       additionalProperties: false
       title: PurgePerson
       type: object
-    PurgeItemResponse:
-      properties:
-        success:
-          title: PurgeItemResponse.success
-          type: boolean
-      required:
-        - success
-      additionalProperties: false
-      title: PurgeItemResponse
-      type: object
     PurgeCommunity:
       properties:
         community_id:
@@ -6586,20 +6548,6 @@ components:
         - id
       additionalProperties: false
       title: DeleteCustomEmoji
-      type: object
-    DeleteCustomEmojiResponse:
-      properties:
-        id:
-          $ref: '#/components/schemas/CustomEmojiId'
-          title: DeleteCustomEmojiResponse.id
-        success:
-          title: DeleteCustomEmojiResponse.success
-          type: boolean
-      required:
-        - id
-        - success
-      additionalProperties: false
-      title: DeleteCustomEmojiResponse
       type: object
     BlockInstance:
       properties:
