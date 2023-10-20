@@ -171,7 +171,7 @@ paths:
     put:
       tags:
         - Community
-      summary: Hide a community from public view.
+      summary: Hide a community from public / "All" view. Admins only.
       requestBody:
         content:
           application/json:
@@ -1502,7 +1502,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/UpdateTotpResponse'
       summary: "Enable / Disable TOTP / two-factor authentication.\r\r To enable, you need to first call `/user/totp/generate` and then pass a valid token to this.\r\r Disabling is only possible if 2FA was previously enabled. Again it is necessary to pass a valid token."
-  /user/export:
+  /user/export_settings:
     get:
       tags:
         - User
@@ -1512,9 +1512,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetUserExportResponse'
-      summary: '[MANUAL] Export your user data.'
-  /user/import:
+                $ref: '#/components/schemas/GetUserExportSettingsResponse'
+      summary: "Export a backup of your user settings, including your saved content,\r followed communities, and blocks."
+  /user/import_settings:
     post:
       tags:
         - User
@@ -1522,11 +1522,35 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GetUserImport'
+              $ref: '#/components/schemas/GetUserImportSettings'
       responses:
         '200':
           description: OK
-      summary: '[MANUAL] Import your user data.'
+      summary: Import a backup of your user settings.
+  /user/list_logins:
+    get:
+      tags:
+        - User
+      operationId: listLogins
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginToken'
+      summary: List login tokens for your user
+  /user/validate_auth:
+    get:
+      tags:
+        - User
+      operationId: validateAuth
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+      summary: Returns an error message if your auth token is invalid
 components:
   securitySchemes:
     bearerAuth:
@@ -1562,9 +1586,9 @@ components:
             - registration_application_is_pending
             - missing_totp_token
             - incorrect_totp_token
-    GetUserExportResponse:
+    GetUserExportSettingsResponse:
       type: string
-    GetUserImport:
+    GetUserImportSettings:
       type: string
     SiteId:
       title: SiteId
@@ -1790,6 +1814,12 @@ components:
         updated:
           title: LocalSiteRateLimit.updated
           type: string
+        import_user_settings:
+          title: LocalSiteRateLimit.import_user_settings
+          type: integer
+        import_user_settings_per_second:
+          title: LocalSiteRateLimit.import_user_settings_per_second
+          type: integer
       required:
         - id
         - local_site_id
@@ -1806,6 +1836,8 @@ components:
         - search
         - search_per_second
         - published
+        - import_user_settings
+        - import_user_settings_per_second
       additionalProperties: false
       title: LocalSiteRateLimit
       type: object
@@ -2061,9 +2093,6 @@ components:
         show_read_posts:
           title: LocalUser.show_read_posts
           type: boolean
-        show_new_post_notifs:
-          title: LocalUser.show_new_post_notifs
-          type: boolean
         email_verified:
           title: LocalUser.email_verified
           type: boolean
@@ -2091,6 +2120,12 @@ components:
         totp_2fa_enabled:
           title: LocalUser.totp_2fa_enabled
           type: boolean
+        enable_keyboard_navigation:
+          title: LocalUser.enable_keyboard_navigation
+          type: boolean
+        enable_animated_images:
+          title: LocalUser.enable_animated_images
+          type: boolean
       required:
         - id
         - person_id
@@ -2104,7 +2139,6 @@ components:
         - show_scores
         - show_bot_accounts
         - show_read_posts
-        - show_new_post_notifs
         - email_verified
         - accepted_application
         - open_links_in_new_tab
@@ -2114,6 +2148,8 @@ components:
         - admin
         - post_listing_mode
         - totp_2fa_enabled
+        - enable_keyboard_navigation
+        - enable_animated_images
       additionalProperties: false
       title: LocalUser
       type: object
@@ -3210,9 +3246,6 @@ components:
         removed:
           title: ModRemoveCommunity.removed
           type: boolean
-        expires:
-          title: ModRemoveCommunity.expires
-          type: string
         when_:
           title: ModRemoveCommunity.when_
           type: string
@@ -3850,12 +3883,6 @@ components:
         child_count:
           title: CommentAggregates.child_count
           type: integer
-        hot_rank:
-          title: CommentAggregates.hot_rank
-          type: number
-        controversy_rank:
-          title: CommentAggregates.controversy_rank
-          type: integer
       required:
         - id
         - comment_id
@@ -3864,8 +3891,6 @@ components:
         - downvotes
         - published
         - child_count
-        - hot_rank
-        - controversy_rank
       additionalProperties: false
       title: CommentAggregates
       type: object
@@ -3944,39 +3969,6 @@ components:
         published:
           title: PostAggregates.published
           type: string
-        newest_comment_time_necro:
-          title: PostAggregates.newest_comment_time_necro
-          type: string
-        newest_comment_time:
-          title: PostAggregates.newest_comment_time
-          type: string
-        featured_community:
-          title: PostAggregates.featured_community
-          type: boolean
-        featured_local:
-          title: PostAggregates.featured_local
-          type: boolean
-        hot_rank:
-          title: PostAggregates.hot_rank
-          type: number
-        hot_rank_active:
-          title: PostAggregates.hot_rank_active
-          type: number
-        community_id:
-          $ref: '#/components/schemas/CommunityId'
-          title: PostAggregates.community_id
-        creator_id:
-          $ref: '#/components/schemas/PersonId'
-          title: PostAggregates.creator_id
-        controversy_rank:
-          title: PostAggregates.controversy_rank
-          type: integer
-        instance_id:
-          $ref: '#/components/schemas/InstanceId'
-          title: PostAggregates.instance_id
-        scaled_rank:
-          title: PostAggregates.scaled_rank
-          type: integer
       required:
         - id
         - post_id
@@ -3985,17 +3977,6 @@ components:
         - upvotes
         - downvotes
         - published
-        - newest_comment_time_necro
-        - newest_comment_time
-        - featured_community
-        - featured_local
-        - hot_rank
-        - hot_rank_active
-        - community_id
-        - creator_id
-        - controversy_rank
-        - instance_id
-        - scaled_rank
       additionalProperties: false
       title: PostAggregates
       type: object
@@ -4080,9 +4061,6 @@ components:
         users_active_half_year:
           title: CommunityAggregates.users_active_half_year
           type: number
-        hot_rank:
-          title: CommunityAggregates.hot_rank
-          type: number
       required:
         - id
         - community_id
@@ -4094,7 +4072,6 @@ components:
         - users_active_week
         - users_active_month
         - users_active_half_year
-        - hot_rank
       additionalProperties: false
       title: CommunityAggregates
       type: object
@@ -4416,9 +4393,6 @@ components:
         reason:
           title: RemoveCommunity.reason
           type: string
-        expires:
-          title: RemoveCommunity.expires
-          type: number
       required:
         - community_id
         - removed
@@ -4732,11 +4706,15 @@ components:
         post_id:
           $ref: '#/components/schemas/PostId'
           title: MarkPostAsRead.post_id
+        post_ids:
+          items:
+            $ref: '#/components/schemas/PostId'
+          title: MarkPostAsRead.post_ids
+          type: array
         read:
           title: MarkPostAsRead.read
           type: boolean
       required:
-        - post_id
         - read
       additionalProperties: false
       title: MarkPostAsRead
@@ -6257,6 +6235,15 @@ components:
         infinite_scroll_enabled:
           title: SaveUserSettings.infinite_scroll_enabled
           type: boolean
+        post_listing_mode:
+          $ref: '#/components/schemas/PostListingMode'
+          title: SaveUserSettings.post_listing_mode
+        enable_keyboard_navigation:
+          title: SaveUserSettings.enable_keyboard_navigation
+          type: boolean
+        enable_animated_images:
+          title: SaveUserSettings.enable_animated_images
+          type: boolean
       additionalProperties: false
       title: SaveUserSettings
       type: object
@@ -6671,4 +6658,28 @@ components:
         - enabled
       additionalProperties: false
       title: UpdateTotpResponse
+      type: object
+    LoginToken:
+      properties:
+        id:
+          title: LoginToken.id
+          type: integer
+        user_id:
+          $ref: '#/components/schemas/LocalUserId'
+          title: LoginToken.user_id
+        published:
+          title: LoginToken.published
+          type: string
+        ip:
+          title: LoginToken.ip
+          type: string
+        user_agent:
+          title: LoginToken.user_agent
+          type: string
+      required:
+        - id
+        - user_id
+        - published
+      additionalProperties: false
+      title: LoginToken
       type: object
