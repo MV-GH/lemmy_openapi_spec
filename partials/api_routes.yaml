@@ -225,10 +225,6 @@ paths:
       responses:
         "200":
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: 'components.yaml#/components/schemas/CommunityResponse'
   /community/list:
     get:
       tags:
@@ -1195,7 +1191,7 @@ paths:
               $ref: 'components.yaml#/components/schemas/DeleteAccount'
       responses:
         200:
-          description: OK # Actually respond with a empty response: DeleteAccountResponse
+          description: OK
       summary: Delete your account.
   /user/password_reset:
     post:
@@ -1208,7 +1204,7 @@ paths:
               $ref: 'components.yaml#/components/schemas/PasswordReset'
       responses:
         200:
-          description: OK # Actually responds with empty response: PasswordResetResponse
+          description: OK
       summary: Reset your password.
   /user/password_change:
     post:
@@ -1248,10 +1244,6 @@ paths:
       responses:
         200:
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: 'components.yaml#/components/schemas/LoginResponse'
       summary: Save your user settings.
   /user/change_password:
     put:
@@ -1311,7 +1303,7 @@ paths:
               $ref: 'components.yaml#/components/schemas/VerifyEmail'
       responses:
         200:
-          description: Ok # Actually responds with a empty response VerifyEmailResponse
+          description: Ok
       summary: Verify your email
 
   /user/leave_admin:
@@ -1404,10 +1396,6 @@ paths:
       responses:
         200:
           description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: 'components.yaml#/components/schemas/PurgeItemResponse'
       summary: Purge / Delete a person from the database.
   /admin/purge/community:
     post:
@@ -1421,10 +1409,6 @@ paths:
       responses:
         200:
           description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: 'components.yaml#/components/schemas/PurgeItemResponse'
       summary: Purge / Delete a community from the database.
   /admin/purge/post:
     post:
@@ -1438,10 +1422,6 @@ paths:
       responses:
         200:
           description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: 'components.yaml#/components/schemas/PurgeItemResponse'
       summary: Purge / Delete a post from the database.
   /admin/purge/comment:
     post:
@@ -1455,10 +1435,6 @@ paths:
       responses:
         200:
           description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: 'components.yaml#/components/schemas/PurgeItemResponse'
       summary: Purge / Delete a comment from the database.
   /custom_emoji:
     put:
@@ -1506,10 +1482,6 @@ paths:
       responses:
         200:
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: 'components.yaml#/components/schemas/DeleteCustomEmojiResponse'
       summary: Delete a custom emoji
   /site/block:
     post:
