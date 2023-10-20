@@ -521,12 +521,6 @@ components:
         child_count:
           title: CommentAggregates.child_count
           type: integer
-        hot_rank:
-          title: CommentAggregates.hot_rank
-          type: number
-        controversy_rank:
-          title: CommentAggregates.controversy_rank
-          type: integer
       required:
         - id
         - comment_id
@@ -535,8 +529,6 @@ components:
         - downvotes
         - published
         - child_count
-        - hot_rank
-        - controversy_rank
       additionalProperties: false
       title: CommentAggregates
       type: object
@@ -900,9 +892,6 @@ components:
         users_active_half_year:
           title: CommunityAggregates.users_active_half_year
           type: number
-        hot_rank:
-          title: CommunityAggregates.hot_rank
-          type: number
       required:
         - id
         - community_id
@@ -914,7 +903,6 @@ components:
         - users_active_week
         - users_active_month
         - users_active_half_year
-        - hot_rank
       additionalProperties: false
       title: CommunityAggregates
       type: object
@@ -2532,1514 +2520,1659 @@ components:
     LemmyErrorType:
       anyOf:
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - ReportReasonRequired
+                - report_reason_required
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - ReportTooLong
+                - report_too_long
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - NotAModerator
+                - not_a_moderator
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - NotAnAdmin
+                - not_an_admin
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CannotBlockYourself
+                - cant_block_yourself
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CannotBlockAdmin
+                - cant_block_admin
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotUpdateUser
+                - couldnt_update_user
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - PasswordsDoNotMatch
+                - passwords_do_not_match
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - PasswordIncorrect
+                - email_not_verified
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - EmailNotVerified
+                - email_required
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - EmailRequired
+                - couldnt_update_comment
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotUpdateComment
+                - couldnt_update_private_message
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotUpdatePrivateMessage
+                - cannot_leave_admin
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CannotLeaveAdmin
+                - no_lines_in_html
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - NoLinesInHtml
+                - site_metadata_page_is_not_doctype_html
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - SiteMetadataPageIsNotDoctypeHtml
-              type: string
-          required:
-            - error_type
-          additionalProperties: false
-          title: LemmyErrorType
-          type: object
-        - properties:
-            error_type:
-              title: LemmyErrorType.error_type
-              enum:
-                - PictrsResponseError
+                - pictrs_response_error
               type: string
             message:
               title: LemmyErrorType.message
               type: string
           required:
-            - error_type
+            - error
             - message
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - PictrsPurgeResponseError
+                - pictrs_purge_response_error
               type: string
             message:
               title: LemmyErrorType.message
               type: string
           required:
-            - error_type
+            - error
             - message
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - ImageUrlMissingPathSegments
+                - pictrs_caching_disabled
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - ImageUrlMissingLastPathSegment
+                - image_url_missing_path_segments
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - PictrsApiKeyNotProvided
+                - image_url_missing_last_path_segment
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - NoContentTypeHeader
+                - pictrs_api_key_not_provided
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - NotAnImageType
+                - no_content_type_header
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - NotAModOrAdmin
+                - not_an_image_type
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - NoAdmins
+                - not_a_mod_or_admin
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - NotTopAdmin
+                - no_admins
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - NotTopMod
+                - not_top_admin
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - NotLoggedIn
+                - not_top_mod
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - SiteBan
+                - not_logged_in
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - Deleted
+                - site_ban
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - BannedFromCommunity
+                - deleted
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotFindCommunity
+                - banned_from_community
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - PersonIsBlocked
+                - couldnt_find_community
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - DownvotesAreDisabled
+                - couldnt_find_person
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - InstanceIsPrivate
+                - person_is_blocked
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - InvalidPassword
+                - downvotes_are_disabled
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - SiteDescriptionLengthOverflow
+                - instance_is_private
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - HoneypotFailed
+                - invalid_password
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - RegistrationApplicationIsPending
+                - site_description_length_overflow
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - PrivateInstanceCannotHaveFederationEnabled
+                - honeypot_failed
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - Locked
+                - registration_application_is_pending
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotCreateComment
+                - cant_enable_private_instance_and_federation_together
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - MaxCommentDepthReached
+                - locked
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - EditCommentNotAllowed
+                - couldnt_create_comment
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - OnlyAdminsCanCreateCommunities
+                - max_comment_depth_reached
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CommunityAlreadyExists
+                - no_comment_edit_allowed
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - LanguageNotAllowed
+                - only_admins_can_create_communities
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - OnlyModsCanPostInCommunity
+                - community_already_exists
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotUpdatePost
+                - language_not_allowed
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - EditPostNotAllowed
+                - only_mods_can_post_in_community
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotFindPost
+                - couldnt_update_post
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - EditPrivateMessageNotAllowed
+                - no_post_edit_allowed
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - SiteAlreadyExists
+                - couldnt_find_post
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - ApplicationQuestionRequired
+                - edit_private_message_not_allowed
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - InvalidDefaultPostListingType
+                - site_already_exists
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - RegistrationClosed
+                - application_question_required
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - RegistrationApplicationAnswerRequired
+                - invalid_default_post_listing_type
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - EmailAlreadyExists
+                - registration_closed
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - FederationError
+                - registration_application_answer_required
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - email_already_exists
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - federation_forbidden_by_strict_allow_list
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - person_is_banned_from_community
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - object_is_not_public
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - invalid_community
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - cannot_create_post_or_comment_in_deleted_or_removed_community
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - cannot_receive_page
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - new_post_cannot_be_locked
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - only_local_admin_can_remove_community
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - only_local_admin_can_restore_community
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - no_id_given
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - incorrect_login
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - invalid_query
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - object_not_local
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - post_is_locked
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - person_is_banned_from_site
               type: string
             message:
               title: LemmyErrorType.message
               type: string
           required:
-            - error_type
+            - error
             - message
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - FederationForbiddenByStrictAllowList
+                - invalid_vote_value
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - PersonIsBannedFromCommunity
+                - page_does_not_specify_creator
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - ObjectIsNotPublic
+                - page_does_not_specify_group
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - InvalidCommunity
+                - no_community_found_in_cc
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CannotCreatePostOrCommentInDeletedOrRemovedCommunity
+                - no_email_setup
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CannotReceivePage
+                - email_smtp_server_needs_a_port
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - NewPostCannotBeLocked
+                - missing_an_email
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - OnlyLocalAdminCanRemoveCommunity
+                - rate_limit_error
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - OnlyLocalAdminCanRestoreCommunity
+                - invalid_name
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - NoIdGiven
+                - invalid_display_name
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotFindUsernameOrEmail
+                - invalid_matrix_id
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - InvalidQuery
+                - invalid_post_title
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - ObjectNotLocal
+                - invalid_body_field
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - PostIsLocked
+                - bio_length_overflow
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - PersonIsBannedFromSite
+                - missing_totp_token
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - InvalidVoteValue
+                - missing_totp_secret
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - PageDoesNotSpecifyCreator
+                - incorrect_totp_token
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - PageDoesNotSpecifyGroup
+                - couldnt_parse_totp_secret
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - NoCommunityFoundInCC
+                - couldnt_generate_totp
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - NoEmailSetup
+                - totp_already_enabled
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - EmailSmtpServerNeedsAPort
+                - couldnt_like_comment
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - MissingAnEmail
+                - couldnt_save_comment
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - RateLimitError
+                - couldnt_create_report
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - InvalidName
+                - couldnt_resolve_report
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - InvalidDisplayName
+                - community_moderator_already_exists
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - InvalidMatrixId
+                - community_user_already_banned
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - InvalidPostTitle
+                - community_block_already_exists
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - InvalidBodyField
+                - community_follower_already_exists
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - BioLengthOverflow
+                - couldnt_update_community_hidden_status
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - MissingTotpToken
+                - person_block_already_exists
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - IncorrectTotpToken
+                - user_already_exists
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotParseTotpSecret
+                - token_not_found
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotLikeComment
+                - couldnt_like_post
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotSaveComment
+                - couldnt_save_post
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotCreateReport
+                - couldnt_mark_post_as_read
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotResolveReport
+                - couldnt_update_community
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CommunityModeratorAlreadyExists
+                - couldnt_update_replies
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CommunityUserIsAlreadyBanned
+                - couldnt_update_person_mentions
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CommunityBlockAlreadyExists
+                - post_title_too_long
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CommunityFollowerAlreadyExists
+                - couldnt_create_post
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotUpdateCommunityHiddenStatus
+                - couldnt_create_private_message
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - PersonBlockAlreadyExists
+                - couldnt_update_private
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - UserAlreadyExists
+                - system_err_login
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - TokenNotFound
+                - couldnt_set_all_registrations_accepted
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotLikePost
+                - couldnt_set_all_email_verified
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotSavePost
+                - banned
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotMarkPostAsRead
+                - couldnt_get_comments
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotUpdateCommunity
+                - couldnt_get_posts
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotUpdateReplies
+                - invalid_url
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotUpdatePersonMentions
+                - email_send_failed
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - PostTitleTooLong
+                - slurs
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotCreatePost
+                - couldnt_find_object
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotCreatePrivateMessage
+                - registration_denied
               type: string
-          required:
-            - error_type
-          additionalProperties: false
-          title: LemmyErrorType
-          type: object
-        - properties:
-            error_type:
-              title: LemmyErrorType.error_type
-              enum:
-                - CouldNotUpdatePrivate
-              type: string
-          required:
-            - error_type
-          additionalProperties: false
-          title: LemmyErrorType
-          type: object
-        - properties:
-            error_type:
-              title: LemmyErrorType.error_type
-              enum:
-                - SystemErrLogin
-              type: string
-          required:
-            - error_type
-          additionalProperties: false
-          title: LemmyErrorType
-          type: object
-        - properties:
-            error_type:
-              title: LemmyErrorType.error_type
-              enum:
-                - CouldNotSetAllRegistrationsAccepted
-              type: string
-          required:
-            - error_type
-          additionalProperties: false
-          title: LemmyErrorType
-          type: object
-        - properties:
-            error_type:
-              title: LemmyErrorType.error_type
-              enum:
-                - CouldNotSetAllEmailVerified
-              type: string
-          required:
-            - error_type
-          additionalProperties: false
-          title: LemmyErrorType
-          type: object
-        - properties:
-            error_type:
-              title: LemmyErrorType.error_type
-              enum:
-                - Banned
-              type: string
-          required:
-            - error_type
-          additionalProperties: false
-          title: LemmyErrorType
-          type: object
-        - properties:
-            error_type:
-              title: LemmyErrorType.error_type
-              enum:
-                - CouldNotGetComments
-              type: string
-          required:
-            - error_type
-          additionalProperties: false
-          title: LemmyErrorType
-          type: object
-        - properties:
-            error_type:
-              title: LemmyErrorType.error_type
-              enum:
-                - CouldNotGetPosts
-              type: string
-          required:
-            - error_type
-          additionalProperties: false
-          title: LemmyErrorType
-          type: object
-        - properties:
-            error_type:
-              title: LemmyErrorType.error_type
-              enum:
-                - InvalidUrl
-              type: string
-          required:
-            - error_type
-          additionalProperties: false
-          title: LemmyErrorType
-          type: object
-        - properties:
-            error_type:
-              title: LemmyErrorType.error_type
-              enum:
-                - EmailSendFailed
-              type: string
-          required:
-            - error_type
-          additionalProperties: false
-          title: LemmyErrorType
-          type: object
-        - properties:
-            error_type:
-              title: LemmyErrorType.error_type
-              enum:
-                - Slurs
-              type: string
-          required:
-            - error_type
-          additionalProperties: false
-          title: LemmyErrorType
-          type: object
-        - properties:
-            error_type:
-              title: LemmyErrorType.error_type
-              enum:
-                - CouldNotGenerateTotp
+            message:
+              title: LemmyErrorType.message
+              nullable: true
               type: string
           required:
-            - error_type
+            - error
+            - message
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotFindObject
+                - federation_disabled
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - RegistrationDenied
+                - domain_blocked
               type: string
             message:
               title: LemmyErrorType.message
               type: string
           required:
-            - error_type
+            - error
             - message
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - FederationDisabled
+                - domain_not_in_allow_list
+              type: string
+            message:
+              title: LemmyErrorType.message
               type: string
           required:
-            - error_type
+            - error
+            - message
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - DomainBlocked
+                - federation_disabled_by_strict_allow_list
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - DomainNotInAllowList
+                - site_name_required
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - FederationDisabledByStrictAllowList
+                - site_name_length_overflow
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - SiteNameRequired
+                - permissive_regex
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - SiteNameLengthOverflow
+                - invalid_regex
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - PermissiveRegex
+                - captcha_incorrect
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - InvalidRegex
+                - password_reset_limit_reached
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CaptchaIncorrect
+                - couldnt_create_audio_captcha
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - PasswordResetLimitReached
+                - invalid_url_scheme
               type: string
           required:
-            - error_type
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
         - properties:
-            error_type:
-              title: LemmyErrorType.error_type
+            error:
+              title: LemmyErrorType.error
               enum:
-                - CouldNotCreateAudioCaptcha
+                - couldnt_send_webmention
               type: string
           required:
-            - error_type
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - contradicting_filters
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - instance_block_already_exists
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - auth_cookie_insecure
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - too_many_items
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - community_has_no_followers
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - ban_expiration_in_past
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - invalid_unix_time
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - unknown
+              type: string
+            message:
+              title: LemmyErrorType.message
+              type: string
+          required:
+            - error
+            - message
           additionalProperties: false
           title: LemmyErrorType
           type: object
@@ -4341,6 +4474,12 @@ components:
         updated:
           title: LocalSiteRateLimit.updated
           type: string
+        import_user_settings:
+          title: LocalSiteRateLimit.import_user_settings
+          type: integer
+        import_user_settings_per_second:
+          title: LocalSiteRateLimit.import_user_settings_per_second
+          type: integer
       required:
         - id
         - local_site_id
@@ -4357,6 +4496,8 @@ components:
         - search
         - search_per_second
         - published
+        - import_user_settings
+        - import_user_settings_per_second
       additionalProperties: false
       title: LocalSiteRateLimit
       type: object
@@ -4401,9 +4542,6 @@ components:
         show_read_posts:
           title: LocalUser.show_read_posts
           type: boolean
-        show_new_post_notifs:
-          title: LocalUser.show_new_post_notifs
-          type: boolean
         email_verified:
           title: LocalUser.email_verified
           type: boolean
@@ -4431,6 +4569,12 @@ components:
         totp_2fa_enabled:
           title: LocalUser.totp_2fa_enabled
           type: boolean
+        enable_keyboard_navigation:
+          title: LocalUser.enable_keyboard_navigation
+          type: boolean
+        enable_animated_images:
+          title: LocalUser.enable_animated_images
+          type: boolean
       required:
         - id
         - person_id
@@ -4444,7 +4588,6 @@ components:
         - show_scores
         - show_bot_accounts
         - show_read_posts
-        - show_new_post_notifs
         - email_verified
         - accepted_application
         - open_links_in_new_tab
@@ -4454,6 +4597,8 @@ components:
         - admin
         - post_listing_mode
         - totp_2fa_enabled
+        - enable_keyboard_navigation
+        - enable_animated_images
       additionalProperties: false
       title: LocalUser
       type: object
@@ -4526,6 +4671,30 @@ components:
       additionalProperties: false
       title: LoginResponse
       type: object
+    LoginToken:
+      properties:
+        id:
+          title: LoginToken.id
+          type: integer
+        user_id:
+          $ref: '#/components/schemas/LocalUserId'
+          title: LoginToken.user_id
+        published:
+          title: LoginToken.published
+          type: string
+        ip:
+          title: LoginToken.ip
+          type: string
+        user_agent:
+          title: LoginToken.user_agent
+          type: string
+      required:
+        - id
+        - user_id
+        - published
+      additionalProperties: false
+      title: LoginToken
+      type: object
     MarkCommentReplyAsRead:
       properties:
         comment_reply_id:
@@ -4559,11 +4728,15 @@ components:
         post_id:
           $ref: '#/components/schemas/PostId'
           title: MarkPostAsRead.post_id
+        post_ids:
+          items:
+            $ref: '#/components/schemas/PostId'
+          title: MarkPostAsRead.post_ids
+          type: array
         read:
           title: MarkPostAsRead.read
           type: boolean
       required:
-        - post_id
         - read
       additionalProperties: false
       title: MarkPostAsRead
@@ -5046,9 +5219,6 @@ components:
         removed:
           title: ModRemoveCommunity.removed
           type: boolean
-        expires:
-          title: ModRemoveCommunity.expires
-          type: string
         when_:
           title: ModRemoveCommunity.when_
           type: string
@@ -5663,39 +5833,6 @@ components:
         published:
           title: PostAggregates.published
           type: string
-        newest_comment_time_necro:
-          title: PostAggregates.newest_comment_time_necro
-          type: string
-        newest_comment_time:
-          title: PostAggregates.newest_comment_time
-          type: string
-        featured_community:
-          title: PostAggregates.featured_community
-          type: boolean
-        featured_local:
-          title: PostAggregates.featured_local
-          type: boolean
-        hot_rank:
-          title: PostAggregates.hot_rank
-          type: number
-        hot_rank_active:
-          title: PostAggregates.hot_rank_active
-          type: number
-        community_id:
-          $ref: '#/components/schemas/CommunityId'
-          title: PostAggregates.community_id
-        creator_id:
-          $ref: '#/components/schemas/PersonId'
-          title: PostAggregates.creator_id
-        controversy_rank:
-          title: PostAggregates.controversy_rank
-          type: integer
-        instance_id:
-          $ref: '#/components/schemas/InstanceId'
-          title: PostAggregates.instance_id
-        scaled_rank:
-          title: PostAggregates.scaled_rank
-          type: integer
       required:
         - id
         - post_id
@@ -5704,17 +5841,6 @@ components:
         - upvotes
         - downvotes
         - published
-        - newest_comment_time_necro
-        - newest_comment_time
-        - featured_community
-        - featured_local
-        - hot_rank
-        - hot_rank_active
-        - community_id
-        - creator_id
-        - controversy_rank
-        - instance_id
-        - scaled_rank
       additionalProperties: false
       title: PostAggregates
       type: object
@@ -6251,9 +6377,6 @@ components:
         reason:
           title: RemoveCommunity.reason
           type: string
-        expires:
-          title: RemoveCommunity.expires
-          type: number
       required:
         - community_id
         - removed
@@ -6446,6 +6569,15 @@ components:
           type: boolean
         infinite_scroll_enabled:
           title: SaveUserSettings.infinite_scroll_enabled
+          type: boolean
+        post_listing_mode:
+          $ref: '#/components/schemas/PostListingMode'
+          title: SaveUserSettings.post_listing_mode
+        enable_keyboard_navigation:
+          title: SaveUserSettings.enable_keyboard_navigation
+          type: boolean
+        enable_animated_images:
+          title: SaveUserSettings.enable_animated_images
           type: boolean
       additionalProperties: false
       title: SaveUserSettings

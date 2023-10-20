@@ -53,14 +53,14 @@ components:
             - missing_totp_token
             - incorrect_totp_token
       # TODO: add the schema, is not exported currently
-    GetUserExportResponse:
+    GetUserExportSettingsResponse:
       type: string
-    GetUserImport:
+    GetUserImportSettings:
       type: string
 
 security:
-  - bearerAuth: [ ]
-  - cookieAuth: [ ]
+  - bearerAuth: []
+  - cookieAuth: []
 
 paths:
   /site:
@@ -216,7 +216,7 @@ paths:
     put:
       tags:
         - Community
-      summary: "Hide a community from public view."
+      summary: "Hide a community from public / \"All\" view. Admins only."
       requestBody:
         content:
           application/json:
@@ -1561,7 +1561,7 @@ paths:
         need to first call `/user/totp/generate` and then pass a valid token to
         this.\r\r Disabling is only possible if 2FA was previously enabled.
         Again it is necessary to pass a valid token."
-  /user/export:
+  /user/export_settings:
     get:
       tags:
         - User
@@ -1571,9 +1571,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetUserExportResponse'
-      summary: '[MANUAL] Export your user data.'
-  /user/import:
+                $ref: '#/components/schemas/GetUserExportSettingsResponse'
+      summary: "Export a backup of your user settings, including your saved content,\r
+        followed communities, and blocks."
+  /user/import_settings:
     post:
       tags:
         - User
@@ -1581,8 +1582,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GetUserImport'
+              $ref: '#/components/schemas/GetUserImportSettings'
       responses:
         200:
           description: OK
-      summary: '[MANUAL] Import your user data.'
+      summary: 'Import a backup of your user settings.'
+  /user/list_logins:
+    get:
+      tags:
+        - User
+      operationId: listLogins
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/LoginToken'
+      summary: 'List login tokens for your user'
+  /user/validate_auth:
+    get:
+      tags:
+        - User
+      operationId: validateAuth
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized
+      summary: Returns an error message if your auth token is invalid
