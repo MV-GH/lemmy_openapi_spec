@@ -1523,6 +1523,18 @@ paths:
         '401':
           description: Unauthorized
       summary: Returns an error message if your auth token is invalid
+  /user/logout:
+    post:
+      security:
+        - bearerAuth: []
+        - cookieAuth: []
+      tags:
+        - User
+      operationId: logout
+      responses:
+        '200':
+          description: OK
+      summary: '[MANUAL] Logout your user, which clears the cookie and invalidates the auth token'
 components:
   securitySchemes:
     bearerAuth:
