@@ -1484,7 +1484,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetUserExportSettingsResponse'
+                $ref: '#/components/schemas/ExportUserSettingsResponse'
       summary: "Export a backup of your user settings, including your saved content,\r followed communities, and blocks."
   /user/import_settings:
     post:
@@ -1494,7 +1494,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GetUserImportSettings'
+              $ref: '#/components/schemas/ImportUserSettings'
       responses:
         '200':
           description: OK
@@ -1570,9 +1570,9 @@ components:
             - registration_application_is_pending
             - missing_totp_token
             - incorrect_totp_token
-    GetUserExportSettingsResponse:
+    ExportUserSettingsResponse:
       type: string
-    GetUserImportSettings:
+    ImportUserSettings:
       type: string
     SiteId:
       title: SiteId
