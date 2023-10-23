@@ -53,9 +53,9 @@ components:
             - missing_totp_token
             - incorrect_totp_token
       # TODO: add the schema, is not exported currently
-    GetUserExportSettingsResponse:
+    ExportUserSettingsResponse:
       type: string
-    GetUserImportSettings:
+    ImportUserSettings:
       type: string
 
 security:
@@ -1543,7 +1543,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetUserExportSettingsResponse'
+                $ref: '#/components/schemas/ExportUserSettingsResponse'
       summary: "Export a backup of your user settings, including your saved content,\r
         followed communities, and blocks."
   /user/import_settings:
@@ -1554,7 +1554,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GetUserImportSettings'
+              $ref: '#/components/schemas/ImportUserSettings'
       responses:
         200:
           description: OK
