@@ -10,6 +10,9 @@ info:
 paths: {}
 components:
   schemas:
+    ActivityId:
+      title: ActivityId
+      type: number
     AddAdmin:
       properties:
         person_id:
@@ -500,9 +503,6 @@ components:
       type: object
     CommentAggregates:
       properties:
-        id:
-          title: CommentAggregates.id
-          type: integer
         comment_id:
           $ref: '#/components/schemas/CommentId'
           title: CommentAggregates.comment_id
@@ -522,7 +522,6 @@ components:
           title: CommentAggregates.child_count
           type: integer
       required:
-        - id
         - comment_id
         - score
         - upvotes
@@ -600,6 +599,12 @@ components:
         creator_banned_from_community:
           title: CommentReplyView.creator_banned_from_community
           type: boolean
+        creator_is_moderator:
+          title: CommentReplyView.creator_is_moderator
+          type: boolean
+        creator_is_admin:
+          title: CommentReplyView.creator_is_admin
+          type: boolean
         subscribed:
           $ref: '#/components/schemas/SubscribedType'
           title: CommentReplyView.subscribed
@@ -621,6 +626,8 @@ components:
         - recipient
         - counts
         - creator_banned_from_community
+        - creator_is_moderator
+        - creator_is_admin
         - subscribed
         - saved
         - creator_blocked
@@ -769,6 +776,12 @@ components:
         creator_banned_from_community:
           title: CommentView.creator_banned_from_community
           type: boolean
+        creator_is_moderator:
+          title: CommentView.creator_is_moderator
+          type: boolean
+        creator_is_admin:
+          title: CommentView.creator_is_admin
+          type: boolean
         subscribed:
           $ref: '#/components/schemas/SubscribedType'
           title: CommentView.subscribed
@@ -788,6 +801,8 @@ components:
         - community
         - counts
         - creator_banned_from_community
+        - creator_is_moderator
+        - creator_is_admin
         - subscribed
         - saved
         - creator_blocked
@@ -862,9 +877,6 @@ components:
       type: object
     CommunityAggregates:
       properties:
-        id:
-          title: CommunityAggregates.id
-          type: integer
         community_id:
           $ref: '#/components/schemas/CommunityId'
           title: CommunityAggregates.community_id
@@ -893,7 +905,6 @@ components:
           title: CommunityAggregates.users_active_half_year
           type: number
       required:
-        - id
         - community_id
         - subscribers
         - posts
@@ -906,9 +917,6 @@ components:
       additionalProperties: false
       title: CommunityAggregates
       type: object
-    CommunityBlockId:
-      title: CommunityBlockId
-      type: integer
     CommunityBlockView:
       properties:
         person:
@@ -1361,9 +1369,6 @@ components:
       type: integer
     CustomEmojiKeyword:
       properties:
-        id:
-          title: CustomEmojiKeyword.id
-          type: integer
         custom_emoji_id:
           $ref: '#/components/schemas/CustomEmojiId'
           title: CustomEmojiKeyword.custom_emoji_id
@@ -1371,7 +1376,6 @@ components:
           title: CustomEmojiKeyword.keyword
           type: string
       required:
-        - id
         - custom_emoji_id
         - keyword
       additionalProperties: false
@@ -1417,9 +1421,6 @@ components:
       additionalProperties: false
       title: DeleteAccount
       type: object
-    DeleteAccountResponse:
-      title: DeleteAccountResponse
-      nullable: true
     DeleteComment:
       properties:
         comment_id:
@@ -1457,20 +1458,6 @@ components:
         - id
       additionalProperties: false
       title: DeleteCustomEmoji
-      type: object
-    DeleteCustomEmojiResponse:
-      properties:
-        id:
-          $ref: '#/components/schemas/CustomEmojiId'
-          title: DeleteCustomEmojiResponse.id
-        success:
-          title: DeleteCustomEmojiResponse.success
-          type: boolean
-      required:
-        - id
-        - success
-      additionalProperties: false
-      title: DeleteCustomEmojiResponse
       type: object
     DeletePost:
       properties:
@@ -1785,17 +1772,17 @@ components:
       properties:
         linked:
           items:
-            $ref: '#/components/schemas/Instance'
+            $ref: '#/components/schemas/InstanceWithFederationState'
           title: FederatedInstances.linked
           type: array
         allowed:
           items:
-            $ref: '#/components/schemas/Instance'
+            $ref: '#/components/schemas/InstanceWithFederationState'
           title: FederatedInstances.allowed
           type: array
         blocked:
           items:
-            $ref: '#/components/schemas/Instance'
+            $ref: '#/components/schemas/InstanceWithFederationState'
           title: FederatedInstances.blocked
           type: array
       required:
@@ -2422,9 +2409,6 @@ components:
       type: object
     ImageUpload:
       properties:
-        id:
-          $ref: '#/components/schemas/ImageUploadId'
-          title: ImageUpload.id
         local_user_id:
           $ref: '#/components/schemas/LocalUserId'
           title: ImageUpload.local_user_id
@@ -2438,7 +2422,6 @@ components:
           title: ImageUpload.published
           type: string
       required:
-        - id
         - local_user_id
         - pictrs_alias
         - pictrs_delete_token
@@ -2446,9 +2429,6 @@ components:
       additionalProperties: false
       title: ImageUpload
       type: object
-    ImageUploadId:
-      title: ImageUploadId
-      type: integer
     Instance:
       properties:
         id:
@@ -2496,6 +2476,36 @@ components:
     InstanceId:
       title: InstanceId
       type: integer
+    InstanceWithFederationState:
+      properties:
+        id:
+          $ref: '#/components/schemas/InstanceId'
+          title: InstanceWithFederationState.id
+        domain:
+          title: InstanceWithFederationState.domain
+          type: string
+        published:
+          title: InstanceWithFederationState.published
+          type: string
+        updated:
+          title: InstanceWithFederationState.updated
+          type: string
+        software:
+          title: InstanceWithFederationState.software
+          type: string
+        version:
+          title: InstanceWithFederationState.version
+          type: string
+        federation_state:
+          $ref: '#/components/schemas/ReadableFederationState'
+          title: InstanceWithFederationState.federation_state
+      required:
+        - id
+        - domain
+        - published
+      additionalProperties: false
+      title: InstanceWithFederationState
+      type: object
     Language:
       properties:
         id:
@@ -2895,6 +2905,28 @@ components:
               title: LemmyErrorType.error
               enum:
                 - person_is_blocked
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - community_is_blocked
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - instance_is_blocked
               type: string
           required:
             - error
@@ -4165,6 +4197,17 @@ components:
             error:
               title: LemmyErrorType.error
               enum:
+                - invalid_bot_action
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
                 - unknown
               type: string
             message:
@@ -4398,6 +4441,9 @@ components:
         reports_email_admins:
           title: LocalSite.reports_email_admins
           type: boolean
+        federation_signed_fetch:
+          title: LocalSite.federation_signed_fetch
+          type: boolean
       required:
         - id
         - site_id
@@ -4418,6 +4464,7 @@ components:
         - published
         - registration_mode
         - reports_email_admins
+        - federation_signed_fetch
       additionalProperties: false
       title: LocalSite
       type: object
@@ -4426,9 +4473,6 @@ components:
       type: integer
     LocalSiteRateLimit:
       properties:
-        id:
-          title: LocalSiteRateLimit.id
-          type: integer
         local_site_id:
           $ref: '#/components/schemas/LocalSiteId'
           title: LocalSiteRateLimit.local_site_id
@@ -4481,7 +4525,6 @@ components:
           title: LocalSiteRateLimit.import_user_settings_per_second
           type: integer
       required:
-        - id
         - local_site_id
         - message
         - message_per_second
@@ -4575,6 +4618,9 @@ components:
         enable_animated_images:
           title: LocalUser.enable_animated_images
           type: boolean
+        collapse_bot_comments:
+          title: LocalUser.collapse_bot_comments
+          type: boolean
       required:
         - id
         - person_id
@@ -4599,6 +4645,7 @@ components:
         - totp_2fa_enabled
         - enable_keyboard_navigation
         - enable_animated_images
+        - collapse_bot_comments
       additionalProperties: false
       title: LocalUser
       type: object
@@ -4673,9 +4720,6 @@ components:
       type: object
     LoginToken:
       properties:
-        id:
-          title: LoginToken.id
-          type: integer
         user_id:
           $ref: '#/components/schemas/LocalUserId'
           title: LoginToken.user_id
@@ -4689,7 +4733,6 @@ components:
           title: LoginToken.user_agent
           type: string
       required:
-        - id
         - user_id
         - published
       additionalProperties: false
@@ -5391,79 +5434,6 @@ components:
       additionalProperties: false
       title: MyUserInfo
       type: object
-    UploadImage:
-      properties:
-        image:
-          anyOf: []
-          title: UploadImage.image
-        auth:
-          title: UploadImage.auth
-          description: >-
-            Optional if cookie with jwt set is already present. Otherwise, auth
-            is required.
-          type: string
-      required:
-        - image
-      additionalProperties: false
-      title: UploadImage
-      type: object
-    UploadImageResponse:
-      properties:
-        msg:
-          title: UploadImageResponse.msg
-          description: Is "ok" if the upload was successful; is something else otherwise.
-          type: string
-        files:
-          items:
-            $ref: '#/components/schemas/ImageFile'
-            title: UploadImageResponse.files.[]
-          title: UploadImageResponse.files
-          type: array
-        url:
-          title: UploadImageResponse.url
-          type: string
-        delete_url:
-          title: UploadImageResponse.delete_url
-          type: string
-      required:
-        - msg
-      additionalProperties: false
-      title: UploadImageResponse
-      type: object
-    ImageFile:
-      properties:
-        file:
-          title: ImageFile.file
-          type: string
-        delete_token:
-          title: ImageFile.delete_token
-          type: string
-      required:
-        - file
-        - delete_token
-      additionalProperties: false
-      title: ImageFile
-      type: object
-    DeleteImage:
-      properties:
-        token:
-          title: DeleteImage.token
-          type: string
-        filename:
-          title: DeleteImage.filename
-          type: string
-        auth:
-          title: DeleteImage.auth
-          description: >-
-            Optional if cookie with jwt set is already present. Otherwise, auth
-            is required.
-          type: string
-      required:
-        - token
-        - filename
-      additionalProperties: false
-      title: DeleteImage
-      type: object
     PaginationCursor:
       title: PaginationCursor
       type: string
@@ -5495,9 +5465,6 @@ components:
       additionalProperties: false
       title: PasswordReset
       type: object
-    PasswordResetResponse:
-      title: PasswordResetResponse
-      nullable: true
     Person:
       properties:
         id:
@@ -5563,31 +5530,19 @@ components:
       type: object
     PersonAggregates:
       properties:
-        id:
-          title: PersonAggregates.id
-          type: integer
         person_id:
           $ref: '#/components/schemas/PersonId'
           title: PersonAggregates.person_id
         post_count:
           title: PersonAggregates.post_count
           type: number
-        post_score:
-          title: PersonAggregates.post_score
-          type: number
         comment_count:
           title: PersonAggregates.comment_count
           type: number
-        comment_score:
-          title: PersonAggregates.comment_score
-          type: number
       required:
-        - id
         - person_id
         - post_count
-        - post_score
         - comment_count
-        - comment_score
       additionalProperties: false
       title: PersonAggregates
       type: object
@@ -5676,6 +5631,12 @@ components:
         creator_banned_from_community:
           title: PersonMentionView.creator_banned_from_community
           type: boolean
+        creator_is_moderator:
+          title: PersonMentionView.creator_is_moderator
+          type: boolean
+        creator_is_admin:
+          title: PersonMentionView.creator_is_admin
+          type: boolean
         subscribed:
           $ref: '#/components/schemas/SubscribedType'
           title: PersonMentionView.subscribed
@@ -5697,22 +5658,14 @@ components:
         - recipient
         - counts
         - creator_banned_from_community
+        - creator_is_moderator
+        - creator_is_admin
         - subscribed
         - saved
         - creator_blocked
       additionalProperties: false
       title: PersonMentionView
       type: object
-    PersonSortType:
-      enum:
-        - New
-        - Old
-        - MostComments
-        - CommentScore
-        - PostScore
-        - PostCount
-      title: PersonSortType
-      type: string
     PersonView:
       properties:
         person:
@@ -5721,9 +5674,13 @@ components:
         counts:
           $ref: '#/components/schemas/PersonAggregates'
           title: PersonView.counts
+        is_admin:
+          title: PersonView.is_admin
+          type: boolean
       required:
         - person
         - counts
+        - is_admin
       additionalProperties: false
       title: PersonView
       type: object
@@ -5812,9 +5769,6 @@ components:
       type: object
     PostAggregates:
       properties:
-        id:
-          title: PostAggregates.id
-          type: integer
         post_id:
           $ref: '#/components/schemas/PostId'
           title: PostAggregates.post_id
@@ -5834,7 +5788,6 @@ components:
           title: PostAggregates.published
           type: string
       required:
-        - id
         - post_id
         - comments
         - score
@@ -5983,6 +5936,12 @@ components:
         creator_banned_from_community:
           title: PostView.creator_banned_from_community
           type: boolean
+        creator_is_moderator:
+          title: PostView.creator_is_moderator
+          type: boolean
+        creator_is_admin:
+          title: PostView.creator_is_admin
+          type: boolean
         counts:
           $ref: '#/components/schemas/PostAggregates'
           title: PostView.counts
@@ -6009,6 +5968,8 @@ components:
         - creator
         - community
         - creator_banned_from_community
+        - creator_is_moderator
+        - creator_is_admin
         - counts
         - subscribed
         - saved
@@ -6210,16 +6171,6 @@ components:
       additionalProperties: false
       title: PurgeCommunity
       type: object
-    PurgeItemResponse:
-      properties:
-        success:
-          title: PurgeItemResponse.success
-          type: boolean
-      required:
-        - success
-      additionalProperties: false
-      title: PurgeItemResponse
-      type: object
     PurgePerson:
       properties:
         person_id:
@@ -6245,6 +6196,32 @@ components:
         - post_id
       additionalProperties: false
       title: PurgePost
+      type: object
+    ReadableFederationState:
+      properties:
+        instance_id:
+          $ref: '#/components/schemas/InstanceId'
+          title: ReadableFederationState.instance_id
+        last_successful_id:
+          $ref: '#/components/schemas/ActivityId'
+          title: ReadableFederationState.last_successful_id
+        last_successful_published_time:
+          title: ReadableFederationState.last_successful_published_time
+          type: string
+        fail_count:
+          title: ReadableFederationState.fail_count
+          type: integer
+        last_retry:
+          title: ReadableFederationState.last_retry
+          type: string
+        next_retry:
+          title: ReadableFederationState.next_retry
+          type: string
+      required:
+        - instance_id
+        - fail_count
+      additionalProperties: false
+      title: ReadableFederationState
       type: object
     Register:
       properties:
@@ -6556,9 +6533,6 @@ components:
         show_read_posts:
           title: SaveUserSettings.show_read_posts
           type: boolean
-        show_new_post_notifs:
-          title: SaveUserSettings.show_new_post_notifs
-          type: boolean
         discussion_languages:
           items:
             $ref: '#/components/schemas/LanguageId'
@@ -6578,6 +6552,9 @@ components:
           type: boolean
         enable_animated_images:
           title: SaveUserSettings.enable_animated_images
+          type: boolean
+        collapse_bot_comments:
+          title: SaveUserSettings.collapse_bot_comments
           type: boolean
       additionalProperties: false
       title: SaveUserSettings
@@ -6718,9 +6695,6 @@ components:
       type: object
     SiteAggregates:
       properties:
-        id:
-          title: SiteAggregates.id
-          type: integer
         site_id:
           $ref: '#/components/schemas/SiteId'
           title: SiteAggregates.site_id
@@ -6749,7 +6723,6 @@ components:
           title: SiteAggregates.users_active_half_year
           type: number
       required:
-        - id
         - site_id
         - users
         - posts
@@ -6933,6 +6906,3 @@ components:
       additionalProperties: false
       title: VerifyEmail
       type: object
-    VerifyEmailResponse:
-      title: VerifyEmailResponse
-      nullable: true
