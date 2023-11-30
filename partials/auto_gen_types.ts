@@ -1,5 +1,8 @@
 // noinspection JSUnusedGlobalSymbols
 
+export type ActivityId = /* integer */ number;
+
+
 export interface AddAdmin {
   person_id: PersonId;
   added: boolean;
@@ -193,7 +196,6 @@ export interface Comment {
 
 
 export interface CommentAggregates {
-  id: bigint;
   comment_id: CommentId;
   score: /* integer */ number;
   upvotes: /* integer */ number;
@@ -232,6 +234,8 @@ export interface CommentReplyView {
   recipient: Person;
   counts: CommentAggregates;
   creator_banned_from_community: boolean;
+  creator_is_moderator: boolean;
+  creator_is_admin: boolean;
   subscribed: SubscribedType;
   saved: boolean;
   creator_blocked: boolean;
@@ -290,6 +294,8 @@ export interface CommentView {
   community: Community;
   counts: CommentAggregates;
   creator_banned_from_community: boolean;
+  creator_is_moderator: boolean;
+  creator_is_admin: boolean;
   subscribed: SubscribedType;
   saved: boolean;
   creator_blocked: boolean;
@@ -318,7 +324,6 @@ export interface Community {
 
 
 export interface CommunityAggregates {
-  id: bigint;
   community_id: CommunityId;
   subscribers: /* integer */ number;
   posts: /* integer */ number;
@@ -329,9 +334,6 @@ export interface CommunityAggregates {
   users_active_month: /* integer */ number;
   users_active_half_year: /* integer */ number;
 }
-
-
-export type CommunityBlockId = bigint;
 
 
 export interface CommunityBlockView {
@@ -504,7 +506,6 @@ export type CustomEmojiId = bigint;
 
 
 export interface CustomEmojiKeyword {
-  id: bigint;
   custom_emoji_id: CustomEmojiId;
   keyword: string;
 }
@@ -527,9 +528,6 @@ export interface DeleteAccount {
 }
 
 
-export type DeleteAccountResponse = null;
-
-
 export interface DeleteComment {
   comment_id: CommentId;
   deleted: boolean;
@@ -544,12 +542,6 @@ export interface DeleteCommunity {
 
 export interface DeleteCustomEmoji {
   id: CustomEmojiId;
-}
-
-
-export interface DeleteCustomEmojiResponse {
-  id: CustomEmojiId;
-  success: boolean;
 }
 
 
@@ -667,9 +659,9 @@ export interface FeaturePost {
 
 
 export interface FederatedInstances {
-  linked: Array<Instance>;
-  allowed: Array<Instance>;
-  blocked: Array<Instance>;
+  linked: Array<InstanceWithFederationState>;
+  allowed: Array<InstanceWithFederationState>;
+  blocked: Array<InstanceWithFederationState>;
 }
 
 
@@ -905,15 +897,11 @@ export interface HideCommunity {
 
 
 export interface ImageUpload {
-  id: ImageUploadId;
   local_user_id: LocalUserId;
   pictrs_alias: string;
   pictrs_delete_token: string;
   published: string;
 }
-
-
-export type ImageUploadId = bigint;
 
 
 export interface Instance {
@@ -934,6 +922,17 @@ export interface InstanceBlockView {
 
 
 export type InstanceId = bigint;
+
+
+export interface InstanceWithFederationState {
+  id: InstanceId;
+  domain: string;
+  published: string;
+  updated?: string;
+  software?: string;
+  version?: string;
+  federation_state?: ReadableFederationState;
+}
 
 
 export interface Language {
@@ -981,6 +980,8 @@ export type LemmyErrorType =
   | { error: "couldnt_find_community" }
   | { error: "couldnt_find_person" }
   | { error: "person_is_blocked" }
+  | { error: "community_is_blocked" }
+  | { error: "instance_is_blocked" }
   | { error: "downvotes_are_disabled" }
   | { error: "instance_is_private" }
   | { error: "invalid_password" }
@@ -1094,6 +1095,7 @@ export type LemmyErrorType =
   | { error: "community_has_no_followers" }
   | { error: "ban_expiration_in_past" }
   | { error: "invalid_unix_time" }
+  | { error: "invalid_bot_action" }
   | { error: "unknown"; message: string };
 
 
@@ -1188,6 +1190,7 @@ export interface LocalSite {
   updated?: string;
   registration_mode: RegistrationMode;
   reports_email_admins: boolean;
+  federation_signed_fetch: boolean;
 }
 
 
@@ -1195,7 +1198,6 @@ export type LocalSiteId = bigint;
 
 
 export interface LocalSiteRateLimit {
-  id: bigint;
   local_site_id: LocalSiteId;
   message: bigint;
   message_per_second: bigint;
@@ -1241,6 +1243,7 @@ export interface LocalUser {
   totp_2fa_enabled: boolean;
   enable_keyboard_navigation: boolean;
   enable_animated_images: boolean;
+  collapse_bot_comments: boolean;
 }
 
 
@@ -1275,7 +1278,6 @@ export interface LoginResponse {
 
 
 export interface LoginToken {
-  id: bigint;
   user_id: LocalUserId;
   published: string;
   ip?: string;
@@ -1544,41 +1546,6 @@ export interface MyUserInfo {
 }
 
 
-export const VERSION = "v3";
-
-export interface UploadImage {
-  image: File | Buffer;
-  /**
-   * Optional if cookie with jwt set is already present. Otherwise, auth is required.
-   */
-  auth?: string;
-}
-
-export interface UploadImageResponse {
-  /**
-   * Is "ok" if the upload was successful; is something else otherwise.
-   */
-  msg: string;
-  files?: ImageFile[];
-  url?: string;
-  delete_url?: string;
-}
-
-export interface ImageFile {
-  file: string;
-  delete_token: string;
-}
-
-export interface DeleteImage {
-  token: string;
-  filename: string;
-  /**
-   * Optional if cookie with jwt set is already present. Otherwise, auth is required.
-   */
-  auth?: string;
-}
-
-
 export type PaginationCursor = string;
 
 
@@ -1592,9 +1559,6 @@ export interface PasswordChangeAfterReset {
 export interface PasswordReset {
   email: string;
 }
-
-
-export type PasswordResetResponse = null;
 
 
 export interface Person {
@@ -1618,12 +1582,9 @@ export interface Person {
 
 
 export interface PersonAggregates {
-  id: bigint;
   person_id: PersonId;
   post_count: /* integer */ number;
-  post_score: /* integer */ number;
   comment_count: /* integer */ number;
-  comment_score: /* integer */ number;
 }
 
 
@@ -1665,6 +1626,8 @@ export interface PersonMentionView {
   recipient: Person;
   counts: CommentAggregates;
   creator_banned_from_community: boolean;
+  creator_is_moderator: boolean;
+  creator_is_admin: boolean;
   subscribed: SubscribedType;
   saved: boolean;
   creator_blocked: boolean;
@@ -1672,18 +1635,10 @@ export interface PersonMentionView {
 }
 
 
-export type PersonSortType =
-  | "New"
-  | "Old"
-  | "MostComments"
-  | "CommentScore"
-  | "PostScore"
-  | "PostCount";
-
-
 export interface PersonView {
   person: Person;
   counts: PersonAggregates;
+  is_admin: boolean;
 }
 
 
@@ -1713,7 +1668,6 @@ export interface Post {
 
 
 export interface PostAggregates {
-  id: bigint;
   post_id: PostId;
   comments: /* integer */ number;
   score: /* integer */ number;
@@ -1778,6 +1732,8 @@ export interface PostView {
   creator: Person;
   community: Community;
   creator_banned_from_community: boolean;
+  creator_is_moderator: boolean;
+  creator_is_admin: boolean;
   counts: PostAggregates;
   subscribed: SubscribedType;
   saved: boolean;
@@ -1864,11 +1820,6 @@ export interface PurgeCommunity {
 }
 
 
-export interface PurgeItemResponse {
-  success: boolean;
-}
-
-
 export interface PurgePerson {
   person_id: PersonId;
   reason?: string;
@@ -1878,6 +1829,16 @@ export interface PurgePerson {
 export interface PurgePost {
   post_id: PostId;
   reason?: string;
+}
+
+
+export interface ReadableFederationState {
+  instance_id: InstanceId;
+  last_successful_id?: ActivityId;
+  last_successful_published_time?: string;
+  fail_count: bigint;
+  last_retry?: string;
+  next_retry?: string;
 }
 
 
@@ -2004,13 +1965,13 @@ export interface SaveUserSettings {
   bot_account?: boolean;
   show_bot_accounts?: boolean;
   show_read_posts?: boolean;
-  show_new_post_notifs?: boolean;
   discussion_languages?: Array<LanguageId>;
   open_links_in_new_tab?: boolean;
   infinite_scroll_enabled?: boolean;
   post_listing_mode?: PostListingMode;
   enable_keyboard_navigation?: boolean;
   enable_animated_images?: boolean;
+  collapse_bot_comments?: boolean;
 }
 
 
@@ -2064,7 +2025,6 @@ export interface Site {
 
 
 export interface SiteAggregates {
-  id: bigint;
   site_id: SiteId;
   users: /* integer */ number;
   posts: /* integer */ number;
@@ -2161,6 +2121,3 @@ export interface UpdateTotpResponse {
 export interface VerifyEmail {
   token: string;
 }
-
-
-export type VerifyEmailResponse = null;

@@ -492,12 +492,12 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/MarkPostAsRead'
       responses:
-        201:
+        200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: 'components.yaml#/components/schemas/PostResponse'
+                $ref: 'components.yaml#/components/schemas/SuccessResponse'
       summary: Mark a post as read.
   /post/lock:
     post:
@@ -1570,7 +1570,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'components.yaml#/components/schemas/LoginToken'
+                type: array
+                items:
+                  $ref: 'components.yaml#/components/schemas/LoginToken'
       summary: 'List login tokens for your user'
   /user/validate_auth:
     get:
