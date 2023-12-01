@@ -12,7 +12,7 @@ components:
   schemas:
     ActivityId:
       title: ActivityId
-      type: number
+      type: integer
     AddAdmin:
       properties:
         person_id:
@@ -257,7 +257,7 @@ components:
           type: string
         expires:
           title: BanFromCommunity.expires
-          type: number
+          type: integer
       required:
         - community_id
         - person_id
@@ -307,7 +307,7 @@ components:
           type: string
         expires:
           title: BanPerson.expires
-          type: number
+          type: integer
       required:
         - person_id
         - ban
@@ -508,13 +508,13 @@ components:
           title: CommentAggregates.comment_id
         score:
           title: CommentAggregates.score
-          type: number
+          type: integer
         upvotes:
           title: CommentAggregates.upvotes
-          type: number
+          type: integer
         downvotes:
           title: CommentAggregates.downvotes
-          type: number
+          type: integer
         published:
           title: CommentAggregates.published
           type: string
@@ -882,28 +882,28 @@ components:
           title: CommunityAggregates.community_id
         subscribers:
           title: CommunityAggregates.subscribers
-          type: number
+          type: integer
         posts:
           title: CommunityAggregates.posts
-          type: number
+          type: integer
         comments:
           title: CommunityAggregates.comments
-          type: number
+          type: integer
         published:
           title: CommunityAggregates.published
           type: string
         users_active_day:
           title: CommunityAggregates.users_active_day
-          type: number
+          type: integer
         users_active_week:
           title: CommunityAggregates.users_active_week
-          type: number
+          type: integer
         users_active_month:
           title: CommunityAggregates.users_active_month
-          type: number
+          type: integer
         users_active_half_year:
           title: CommunityAggregates.users_active_half_year
-          type: number
+          type: integer
       required:
         - community_id
         - subscribers
@@ -1847,10 +1847,10 @@ components:
           type: integer
         page:
           title: GetComments.page
-          type: number
+          type: integer
         limit:
           title: GetComments.limit
-          type: number
+          type: integer
         community_id:
           $ref: '#/components/schemas/CommunityId'
           title: GetComments.community_id
@@ -1941,10 +1941,10 @@ components:
           title: GetModlog.community_id
         page:
           title: GetModlog.page
-          type: number
+          type: integer
         limit:
           title: GetModlog.limit
-          type: number
+          type: integer
         type_:
           $ref: '#/components/schemas/ModlogActionType'
           title: GetModlog.type_
@@ -2063,10 +2063,10 @@ components:
           title: GetPersonDetails.sort
         page:
           title: GetPersonDetails.page
-          type: number
+          type: integer
         limit:
           title: GetPersonDetails.limit
-          type: number
+          type: integer
         community_id:
           $ref: '#/components/schemas/CommunityId'
           title: GetPersonDetails.community_id
@@ -2111,10 +2111,10 @@ components:
           title: GetPersonMentions.sort
         page:
           title: GetPersonMentions.page
-          type: number
+          type: integer
         limit:
           title: GetPersonMentions.limit
-          type: number
+          type: integer
         unread_only:
           title: GetPersonMentions.unread_only
           type: boolean
@@ -2180,10 +2180,10 @@ components:
           title: GetPosts.sort
         page:
           title: GetPosts.page
-          type: number
+          type: integer
         limit:
           title: GetPosts.limit
-          type: number
+          type: integer
         community_id:
           $ref: '#/components/schemas/CommunityId'
           title: GetPosts.community_id
@@ -2227,10 +2227,10 @@ components:
           type: boolean
         page:
           title: GetPrivateMessages.page
-          type: number
+          type: integer
         limit:
           title: GetPrivateMessages.limit
-          type: number
+          type: integer
         creator_id:
           $ref: '#/components/schemas/PersonId'
           title: GetPrivateMessages.creator_id
@@ -2244,10 +2244,10 @@ components:
           title: GetReplies.sort
         page:
           title: GetReplies.page
-          type: number
+          type: integer
         limit:
           title: GetReplies.limit
-          type: number
+          type: integer
         unread_only:
           title: GetReplies.unread_only
           type: boolean
@@ -2281,13 +2281,13 @@ components:
           title: GetReportCountResponse.community_id
         comment_reports:
           title: GetReportCountResponse.comment_reports
-          type: number
+          type: integer
         post_reports:
           title: GetReportCountResponse.post_reports
-          type: number
+          type: integer
         private_message_reports:
           title: GetReportCountResponse.private_message_reports
-          type: number
+          type: integer
       required:
         - comment_reports
         - post_reports
@@ -2365,13 +2365,13 @@ components:
       properties:
         replies:
           title: GetUnreadCountResponse.replies
-          type: number
+          type: integer
         mentions:
           title: GetUnreadCountResponse.mentions
-          type: number
+          type: integer
         private_messages:
           title: GetUnreadCountResponse.private_messages
-          type: number
+          type: integer
       required:
         - replies
         - mentions
@@ -2384,7 +2384,7 @@ components:
         registration_applications:
           title: >-
             GetUnreadRegistrationApplicationCountResponse.registration_applications
-          type: number
+          type: integer
       required:
         - registration_applications
       additionalProperties: false
@@ -4224,10 +4224,10 @@ components:
       properties:
         page:
           title: ListCommentReports.page
-          type: number
+          type: integer
         limit:
           title: ListCommentReports.limit
-          type: number
+          type: integer
         unresolved_only:
           title: ListCommentReports.unresolved_only
           type: boolean
@@ -4262,10 +4262,10 @@ components:
           type: boolean
         page:
           title: ListCommunities.page
-          type: number
+          type: integer
         limit:
           title: ListCommunities.limit
-          type: number
+          type: integer
       additionalProperties: false
       title: ListCommunities
       type: object
@@ -4293,10 +4293,10 @@ components:
       properties:
         page:
           title: ListPostReports.page
-          type: number
+          type: integer
         limit:
           title: ListPostReports.limit
-          type: number
+          type: integer
         unresolved_only:
           title: ListPostReports.unresolved_only
           type: boolean
@@ -4322,10 +4322,10 @@ components:
       properties:
         page:
           title: ListPrivateMessageReports.page
-          type: number
+          type: integer
         limit:
           title: ListPrivateMessageReports.limit
-          type: number
+          type: integer
         unresolved_only:
           title: ListPrivateMessageReports.unresolved_only
           type: boolean
@@ -4351,10 +4351,10 @@ components:
           type: boolean
         page:
           title: ListRegistrationApplications.page
-          type: number
+          type: integer
         limit:
           title: ListRegistrationApplications.limit
-          type: number
+          type: integer
       additionalProperties: false
       title: ListRegistrationApplications
       type: object
@@ -5175,10 +5175,10 @@ components:
           title: ModlogListParams.other_person_id
         page:
           title: ModlogListParams.page
-          type: number
+          type: integer
         limit:
           title: ModlogListParams.limit
-          type: number
+          type: integer
         hide_modlog_names:
           title: ModlogListParams.hide_modlog_names
           type: boolean
@@ -5535,10 +5535,10 @@ components:
           title: PersonAggregates.person_id
         post_count:
           title: PersonAggregates.post_count
-          type: number
+          type: integer
         comment_count:
           title: PersonAggregates.comment_count
-          type: number
+          type: integer
       required:
         - person_id
         - post_count
@@ -5774,16 +5774,16 @@ components:
           title: PostAggregates.post_id
         comments:
           title: PostAggregates.comments
-          type: number
+          type: integer
         score:
           title: PostAggregates.score
-          type: number
+          type: integer
         upvotes:
           title: PostAggregates.upvotes
-          type: number
+          type: integer
         downvotes:
           title: PostAggregates.downvotes
-          type: number
+          type: integer
         published:
           title: PostAggregates.published
           type: string
@@ -5962,7 +5962,7 @@ components:
           type: integer
         unread_comments:
           title: PostView.unread_comments
-          type: number
+          type: integer
       required:
         - post
         - creator
@@ -6584,10 +6584,10 @@ components:
           title: Search.listing_type
         page:
           title: Search.page
-          type: number
+          type: integer
         limit:
           title: Search.limit
-          type: number
+          type: integer
       required:
         - q
       additionalProperties: false
@@ -6700,28 +6700,28 @@ components:
           title: SiteAggregates.site_id
         users:
           title: SiteAggregates.users
-          type: number
+          type: integer
         posts:
           title: SiteAggregates.posts
-          type: number
+          type: integer
         comments:
           title: SiteAggregates.comments
-          type: number
+          type: integer
         communities:
           title: SiteAggregates.communities
-          type: number
+          type: integer
         users_active_day:
           title: SiteAggregates.users_active_day
-          type: number
+          type: integer
         users_active_week:
           title: SiteAggregates.users_active_week
-          type: number
+          type: integer
         users_active_month:
           title: SiteAggregates.users_active_month
-          type: number
+          type: integer
         users_active_half_year:
           title: SiteAggregates.users_active_half_year
-          type: number
+          type: integer
       required:
         - site_id
         - users
