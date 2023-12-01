@@ -1,7 +1,9 @@
 // Combines all separate types files into one,
-// since our TS -> OpenAPI converter seems to lack multiple files as source capability
+// since our TS -> OpenAPI converter seems to lack multiple files as source input capability
 
 import {readdir, readFile, writeFile} from "fs"
+
+const listOfFloats = ["hot_rank", "hot_rank_active"].join("|")
 
 const targetFile = "partials/auto_gen_types.ts"
 const subPath = "./lemmy-js-client/src/types/"
@@ -22,9 +24,11 @@ readdir(subPath, (err, files) => {
                         reject(err);
                     } else {
                         resolve(data.substring(data.indexOf("export")) // remove the import statements
-                            .replace(/(?<!(hot_rank|hot_rank_active)): number/g, ": bigint")
+                            .replace(new RegExp(`(?<!(${listOfFloats})): number`, "g"), ": bigint")
+                            .replace(/: \/\* integer \*\/ number/g, ": bigint")
                             .replace(/Record<string, never>/g, "null")
                             .replace(/= number/g, "= bigint")
+                            .replace(/= \/\* integer \*\/ number/g, "= bigint")
                         );
                     }
                 });

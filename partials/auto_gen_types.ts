@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-export type ActivityId = /* integer */ number;
+export type ActivityId = bigint;
 
 
 export interface AddAdmin {
@@ -99,7 +99,7 @@ export interface BanFromCommunity {
   ban: boolean;
   remove_data?: boolean;
   reason?: string;
-  expires?: /* integer */ number;
+  expires?: bigint;
 }
 
 
@@ -119,7 +119,7 @@ export interface BanPerson {
   ban: boolean;
   remove_data?: boolean;
   reason?: string;
-  expires?: /* integer */ number;
+  expires?: bigint;
 }
 
 
@@ -197,9 +197,9 @@ export interface Comment {
 
 export interface CommentAggregates {
   comment_id: CommentId;
-  score: /* integer */ number;
-  upvotes: /* integer */ number;
-  downvotes: /* integer */ number;
+  score: bigint;
+  upvotes: bigint;
+  downvotes: bigint;
   published: string;
   child_count: bigint;
 }
@@ -325,14 +325,14 @@ export interface Community {
 
 export interface CommunityAggregates {
   community_id: CommunityId;
-  subscribers: /* integer */ number;
-  posts: /* integer */ number;
-  comments: /* integer */ number;
+  subscribers: bigint;
+  posts: bigint;
+  comments: bigint;
   published: string;
-  users_active_day: /* integer */ number;
-  users_active_week: /* integer */ number;
-  users_active_month: /* integer */ number;
-  users_active_half_year: /* integer */ number;
+  users_active_day: bigint;
+  users_active_week: bigint;
+  users_active_month: bigint;
+  users_active_half_year: bigint;
 }
 
 
@@ -690,8 +690,8 @@ export interface GetComments {
   type_?: ListingType;
   sort?: CommentSortType;
   max_depth?: bigint;
-  page?: /* integer */ number;
-  limit?: /* integer */ number;
+  page?: bigint;
+  limit?: bigint;
   community_id?: CommunityId;
   community_name?: string;
   post_id?: PostId;
@@ -729,8 +729,8 @@ export interface GetFederatedInstancesResponse {
 export interface GetModlog {
   mod_person_id?: PersonId;
   community_id?: CommunityId;
-  page?: /* integer */ number;
-  limit?: /* integer */ number;
+  page?: bigint;
+  limit?: bigint;
   type_?: ModlogActionType;
   other_person_id?: PersonId;
 }
@@ -759,8 +759,8 @@ export interface GetPersonDetails {
   person_id?: PersonId;
   username?: string;
   sort?: SortType;
-  page?: /* integer */ number;
-  limit?: /* integer */ number;
+  page?: bigint;
+  limit?: bigint;
   community_id?: CommunityId;
   saved_only?: boolean;
 }
@@ -776,8 +776,8 @@ export interface GetPersonDetailsResponse {
 
 export interface GetPersonMentions {
   sort?: CommentSortType;
-  page?: /* integer */ number;
-  limit?: /* integer */ number;
+  page?: bigint;
+  limit?: bigint;
   unread_only?: boolean;
 }
 
@@ -804,8 +804,8 @@ export interface GetPostResponse {
 export interface GetPosts {
   type_?: ListingType;
   sort?: SortType;
-  page?: /* integer */ number;
-  limit?: /* integer */ number;
+  page?: bigint;
+  limit?: bigint;
   community_id?: CommunityId;
   community_name?: string;
   saved_only?: boolean;
@@ -823,16 +823,16 @@ export interface GetPostsResponse {
 
 export interface GetPrivateMessages {
   unread_only?: boolean;
-  page?: /* integer */ number;
-  limit?: /* integer */ number;
+  page?: bigint;
+  limit?: bigint;
   creator_id?: PersonId;
 }
 
 
 export interface GetReplies {
   sort?: CommentSortType;
-  page?: /* integer */ number;
-  limit?: /* integer */ number;
+  page?: bigint;
+  limit?: bigint;
   unread_only?: boolean;
 }
 
@@ -849,9 +849,9 @@ export interface GetReportCount {
 
 export interface GetReportCountResponse {
   community_id?: CommunityId;
-  comment_reports: /* integer */ number;
-  post_reports: /* integer */ number;
-  private_message_reports?: /* integer */ number;
+  comment_reports: bigint;
+  post_reports: bigint;
+  private_message_reports?: bigint;
 }
 
 
@@ -878,14 +878,14 @@ export interface GetSiteResponse {
 
 
 export interface GetUnreadCountResponse {
-  replies: /* integer */ number;
-  mentions: /* integer */ number;
-  private_messages: /* integer */ number;
+  replies: bigint;
+  mentions: bigint;
+  private_messages: bigint;
 }
 
 
 export interface GetUnreadRegistrationApplicationCountResponse {
-  registration_applications: /* integer */ number;
+  registration_applications: bigint;
 }
 
 
@@ -1100,8 +1100,8 @@ export type LemmyErrorType =
 
 
 export interface ListCommentReports {
-  page?: /* integer */ number;
-  limit?: /* integer */ number;
+  page?: bigint;
+  limit?: bigint;
   unresolved_only?: boolean;
   community_id?: CommunityId;
 }
@@ -1116,8 +1116,8 @@ export interface ListCommunities {
   type_?: ListingType;
   sort?: SortType;
   show_nsfw?: boolean;
-  page?: /* integer */ number;
-  limit?: /* integer */ number;
+  page?: bigint;
+  limit?: bigint;
 }
 
 
@@ -1130,8 +1130,8 @@ export type ListingType = "All" | "Local" | "Subscribed" | "ModeratorView";
 
 
 export interface ListPostReports {
-  page?: /* integer */ number;
-  limit?: /* integer */ number;
+  page?: bigint;
+  limit?: bigint;
   unresolved_only?: boolean;
   community_id?: CommunityId;
 }
@@ -1143,8 +1143,8 @@ export interface ListPostReportsResponse {
 
 
 export interface ListPrivateMessageReports {
-  page?: /* integer */ number;
-  limit?: /* integer */ number;
+  page?: bigint;
+  limit?: bigint;
   unresolved_only?: boolean;
 }
 
@@ -1156,8 +1156,8 @@ export interface ListPrivateMessageReportsResponse {
 
 export interface ListRegistrationApplications {
   unread_only?: boolean;
-  page?: /* integer */ number;
-  limit?: /* integer */ number;
+  page?: bigint;
+  limit?: bigint;
 }
 
 
@@ -1457,8 +1457,8 @@ export interface ModlogListParams {
   community_id?: CommunityId;
   mod_person_id?: PersonId;
   other_person_id?: PersonId;
-  page?: /* integer */ number;
-  limit?: /* integer */ number;
+  page?: bigint;
+  limit?: bigint;
   hide_modlog_names: boolean;
 }
 
@@ -1583,8 +1583,8 @@ export interface Person {
 
 export interface PersonAggregates {
   person_id: PersonId;
-  post_count: /* integer */ number;
-  comment_count: /* integer */ number;
+  post_count: bigint;
+  comment_count: bigint;
 }
 
 
@@ -1669,10 +1669,10 @@ export interface Post {
 
 export interface PostAggregates {
   post_id: PostId;
-  comments: /* integer */ number;
-  score: /* integer */ number;
-  upvotes: /* integer */ number;
-  downvotes: /* integer */ number;
+  comments: bigint;
+  score: bigint;
+  upvotes: bigint;
+  downvotes: bigint;
   published: string;
 }
 
@@ -1740,7 +1740,7 @@ export interface PostView {
   read: boolean;
   creator_blocked: boolean;
   my_vote?: bigint;
-  unread_comments: /* integer */ number;
+  unread_comments: bigint;
 }
 
 
@@ -1983,8 +1983,8 @@ export interface Search {
   type_?: SearchType;
   sort?: SortType;
   listing_type?: ListingType;
-  page?: /* integer */ number;
-  limit?: /* integer */ number;
+  page?: bigint;
+  limit?: bigint;
 }
 
 
@@ -2026,14 +2026,14 @@ export interface Site {
 
 export interface SiteAggregates {
   site_id: SiteId;
-  users: /* integer */ number;
-  posts: /* integer */ number;
-  comments: /* integer */ number;
-  communities: /* integer */ number;
-  users_active_day: /* integer */ number;
-  users_active_week: /* integer */ number;
-  users_active_month: /* integer */ number;
-  users_active_half_year: /* integer */ number;
+  users: bigint;
+  posts: bigint;
+  comments: bigint;
+  communities: bigint;
+  users_active_day: bigint;
+  users_active_week: bigint;
+  users_active_month: bigint;
+  users_active_half_year: bigint;
 }
 
 
