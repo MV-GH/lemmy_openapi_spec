@@ -4142,17 +4142,6 @@ components:
             error:
               title: LemmyErrorType.error
               enum:
-                - auth_cookie_insecure
-              type: string
-          required:
-            - error
-          additionalProperties: false
-          title: LemmyErrorType
-          type: object
-        - properties:
-            error:
-              title: LemmyErrorType.error
-              enum:
                 - too_many_items
               type: string
           required:
@@ -4198,6 +4187,17 @@ components:
               title: LemmyErrorType.error
               enum:
                 - invalid_bot_action
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - cant_block_local_instance
               type: string
           required:
             - error
