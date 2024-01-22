@@ -9,7 +9,7 @@ const reader = getTypeScriptReaderV2({unsupported: "warn"});
 const writer = getOpenApiWriter({
         format: 'yaml',
         title: 'Unofficial Lemmy Documentation',
-        version: 'v0.19.0',
+        version: 'v0.19.3',
         schemaVersion: "3.0.3"
     },
 )

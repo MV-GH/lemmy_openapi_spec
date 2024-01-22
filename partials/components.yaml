@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Unofficial Lemmy Documentation
-  version: v0.19.0
+  version: v0.19.3
   x-id: partials/components.yaml
   x-comment: >-
     Generated from partials/auto_gen_types.ts by core-types-json-schema
@@ -904,6 +904,9 @@ components:
         users_active_half_year:
           title: CommunityAggregates.users_active_half_year
           type: integer
+        subscribers_local:
+          title: CommunityAggregates.subscribers_local
+          type: integer
       required:
         - community_id
         - subscribers
@@ -914,6 +917,7 @@ components:
         - users_active_week
         - users_active_month
         - users_active_half_year
+        - subscribers_local
       additionalProperties: false
       title: CommunityAggregates
       type: object
@@ -1076,6 +1080,9 @@ components:
             $ref: '#/components/schemas/LanguageId'
           title: CreateCommunity.discussion_languages
           type: array
+        local_only:
+          title: CreateCommunity.local_only
+          type: boolean
       required:
         - name
         - title
@@ -1545,6 +1552,9 @@ components:
             $ref: '#/components/schemas/LanguageId'
           title: EditCommunity.discussion_languages
           type: array
+        local_only:
+          title: EditCommunity.local_only
+          type: boolean
       required:
         - community_id
       additionalProperties: false
@@ -4142,17 +4152,6 @@ components:
             error:
               title: LemmyErrorType.error
               enum:
-                - auth_cookie_insecure
-              type: string
-          required:
-            - error
-          additionalProperties: false
-          title: LemmyErrorType
-          type: object
-        - properties:
-            error:
-              title: LemmyErrorType.error
-              enum:
                 - too_many_items
               type: string
           required:
@@ -4208,6 +4207,17 @@ components:
             error:
               title: LemmyErrorType.error
               enum:
+                - cant_block_local_instance
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
                 - unknown
               type: string
             message:
@@ -4220,6 +4230,34 @@ components:
           title: LemmyErrorType
           type: object
       title: LemmyErrorType
+    ListCommentLikes:
+      properties:
+        comment_id:
+          $ref: '#/components/schemas/CommentId'
+          title: ListCommentLikes.comment_id
+        page:
+          title: ListCommentLikes.page
+          type: integer
+        limit:
+          title: ListCommentLikes.limit
+          type: integer
+      required:
+        - comment_id
+      additionalProperties: false
+      title: ListCommentLikes
+      type: object
+    ListCommentLikesResponse:
+      properties:
+        comment_likes:
+          items:
+            $ref: '#/components/schemas/VoteView'
+          title: ListCommentLikesResponse.comment_likes
+          type: array
+      required:
+        - comment_likes
+      additionalProperties: false
+      title: ListCommentLikesResponse
+      type: object
     ListCommentReports:
       properties:
         page:
@@ -4289,6 +4327,34 @@ components:
         - ModeratorView
       title: ListingType
       type: string
+    ListPostLikes:
+      properties:
+        post_id:
+          $ref: '#/components/schemas/PostId'
+          title: ListPostLikes.post_id
+        page:
+          title: ListPostLikes.page
+          type: integer
+        limit:
+          title: ListPostLikes.limit
+          type: integer
+      required:
+        - post_id
+      additionalProperties: false
+      title: ListPostLikes
+      type: object
+    ListPostLikesResponse:
+      properties:
+        post_likes:
+          items:
+            $ref: '#/components/schemas/VoteView'
+          title: ListPostLikesResponse.post_likes
+          type: array
+      required:
+        - post_likes
+      additionalProperties: false
+      title: ListPostLikesResponse
+      type: object
     ListPostReports:
       properties:
         page:
@@ -5787,6 +5853,9 @@ components:
         published:
           title: PostAggregates.published
           type: string
+        newest_comment_time:
+          title: PostAggregates.newest_comment_time
+          type: string
       required:
         - post_id
         - comments
@@ -5794,6 +5863,7 @@ components:
         - upvotes
         - downvotes
         - published
+        - newest_comment_time
       additionalProperties: false
       title: PostAggregates
       type: object
@@ -6905,4 +6975,18 @@ components:
         - token
       additionalProperties: false
       title: VerifyEmail
+      type: object
+    VoteView:
+      properties:
+        creator:
+          $ref: '#/components/schemas/Person'
+          title: VoteView.creator
+        score:
+          title: VoteView.score
+          type: integer
+      required:
+        - creator
+        - score
+      additionalProperties: false
+      title: VoteView
       type: object
