@@ -1553,6 +1553,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListPostLikesResponse'
+      summary: '[MANUAL] TODO until fix'
   /comment/like/list:
     get:
       tags:
@@ -1569,6 +1570,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListCommentLikesResponse'
+      summary: '[MANUAL] TODO until fix'
 components:
   securitySchemes:
     bearerAuth:
