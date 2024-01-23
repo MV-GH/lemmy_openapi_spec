@@ -1553,7 +1553,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListPostLikesResponse'
-      summary: '[MANUAL] TODO until fix'
+      summary: List a posts's likes. Admin-only.
   /comment/like/list:
     get:
       tags:
@@ -1570,7 +1570,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListCommentLikesResponse'
-      summary: '[MANUAL] TODO until fix'
+      summary: List a comment's likes. Admin-only.
 components:
   securitySchemes:
     bearerAuth:
