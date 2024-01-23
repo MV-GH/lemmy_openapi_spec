@@ -333,6 +333,7 @@ export interface CommunityAggregates {
   users_active_week: bigint;
   users_active_month: bigint;
   users_active_half_year: bigint;
+  subscribers_local: bigint;
 }
 
 
@@ -400,6 +401,7 @@ export interface CreateCommunity {
   nsfw?: boolean;
   posting_restricted_to_mods?: boolean;
   discussion_languages?: Array<LanguageId>;
+  local_only?: boolean;
 }
 
 
@@ -579,6 +581,7 @@ export interface EditCommunity {
   nsfw?: boolean;
   posting_restricted_to_mods?: boolean;
   discussion_languages?: Array<LanguageId>;
+  local_only?: boolean;
 }
 
 
@@ -1090,13 +1093,25 @@ export type LemmyErrorType =
   | { error: "couldnt_send_webmention" }
   | { error: "contradicting_filters" }
   | { error: "instance_block_already_exists" }
-  | { error: "auth_cookie_insecure" }
   | { error: "too_many_items" }
   | { error: "community_has_no_followers" }
   | { error: "ban_expiration_in_past" }
   | { error: "invalid_unix_time" }
   | { error: "invalid_bot_action" }
+  | { error: "cant_block_local_instance" }
   | { error: "unknown"; message: string };
+
+
+export interface ListCommentLikes {
+  comment_id: CommentId;
+  page?: bigint;
+  limit?: bigint;
+}
+
+
+export interface ListCommentLikesResponse {
+  comment_likes: Array<VoteView>;
+}
 
 
 export interface ListCommentReports {
@@ -1127,6 +1142,18 @@ export interface ListCommunitiesResponse {
 
 
 export type ListingType = "All" | "Local" | "Subscribed" | "ModeratorView";
+
+
+export interface ListPostLikes {
+  post_id: PostId;
+  page?: bigint;
+  limit?: bigint;
+}
+
+
+export interface ListPostLikesResponse {
+  post_likes: Array<VoteView>;
+}
 
 
 export interface ListPostReports {
@@ -1674,6 +1701,7 @@ export interface PostAggregates {
   upvotes: bigint;
   downvotes: bigint;
   published: string;
+  newest_comment_time: string;
 }
 
 
@@ -2120,4 +2148,10 @@ export interface UpdateTotpResponse {
 
 export interface VerifyEmail {
   token: string;
+}
+
+
+export interface VoteView {
+  creator: Person;
+  score: bigint;
 }
