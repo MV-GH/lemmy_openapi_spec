@@ -1327,7 +1327,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RegistrationApplicationView'
+                $ref: '#/components/schemas/RegistrationApplicationResponse'
       summary: Approve a registration application
   /admin/purge/person:
     post:
@@ -4078,9 +4078,6 @@ components:
         users_active_half_year:
           title: CommunityAggregates.users_active_half_year
           type: integer
-        subscribers_local:
-          title: CommunityAggregates.subscribers_local
-          type: integer
       required:
         - community_id
         - subscribers
@@ -4091,7 +4088,6 @@ components:
         - users_active_week
         - users_active_month
         - users_active_half_year
-        - subscribers_local
       additionalProperties: false
       title: CommunityAggregates
       type: object
@@ -4242,9 +4238,6 @@ components:
             $ref: '#/components/schemas/LanguageId'
           title: EditCommunity.discussion_languages
           type: array
-        local_only:
-          title: EditCommunity.local_only
-          type: boolean
       required:
         - community_id
       additionalProperties: false
@@ -4294,9 +4287,6 @@ components:
             $ref: '#/components/schemas/LanguageId'
           title: CreateCommunity.discussion_languages
           type: array
-        local_only:
-          title: CreateCommunity.local_only
-          type: boolean
       required:
         - name
         - title
@@ -5862,6 +5852,9 @@ components:
         person_view:
           $ref: '#/components/schemas/PersonView'
           title: GetPersonDetailsResponse.person_view
+        site:
+          $ref: '#/components/schemas/Site'
+          title: GetPersonDetailsResponse.site
         comments:
           items:
             $ref: '#/components/schemas/CommentView'
@@ -6559,6 +6552,16 @@ components:
         - approve
       additionalProperties: false
       title: ApproveRegistrationApplication
+      type: object
+    RegistrationApplicationResponse:
+      properties:
+        registration_application:
+          $ref: '#/components/schemas/RegistrationApplicationView'
+          title: RegistrationApplicationResponse.registration_application
+      required:
+        - registration_application
+      additionalProperties: false
+      title: RegistrationApplicationResponse
       type: object
     PurgePerson:
       properties:
