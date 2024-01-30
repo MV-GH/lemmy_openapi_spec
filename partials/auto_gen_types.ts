@@ -333,7 +333,6 @@ export interface CommunityAggregates {
   users_active_week: bigint;
   users_active_month: bigint;
   users_active_half_year: bigint;
-  subscribers_local: bigint;
 }
 
 
@@ -401,7 +400,6 @@ export interface CreateCommunity {
   nsfw?: boolean;
   posting_restricted_to_mods?: boolean;
   discussion_languages?: Array<LanguageId>;
-  local_only?: boolean;
 }
 
 
@@ -581,7 +579,6 @@ export interface EditCommunity {
   nsfw?: boolean;
   posting_restricted_to_mods?: boolean;
   discussion_languages?: Array<LanguageId>;
-  local_only?: boolean;
 }
 
 
@@ -771,6 +768,7 @@ export interface GetPersonDetails {
 
 export interface GetPersonDetailsResponse {
   person_view: PersonView;
+  site?: Site;
   comments: Array<CommentView>;
   posts: Array<PostView>;
   moderates: Array<CommunityModeratorView>;

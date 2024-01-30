@@ -1382,7 +1382,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'components.yaml#/components/schemas/RegistrationApplicationView'
+                $ref: 'components.yaml#/components/schemas/RegistrationApplicationResponse'
       summary: Approve a registration application
   /admin/purge/person:
     post:
