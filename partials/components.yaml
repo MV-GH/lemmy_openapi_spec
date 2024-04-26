@@ -599,6 +599,9 @@ components:
         creator_banned_from_community:
           title: CommentReplyView.creator_banned_from_community
           type: boolean
+        banned_from_community:
+          title: CommentReplyView.banned_from_community
+          type: boolean
         creator_is_moderator:
           title: CommentReplyView.creator_is_moderator
           type: boolean
@@ -626,6 +629,7 @@ components:
         - recipient
         - counts
         - creator_banned_from_community
+        - banned_from_community
         - creator_is_moderator
         - creator_is_admin
         - subscribed
@@ -713,6 +717,21 @@ components:
         creator_banned_from_community:
           title: CommentReportView.creator_banned_from_community
           type: boolean
+        creator_is_moderator:
+          title: CommentReportView.creator_is_moderator
+          type: boolean
+        creator_is_admin:
+          title: CommentReportView.creator_is_admin
+          type: boolean
+        creator_blocked:
+          title: CommentReportView.creator_blocked
+          type: boolean
+        subscribed:
+          $ref: '#/components/schemas/SubscribedType'
+          title: CommentReportView.subscribed
+        saved:
+          title: CommentReportView.saved
+          type: boolean
         my_vote:
           title: CommentReportView.my_vote
           type: integer
@@ -728,6 +747,11 @@ components:
         - comment_creator
         - counts
         - creator_banned_from_community
+        - creator_is_moderator
+        - creator_is_admin
+        - creator_blocked
+        - subscribed
+        - saved
       additionalProperties: false
       title: CommentReportView
       type: object
@@ -776,6 +800,9 @@ components:
         creator_banned_from_community:
           title: CommentView.creator_banned_from_community
           type: boolean
+        banned_from_community:
+          title: CommentView.banned_from_community
+          type: boolean
         creator_is_moderator:
           title: CommentView.creator_is_moderator
           type: boolean
@@ -801,6 +828,7 @@ components:
         - community
         - counts
         - creator_banned_from_community
+        - banned_from_community
         - creator_is_moderator
         - creator_is_admin
         - subscribed
@@ -859,6 +887,9 @@ components:
         instance_id:
           $ref: '#/components/schemas/InstanceId'
           title: Community.instance_id
+        visibility:
+          $ref: '#/components/schemas/CommunityVisibility'
+          title: Community.visibility
       required:
         - id
         - name
@@ -872,6 +903,7 @@ components:
         - hidden
         - posting_restricted_to_mods
         - instance_id
+        - visibility
       additionalProperties: false
       title: Community
       type: object
@@ -904,6 +936,9 @@ components:
         users_active_half_year:
           title: CommunityAggregates.users_active_half_year
           type: integer
+        subscribers_local:
+          title: CommunityAggregates.subscribers_local
+          type: integer
       required:
         - community_id
         - subscribers
@@ -914,6 +949,7 @@ components:
         - users_active_week
         - users_active_month
         - users_active_half_year
+        - subscribers_local
       additionalProperties: false
       title: CommunityAggregates
       type: object
@@ -992,14 +1028,24 @@ components:
         counts:
           $ref: '#/components/schemas/CommunityAggregates'
           title: CommunityView.counts
+        banned_from_community:
+          title: CommunityView.banned_from_community
+          type: boolean
       required:
         - community
         - subscribed
         - blocked
         - counts
+        - banned_from_community
       additionalProperties: false
       title: CommunityView
       type: object
+    CommunityVisibility:
+      enum:
+        - Public
+        - LocalOnly
+      title: CommunityVisibility
+      type: string
     CreateComment:
       properties:
         content:
@@ -1076,6 +1122,9 @@ components:
             $ref: '#/components/schemas/LanguageId'
           title: CreateCommunity.discussion_languages
           type: array
+        visibility:
+          $ref: '#/components/schemas/CommunityVisibility'
+          title: CreateCommunity.visibility
       required:
         - name
         - title
@@ -1124,6 +1173,9 @@ components:
         body:
           title: CreatePost.body
           type: string
+        alt_text:
+          title: CreatePost.alt_text
+          type: string
         honeypot:
           title: CreatePost.honeypot
           type: string
@@ -1133,6 +1185,9 @@ components:
         language_id:
           $ref: '#/components/schemas/LanguageId'
           title: CreatePost.language_id
+        custom_thumbnail:
+          title: CreatePost.custom_thumbnail
+          type: string
       required:
         - name
         - community_id
@@ -1236,6 +1291,9 @@ components:
         default_post_listing_type:
           $ref: '#/components/schemas/ListingType'
           title: CreateSite.default_post_listing_type
+        default_sort_type:
+          $ref: '#/components/schemas/SortType'
+          title: CreateSite.default_sort_type
         legal_information:
           title: CreateSite.legal_information
           type: string
@@ -1322,6 +1380,12 @@ components:
         registration_mode:
           $ref: '#/components/schemas/RegistrationMode'
           title: CreateSite.registration_mode
+        content_warning:
+          title: CreateSite.content_warning
+          type: string
+        default_post_listing_mode:
+          $ref: '#/components/schemas/PostListingMode'
+          title: CreateSite.default_post_listing_mode
       required:
         - name
       additionalProperties: false
@@ -1545,6 +1609,9 @@ components:
             $ref: '#/components/schemas/LanguageId'
           title: EditCommunity.discussion_languages
           type: array
+        visibility:
+          $ref: '#/components/schemas/CommunityVisibility'
+          title: EditCommunity.visibility
       required:
         - community_id
       additionalProperties: false
@@ -1592,12 +1659,18 @@ components:
         body:
           title: EditPost.body
           type: string
+        alt_text:
+          title: EditPost.alt_text
+          type: string
         nsfw:
           title: EditPost.nsfw
           type: boolean
         language_id:
           $ref: '#/components/schemas/LanguageId'
           title: EditPost.language_id
+        custom_thumbnail:
+          title: EditPost.custom_thumbnail
+          type: string
       required:
         - post_id
       additionalProperties: false
@@ -1658,6 +1731,9 @@ components:
         default_post_listing_type:
           $ref: '#/components/schemas/ListingType'
           title: EditSite.default_post_listing_type
+        default_sort_type:
+          $ref: '#/components/schemas/SortType'
+          title: EditSite.default_sort_type
         legal_information:
           title: EditSite.legal_information
           type: string
@@ -1736,6 +1812,11 @@ components:
             type: string
           title: EditSite.blocked_instances
           type: array
+        blocked_urls:
+          items:
+            type: string
+          title: EditSite.blocked_urls
+          type: array
         taglines:
           items:
             type: string
@@ -1747,6 +1828,12 @@ components:
         reports_email_admins:
           title: EditSite.reports_email_admins
           type: boolean
+        content_warning:
+          title: EditSite.content_warning
+          type: string
+        default_post_listing_mode:
+          $ref: '#/components/schemas/PostListingMode'
+          title: EditSite.default_post_listing_mode
       additionalProperties: false
       title: EditSite
       type: object
@@ -1951,6 +2038,12 @@ components:
         other_person_id:
           $ref: '#/components/schemas/PersonId'
           title: GetModlog.other_person_id
+        post_id:
+          $ref: '#/components/schemas/PostId'
+          title: GetModlog.post_id
+        comment_id:
+          $ref: '#/components/schemas/CommentId'
+          title: GetModlog.comment_id
       additionalProperties: false
       title: GetModlog
       type: object
@@ -2202,6 +2295,9 @@ components:
         disliked_only:
           title: GetPosts.disliked_only
           type: boolean
+        show_hidden:
+          title: GetPosts.show_hidden
+          type: boolean
         page_cursor:
           $ref: '#/components/schemas/PaginationCursor'
           title: GetPosts.page_cursor
@@ -2310,7 +2406,7 @@ components:
     GetSiteMetadataResponse:
       properties:
         metadata:
-          $ref: '#/components/schemas/SiteMetadata'
+          $ref: '#/components/schemas/LinkMetadata'
           title: GetSiteMetadataResponse.metadata
       required:
         - metadata
@@ -2353,6 +2449,11 @@ components:
             $ref: '#/components/schemas/CustomEmojiView'
           title: GetSiteResponse.custom_emojis
           type: array
+        blocked_urls:
+          items:
+            $ref: '#/components/schemas/LocalSiteUrlBlocklist'
+          title: GetSiteResponse.blocked_urls
+          type: array
       required:
         - site_view
         - admins
@@ -2361,6 +2462,7 @@ components:
         - discussion_languages
         - taglines
         - custom_emojis
+        - blocked_urls
       additionalProperties: false
       title: GetSiteResponse
       type: object
@@ -2410,27 +2512,21 @@ components:
       additionalProperties: false
       title: HideCommunity
       type: object
-    ImageUpload:
+    HidePost:
       properties:
-        local_user_id:
-          $ref: '#/components/schemas/LocalUserId'
-          title: ImageUpload.local_user_id
-        pictrs_alias:
-          title: ImageUpload.pictrs_alias
-          type: string
-        pictrs_delete_token:
-          title: ImageUpload.pictrs_delete_token
-          type: string
-        published:
-          title: ImageUpload.published
-          type: string
+        post_ids:
+          items:
+            $ref: '#/components/schemas/PostId'
+          title: HidePost.post_ids
+          type: array
+        hide:
+          title: HidePost.hide
+          type: boolean
       required:
-        - local_user_id
-        - pictrs_alias
-        - pictrs_delete_token
-        - published
+        - post_ids
+        - hide
       additionalProperties: false
-      title: ImageUpload
+      title: HidePost
       type: object
     Instance:
       properties:
@@ -3538,6 +3634,17 @@ components:
             error:
               title: LemmyErrorType.error
               enum:
+                - alt_text_length_overflow
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
                 - missing_totp_token
               type: string
           required:
@@ -3769,6 +3876,17 @@ components:
             error:
               title: LemmyErrorType.error
               enum:
+                - couldnt_hide_post
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
                 - couldnt_update_community
               type: string
           required:
@@ -3880,6 +3998,17 @@ components:
               title: LemmyErrorType.error
               enum:
                 - banned
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - blocked_url
               type: string
           required:
             - error
@@ -4223,6 +4352,26 @@ components:
           title: LemmyErrorType
           type: object
       title: LemmyErrorType
+    LinkMetadata:
+      properties:
+        title:
+          title: LinkMetadata.title
+          type: string
+        description:
+          title: LinkMetadata.description
+          type: string
+        image:
+          title: LinkMetadata.image
+          type: string
+        embed_video_url:
+          title: LinkMetadata.embed_video_url
+          type: string
+        content_type:
+          title: LinkMetadata.content_type
+          type: string
+      additionalProperties: false
+      title: LinkMetadata
+      type: object
     ListCommentLikes:
       properties:
         comment_id:
@@ -4253,6 +4402,9 @@ components:
       type: object
     ListCommentReports:
       properties:
+        comment_id:
+          $ref: '#/components/schemas/CommentId'
+          title: ListCommentReports.comment_id
         page:
           title: ListCommentReports.page
           type: integer
@@ -4320,6 +4472,29 @@ components:
         - ModeratorView
       title: ListingType
       type: string
+    ListMedia:
+      properties:
+        page:
+          title: ListMedia.page
+          type: integer
+        limit:
+          title: ListMedia.limit
+          type: integer
+      additionalProperties: false
+      title: ListMedia
+      type: object
+    ListMediaResponse:
+      properties:
+        images:
+          items:
+            $ref: '#/components/schemas/LocalImage'
+          title: ListMediaResponse.images
+          type: array
+      required:
+        - images
+      additionalProperties: false
+      title: ListMediaResponse
+      type: object
     ListPostLikes:
       properties:
         post_id:
@@ -4362,6 +4537,9 @@ components:
         community_id:
           $ref: '#/components/schemas/CommunityId'
           title: ListPostReports.community_id
+        post_id:
+          $ref: '#/components/schemas/PostId'
+          title: ListPostReports.post_id
       additionalProperties: false
       title: ListPostReports
       type: object
@@ -4428,6 +4606,27 @@ components:
         - registration_applications
       additionalProperties: false
       title: ListRegistrationApplicationsResponse
+      type: object
+    LocalImage:
+      properties:
+        local_user_id:
+          $ref: '#/components/schemas/LocalUserId'
+          title: LocalImage.local_user_id
+        pictrs_alias:
+          title: LocalImage.pictrs_alias
+          type: string
+        pictrs_delete_token:
+          title: LocalImage.pictrs_delete_token
+          type: string
+        published:
+          title: LocalImage.published
+          type: string
+      required:
+        - pictrs_alias
+        - pictrs_delete_token
+        - published
+      additionalProperties: false
+      title: LocalImage
       type: object
     LocalSite:
       properties:
@@ -4503,6 +4702,12 @@ components:
         federation_signed_fetch:
           title: LocalSite.federation_signed_fetch
           type: boolean
+        default_post_listing_mode:
+          $ref: '#/components/schemas/PostListingMode'
+          title: LocalSite.default_post_listing_mode
+        default_sort_type:
+          $ref: '#/components/schemas/SortType'
+          title: LocalSite.default_sort_type
       required:
         - id
         - site_id
@@ -4524,6 +4729,8 @@ components:
         - registration_mode
         - reports_email_admins
         - federation_signed_fetch
+        - default_post_listing_mode
+        - default_sort_type
       additionalProperties: false
       title: LocalSite
       type: object
@@ -4602,6 +4809,27 @@ components:
         - import_user_settings_per_second
       additionalProperties: false
       title: LocalSiteRateLimit
+      type: object
+    LocalSiteUrlBlocklist:
+      properties:
+        id:
+          title: LocalSiteUrlBlocklist.id
+          type: integer
+        url:
+          title: LocalSiteUrlBlocklist.url
+          type: string
+        published:
+          title: LocalSiteUrlBlocklist.published
+          type: string
+        updated:
+          title: LocalSiteUrlBlocklist.updated
+          type: string
+      required:
+        - id
+        - url
+        - published
+      additionalProperties: false
+      title: LocalSiteUrlBlocklist
       type: object
     LocalUser:
       properties:
@@ -4716,6 +4944,9 @@ components:
         local_user:
           $ref: '#/components/schemas/LocalUser'
           title: LocalUserView.local_user
+        local_user_vote_display_mode:
+          $ref: '#/components/schemas/LocalUserVoteDisplayMode'
+          title: LocalUserView.local_user_vote_display_mode
         person:
           $ref: '#/components/schemas/Person'
           title: LocalUserView.person
@@ -4724,10 +4955,37 @@ components:
           title: LocalUserView.counts
       required:
         - local_user
+        - local_user_vote_display_mode
         - person
         - counts
       additionalProperties: false
       title: LocalUserView
+      type: object
+    LocalUserVoteDisplayMode:
+      properties:
+        local_user_id:
+          $ref: '#/components/schemas/LocalUserId'
+          title: LocalUserVoteDisplayMode.local_user_id
+        score:
+          title: LocalUserVoteDisplayMode.score
+          type: boolean
+        upvotes:
+          title: LocalUserVoteDisplayMode.upvotes
+          type: boolean
+        downvotes:
+          title: LocalUserVoteDisplayMode.downvotes
+          type: boolean
+        upvote_percentage:
+          title: LocalUserVoteDisplayMode.upvote_percentage
+          type: boolean
+      required:
+        - local_user_id
+        - score
+        - upvotes
+        - downvotes
+        - upvote_percentage
+      additionalProperties: false
+      title: LocalUserVoteDisplayMode
       type: object
     LockPost:
       properties:
@@ -4827,9 +5085,6 @@ components:
       type: object
     MarkPostAsRead:
       properties:
-        post_id:
-          $ref: '#/components/schemas/PostId'
-          title: MarkPostAsRead.post_id
         post_ids:
           items:
             $ref: '#/components/schemas/PostId'
@@ -4839,6 +5094,7 @@ components:
           title: MarkPostAsRead.read
           type: boolean
       required:
+        - post_ids
         - read
       additionalProperties: false
       title: MarkPostAsRead
@@ -5232,6 +5488,12 @@ components:
         other_person_id:
           $ref: '#/components/schemas/PersonId'
           title: ModlogListParams.other_person_id
+        post_id:
+          $ref: '#/components/schemas/PostId'
+          title: ModlogListParams.post_id
+        comment_id:
+          $ref: '#/components/schemas/CommentId'
+          title: ModlogListParams.comment_id
         page:
           title: ModlogListParams.page
           type: integer
@@ -5493,6 +5755,23 @@ components:
       additionalProperties: false
       title: MyUserInfo
       type: object
+    OpenGraphData:
+      properties:
+        title:
+          title: OpenGraphData.title
+          type: string
+        description:
+          title: OpenGraphData.description
+          type: string
+        image:
+          title: OpenGraphData.image
+          type: string
+        embed_video_url:
+          title: OpenGraphData.embed_video_url
+          type: string
+      additionalProperties: false
+      title: OpenGraphData
+      type: object
     PaginationCursor:
       title: PaginationCursor
       type: string
@@ -5690,6 +5969,9 @@ components:
         creator_banned_from_community:
           title: PersonMentionView.creator_banned_from_community
           type: boolean
+        banned_from_community:
+          title: PersonMentionView.banned_from_community
+          type: boolean
         creator_is_moderator:
           title: PersonMentionView.creator_is_moderator
           type: boolean
@@ -5717,6 +5999,7 @@ components:
         - recipient
         - counts
         - creator_banned_from_community
+        - banned_from_community
         - creator_is_moderator
         - creator_is_admin
         - subscribed
@@ -5808,6 +6091,12 @@ components:
         featured_local:
           title: Post.featured_local
           type: boolean
+        url_content_type:
+          title: Post.url_content_type
+          type: string
+        alt_text:
+          title: Post.alt_text
+          type: string
       required:
         - id
         - name
@@ -5955,8 +6244,32 @@ components:
         creator_banned_from_community:
           title: PostReportView.creator_banned_from_community
           type: boolean
+        creator_is_moderator:
+          title: PostReportView.creator_is_moderator
+          type: boolean
+        creator_is_admin:
+          title: PostReportView.creator_is_admin
+          type: boolean
+        subscribed:
+          $ref: '#/components/schemas/SubscribedType'
+          title: PostReportView.subscribed
+        saved:
+          title: PostReportView.saved
+          type: boolean
+        read:
+          title: PostReportView.read
+          type: boolean
+        hidden:
+          title: PostReportView.hidden
+          type: boolean
+        creator_blocked:
+          title: PostReportView.creator_blocked
+          type: boolean
         my_vote:
           title: PostReportView.my_vote
+          type: integer
+        unread_comments:
+          title: PostReportView.unread_comments
           type: integer
         counts:
           $ref: '#/components/schemas/PostAggregates'
@@ -5971,6 +6284,14 @@ components:
         - creator
         - post_creator
         - creator_banned_from_community
+        - creator_is_moderator
+        - creator_is_admin
+        - subscribed
+        - saved
+        - read
+        - hidden
+        - creator_blocked
+        - unread_comments
         - counts
       additionalProperties: false
       title: PostReportView
@@ -5999,6 +6320,9 @@ components:
         creator_banned_from_community:
           title: PostView.creator_banned_from_community
           type: boolean
+        banned_from_community:
+          title: PostView.banned_from_community
+          type: boolean
         creator_is_moderator:
           title: PostView.creator_is_moderator
           type: boolean
@@ -6017,6 +6341,9 @@ components:
         read:
           title: PostView.read
           type: boolean
+        hidden:
+          title: PostView.hidden
+          type: boolean
         creator_blocked:
           title: PostView.creator_blocked
           type: boolean
@@ -6031,12 +6358,14 @@ components:
         - creator
         - community
         - creator_banned_from_community
+        - banned_from_community
         - creator_is_moderator
         - creator_is_admin
         - counts
         - subscribed
         - saved
         - read
+        - hidden
         - creator_blocked
         - unread_comments
       additionalProperties: false
@@ -6548,9 +6877,6 @@ components:
         auto_expand:
           title: SaveUserSettings.auto_expand
           type: boolean
-        show_scores:
-          title: SaveUserSettings.show_scores
-          type: boolean
         theme:
           title: SaveUserSettings.theme
           type: string
@@ -6618,6 +6944,18 @@ components:
           type: boolean
         collapse_bot_comments:
           title: SaveUserSettings.collapse_bot_comments
+          type: boolean
+        show_scores:
+          title: SaveUserSettings.show_scores
+          type: boolean
+        show_upvotes:
+          title: SaveUserSettings.show_upvotes
+          type: boolean
+        show_downvotes:
+          title: SaveUserSettings.show_downvotes
+          type: boolean
+        show_upvote_percentage:
+          title: SaveUserSettings.show_upvote_percentage
           type: boolean
       additionalProperties: false
       title: SaveUserSettings
@@ -6735,15 +7073,12 @@ components:
         inbox_url:
           title: Site.inbox_url
           type: string
-        private_key:
-          title: Site.private_key
-          type: string
-        public_key:
-          title: Site.public_key
-          type: string
         instance_id:
           $ref: '#/components/schemas/InstanceId'
           title: Site.instance_id
+        content_warning:
+          title: Site.content_warning
+          type: string
       required:
         - id
         - name
@@ -6751,7 +7086,6 @@ components:
         - actor_id
         - last_refreshed_at
         - inbox_url
-        - public_key
         - instance_id
       additionalProperties: false
       title: Site
@@ -6801,23 +7135,6 @@ components:
     SiteId:
       title: SiteId
       type: integer
-    SiteMetadata:
-      properties:
-        title:
-          title: SiteMetadata.title
-          type: string
-        description:
-          title: SiteMetadata.description
-          type: string
-        image:
-          title: SiteMetadata.image
-          type: string
-        embed_video_url:
-          title: SiteMetadata.embed_video_url
-          type: string
-      additionalProperties: false
-      title: SiteMetadata
-      type: object
     SiteResponse:
       properties:
         site_view:
@@ -6974,11 +7291,15 @@ components:
         creator:
           $ref: '#/components/schemas/Person'
           title: VoteView.creator
+        creator_banned_from_community:
+          title: VoteView.creator_banned_from_community
+          type: boolean
         score:
           title: VoteView.score
           type: integer
       required:
         - creator
+        - creator_banned_from_community
         - score
       additionalProperties: false
       title: VoteView
