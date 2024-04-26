@@ -1,7 +1,7 @@
 openapi: "3.0.3"
 info:
   title: Unofficial Lemmy OpenAPI Documentation
-  version: v0.19.3
+  version: v0.19.4
   license:
     name: AGPLv3
     url: https://www.gnu.org/licenses/agpl-3.0.en.html#license-text
@@ -216,6 +216,7 @@ paths:
     put:
       tags:
         - Community
+        - Admin
       summary: "Hide a community from public / \"All\" view. Admins only."
       requestBody:
         content:
@@ -1614,7 +1615,7 @@ paths:
             application/json:
               schema:
                 $ref: 'components.yaml#/components/schemas/ListPostLikesResponse'
-      summary: 'List a posts''s likes. Admin-only.'
+      summary: 'List a post''s likes. Admin-only.'
   /comment/like/list:
     get:
       tags:
@@ -1632,3 +1633,54 @@ paths:
               schema:
                 $ref: 'components.yaml#/components/schemas/ListCommentLikesResponse'
       summary: 'List a comment''s likes. Admin-only.'
+  /account/list_media:
+    get:
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/ListMedia'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/ListMediaResponse'
+      summary: List all the media for your user
+  /admin/list_all_media:
+    get:
+      tags:
+        - Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/ListMedia'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/ListMediaResponse'
+      summary: 'List all the media known to your instance.'
+  /post/hide:
+    post:
+      tags:
+        - Post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'components.yaml#/components/schemas/HidePost'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PostResponse'
+      summary: Hide a post from list views.

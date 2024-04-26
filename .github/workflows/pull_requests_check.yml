@@ -15,4 +15,4 @@ jobs:
       - name: Check OpenAPI lint
         uses: MV-GH/redocly-cli-github-action@master
         with:
-          args: 'lint lemmy_spec.yaml'
+          args: 'lint lemmy_spec.yaml --format github-actions'

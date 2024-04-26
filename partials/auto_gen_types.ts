@@ -234,6 +234,7 @@ export interface CommentReplyView {
   recipient: Person;
   counts: CommentAggregates;
   creator_banned_from_community: boolean;
+  banned_from_community: boolean;
   creator_is_moderator: boolean;
   creator_is_admin: boolean;
   subscribed: SubscribedType;
@@ -273,6 +274,11 @@ export interface CommentReportView {
   comment_creator: Person;
   counts: CommentAggregates;
   creator_banned_from_community: boolean;
+  creator_is_moderator: boolean;
+  creator_is_admin: boolean;
+  creator_blocked: boolean;
+  subscribed: SubscribedType;
+  saved: boolean;
   my_vote?: bigint;
   resolver?: Person;
 }
@@ -294,6 +300,7 @@ export interface CommentView {
   community: Community;
   counts: CommentAggregates;
   creator_banned_from_community: boolean;
+  banned_from_community: boolean;
   creator_is_moderator: boolean;
   creator_is_admin: boolean;
   subscribed: SubscribedType;
@@ -320,6 +327,7 @@ export interface Community {
   hidden: boolean;
   posting_restricted_to_mods: boolean;
   instance_id: InstanceId;
+  visibility: CommunityVisibility;
 }
 
 
@@ -333,6 +341,7 @@ export interface CommunityAggregates {
   users_active_week: bigint;
   users_active_month: bigint;
   users_active_half_year: bigint;
+  subscribers_local: bigint;
 }
 
 
@@ -368,7 +377,11 @@ export interface CommunityView {
   subscribed: SubscribedType;
   blocked: boolean;
   counts: CommunityAggregates;
+  banned_from_community: boolean;
 }
+
+
+export type CommunityVisibility = "Public" | "LocalOnly";
 
 
 export interface CreateComment {
@@ -400,6 +413,7 @@ export interface CreateCommunity {
   nsfw?: boolean;
   posting_restricted_to_mods?: boolean;
   discussion_languages?: Array<LanguageId>;
+  visibility?: CommunityVisibility;
 }
 
 
@@ -417,9 +431,11 @@ export interface CreatePost {
   community_id: CommunityId;
   url?: string;
   body?: string;
+  alt_text?: string;
   honeypot?: string;
   nsfw?: boolean;
   language_id?: LanguageId;
+  custom_thumbnail?: string;
 }
 
 
@@ -461,6 +477,7 @@ export interface CreateSite {
   private_instance?: boolean;
   default_theme?: string;
   default_post_listing_type?: ListingType;
+  default_sort_type?: SortType;
   legal_information?: string;
   application_email_admins?: boolean;
   hide_modlog_mod_names?: boolean;
@@ -487,6 +504,8 @@ export interface CreateSite {
   blocked_instances?: Array<string>;
   taglines?: Array<string>;
   registration_mode?: RegistrationMode;
+  content_warning?: string;
+  default_post_listing_mode?: PostListingMode;
 }
 
 
@@ -579,6 +598,7 @@ export interface EditCommunity {
   nsfw?: boolean;
   posting_restricted_to_mods?: boolean;
   discussion_languages?: Array<LanguageId>;
+  visibility?: CommunityVisibility;
 }
 
 
@@ -596,8 +616,10 @@ export interface EditPost {
   name?: string;
   url?: string;
   body?: string;
+  alt_text?: string;
   nsfw?: boolean;
   language_id?: LanguageId;
+  custom_thumbnail?: string;
 }
 
 
@@ -621,6 +643,7 @@ export interface EditSite {
   private_instance?: boolean;
   default_theme?: string;
   default_post_listing_type?: ListingType;
+  default_sort_type?: SortType;
   legal_information?: string;
   application_email_admins?: boolean;
   hide_modlog_mod_names?: boolean;
@@ -645,9 +668,12 @@ export interface EditSite {
   captcha_difficulty?: string;
   allowed_instances?: Array<string>;
   blocked_instances?: Array<string>;
+  blocked_urls?: Array<string>;
   taglines?: Array<string>;
   registration_mode?: RegistrationMode;
   reports_email_admins?: boolean;
+  content_warning?: string;
+  default_post_listing_mode?: PostListingMode;
 }
 
 
@@ -733,6 +759,8 @@ export interface GetModlog {
   limit?: bigint;
   type_?: ModlogActionType;
   other_person_id?: PersonId;
+  post_id?: PostId;
+  comment_id?: CommentId;
 }
 
 
@@ -812,6 +840,7 @@ export interface GetPosts {
   saved_only?: boolean;
   liked_only?: boolean;
   disliked_only?: boolean;
+  show_hidden?: boolean;
   page_cursor?: PaginationCursor;
 }
 
@@ -862,7 +891,7 @@ export interface GetSiteMetadata {
 
 
 export interface GetSiteMetadataResponse {
-  metadata: SiteMetadata;
+  metadata: LinkMetadata;
 }
 
 
@@ -875,6 +904,7 @@ export interface GetSiteResponse {
   discussion_languages: Array<LanguageId>;
   taglines: Array<Tagline>;
   custom_emojis: Array<CustomEmojiView>;
+  blocked_urls: Array<LocalSiteUrlBlocklist>;
 }
 
 
@@ -897,11 +927,9 @@ export interface HideCommunity {
 }
 
 
-export interface ImageUpload {
-  local_user_id: LocalUserId;
-  pictrs_alias: string;
-  pictrs_delete_token: string;
-  published: string;
+export interface HidePost {
+  post_ids: Array<PostId>;
+  hide: boolean;
 }
 
 
@@ -1037,6 +1065,7 @@ export type LemmyErrorType =
   | { error: "invalid_post_title" }
   | { error: "invalid_body_field" }
   | { error: "bio_length_overflow" }
+  | { error: "alt_text_length_overflow" }
   | { error: "missing_totp_token" }
   | { error: "missing_totp_secret" }
   | { error: "incorrect_totp_token" }
@@ -1058,6 +1087,7 @@ export type LemmyErrorType =
   | { error: "couldnt_like_post" }
   | { error: "couldnt_save_post" }
   | { error: "couldnt_mark_post_as_read" }
+  | { error: "couldnt_hide_post" }
   | { error: "couldnt_update_community" }
   | { error: "couldnt_update_replies" }
   | { error: "couldnt_update_person_mentions" }
@@ -1069,6 +1099,7 @@ export type LemmyErrorType =
   | { error: "couldnt_set_all_registrations_accepted" }
   | { error: "couldnt_set_all_email_verified" }
   | { error: "banned" }
+  | { error: "blocked_url" }
   | { error: "couldnt_get_comments" }
   | { error: "couldnt_get_posts" }
   | { error: "invalid_url" }
@@ -1100,6 +1131,15 @@ export type LemmyErrorType =
   | { error: "unknown"; message: string };
 
 
+export interface LinkMetadata {
+  title?: string;
+  description?: string;
+  image?: string;
+  embed_video_url?: string;
+  content_type?: string;
+}
+
+
 export interface ListCommentLikes {
   comment_id: CommentId;
   page?: bigint;
@@ -1113,6 +1153,7 @@ export interface ListCommentLikesResponse {
 
 
 export interface ListCommentReports {
+  comment_id?: CommentId;
   page?: bigint;
   limit?: bigint;
   unresolved_only?: boolean;
@@ -1142,6 +1183,17 @@ export interface ListCommunitiesResponse {
 export type ListingType = "All" | "Local" | "Subscribed" | "ModeratorView";
 
 
+export interface ListMedia {
+  page?: bigint;
+  limit?: bigint;
+}
+
+
+export interface ListMediaResponse {
+  images: Array<LocalImage>;
+}
+
+
 export interface ListPostLikes {
   post_id: PostId;
   page?: bigint;
@@ -1159,6 +1211,7 @@ export interface ListPostReports {
   limit?: bigint;
   unresolved_only?: boolean;
   community_id?: CommunityId;
+  post_id?: PostId;
 }
 
 
@@ -1191,6 +1244,14 @@ export interface ListRegistrationApplicationsResponse {
 }
 
 
+export interface LocalImage {
+  local_user_id?: LocalUserId;
+  pictrs_alias: string;
+  pictrs_delete_token: string;
+  published: string;
+}
+
+
 export interface LocalSite {
   id: LocalSiteId;
   site_id: SiteId;
@@ -1216,6 +1277,8 @@ export interface LocalSite {
   registration_mode: RegistrationMode;
   reports_email_admins: boolean;
   federation_signed_fetch: boolean;
+  default_post_listing_mode: PostListingMode;
+  default_sort_type: SortType;
 }
 
 
@@ -1240,6 +1303,14 @@ export interface LocalSiteRateLimit {
   updated?: string;
   import_user_settings: bigint;
   import_user_settings_per_second: bigint;
+}
+
+
+export interface LocalSiteUrlBlocklist {
+  id: bigint;
+  url: string;
+  published: string;
+  updated?: string;
 }
 
 
@@ -1277,8 +1348,18 @@ export type LocalUserId = bigint;
 
 export interface LocalUserView {
   local_user: LocalUser;
+  local_user_vote_display_mode: LocalUserVoteDisplayMode;
   person: Person;
   counts: PersonAggregates;
+}
+
+
+export interface LocalUserVoteDisplayMode {
+  local_user_id: LocalUserId;
+  score: boolean;
+  upvotes: boolean;
+  downvotes: boolean;
+  upvote_percentage: boolean;
 }
 
 
@@ -1323,8 +1404,7 @@ export interface MarkPersonMentionAsRead {
 
 
 export interface MarkPostAsRead {
-  post_id?: PostId;
-  post_ids?: Array<PostId>;
+  post_ids: Array<PostId>;
   read: boolean;
 }
 
@@ -1482,6 +1562,8 @@ export interface ModlogListParams {
   community_id?: CommunityId;
   mod_person_id?: PersonId;
   other_person_id?: PersonId;
+  post_id?: PostId;
+  comment_id?: CommentId;
   page?: bigint;
   limit?: bigint;
   hide_modlog_names: boolean;
@@ -1571,6 +1653,14 @@ export interface MyUserInfo {
 }
 
 
+export interface OpenGraphData {
+  title?: string;
+  description?: string;
+  image?: string;
+  embed_video_url?: string;
+}
+
+
 export type PaginationCursor = string;
 
 
@@ -1651,6 +1741,7 @@ export interface PersonMentionView {
   recipient: Person;
   counts: CommentAggregates;
   creator_banned_from_community: boolean;
+  banned_from_community: boolean;
   creator_is_moderator: boolean;
   creator_is_admin: boolean;
   subscribed: SubscribedType;
@@ -1689,6 +1780,8 @@ export interface Post {
   language_id: LanguageId;
   featured_community: boolean;
   featured_local: boolean;
+  url_content_type?: string;
+  alt_text?: string;
 }
 
 
@@ -1742,7 +1835,15 @@ export interface PostReportView {
   creator: Person;
   post_creator: Person;
   creator_banned_from_community: boolean;
+  creator_is_moderator: boolean;
+  creator_is_admin: boolean;
+  subscribed: SubscribedType;
+  saved: boolean;
+  read: boolean;
+  hidden: boolean;
+  creator_blocked: boolean;
   my_vote?: bigint;
+  unread_comments: bigint;
   counts: PostAggregates;
   resolver?: Person;
 }
@@ -1758,12 +1859,14 @@ export interface PostView {
   creator: Person;
   community: Community;
   creator_banned_from_community: boolean;
+  banned_from_community: boolean;
   creator_is_moderator: boolean;
   creator_is_admin: boolean;
   counts: PostAggregates;
   subscribed: SubscribedType;
   saved: boolean;
   read: boolean;
+  hidden: boolean;
   creator_blocked: boolean;
   my_vote?: bigint;
   unread_comments: bigint;
@@ -1975,7 +2078,6 @@ export interface SaveUserSettings {
   show_nsfw?: boolean;
   blur_nsfw?: boolean;
   auto_expand?: boolean;
-  show_scores?: boolean;
   theme?: string;
   default_sort_type?: SortType;
   default_listing_type?: ListingType;
@@ -1998,6 +2100,10 @@ export interface SaveUserSettings {
   enable_keyboard_navigation?: boolean;
   enable_animated_images?: boolean;
   collapse_bot_comments?: boolean;
+  show_scores?: boolean;
+  show_upvotes?: boolean;
+  show_downvotes?: boolean;
+  show_upvote_percentage?: boolean;
 }
 
 
@@ -2044,9 +2150,8 @@ export interface Site {
   actor_id: string;
   last_refreshed_at: string;
   inbox_url: string;
-  private_key?: string;
-  public_key: string;
   instance_id: InstanceId;
+  content_warning?: string;
 }
 
 
@@ -2064,14 +2169,6 @@ export interface SiteAggregates {
 
 
 export type SiteId = bigint;
-
-
-export interface SiteMetadata {
-  title?: string;
-  description?: string;
-  image?: string;
-  embed_video_url?: string;
-}
 
 
 export interface SiteResponse {
@@ -2151,5 +2248,6 @@ export interface VerifyEmail {
 
 export interface VoteView {
   creator: Person;
+  creator_banned_from_community: boolean;
   score: bigint;
 }
