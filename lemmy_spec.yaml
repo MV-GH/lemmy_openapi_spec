@@ -1598,6 +1598,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ListMedia'
+      operationId: listAllMedia
       responses:
         '200':
           description: OK
