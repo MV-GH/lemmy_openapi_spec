@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Unofficial Lemmy Documentation
-  version: v0.19.3
+  version: v0.19.4
   x-id: partials/components.yaml
   x-comment: >-
     Generated from partials/auto_gen_types.ts by core-types-json-schema
