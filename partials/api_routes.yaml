@@ -1659,6 +1659,7 @@ paths:
           application/json:
             schema:
               $ref: 'components.yaml#/components/schemas/ListMedia'
+      operationId: listAllMedia
       responses:
         200:
           description: OK
