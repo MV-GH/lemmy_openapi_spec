@@ -1680,8 +1680,4 @@ paths:
       responses:
         200:
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: 'components.yaml#/components/schemas/PostResponse'
       summary: Hide a post from list views.
