@@ -1619,10 +1619,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PostResponse'
       summary: Hide a post from list views.
 components:
   securitySchemes:
