@@ -448,10 +448,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SuccessResponse'
       summary: Mark a post as read.
   /post/lock:
     post:
@@ -4987,16 +4983,6 @@ components:
         - read
       additionalProperties: false
       title: MarkPostAsRead
-      type: object
-    SuccessResponse:
-      properties:
-        success:
-          title: SuccessResponse.success
-          type: boolean
-      required:
-        - success
-      additionalProperties: false
-      title: SuccessResponse
       type: object
     LockPost:
       properties:
