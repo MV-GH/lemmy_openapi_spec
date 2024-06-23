@@ -495,10 +495,6 @@ paths:
       responses:
         200:
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: 'components.yaml#/components/schemas/SuccessResponse'
       summary: Mark a post as read.
   /post/lock:
     post:
