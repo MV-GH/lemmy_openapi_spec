@@ -3003,6 +3003,116 @@ components:
             error:
               title: LemmyErrorType.error
               enum:
+                - couldnt_find_comment
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - couldnt_find_comment_report
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - couldnt_find_post_report
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - couldnt_find_private_message_report
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - couldnt_find_local_user
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - couldnt_find_person_mention
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - couldnt_find_registration_application
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - couldnt_find_comment_reply
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - couldnt_find_private_message
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - couldnt_find_activity
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
                 - person_is_blocked
               type: string
           required:
@@ -3502,29 +3612,18 @@ components:
             error:
               title: LemmyErrorType.error
               enum:
-                - page_does_not_specify_group
-              type: string
-          required:
-            - error
-          additionalProperties: false
-          title: LemmyErrorType
-          type: object
-        - properties:
-            error:
-              title: LemmyErrorType.error
-              enum:
-                - no_community_found_in_cc
-              type: string
-          required:
-            - error
-          additionalProperties: false
-          title: LemmyErrorType
-          type: object
-        - properties:
-            error:
-              title: LemmyErrorType.error
-              enum:
                 - no_email_setup
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - local_site_not_setup
               type: string
           required:
             - error
@@ -4208,17 +4307,6 @@ components:
             error:
               title: LemmyErrorType.error
               enum:
-                - password_reset_limit_reached
-              type: string
-          required:
-            - error
-          additionalProperties: false
-          title: LemmyErrorType
-          type: object
-        - properties:
-            error:
-              title: LemmyErrorType.error
-              enum:
                 - couldnt_create_audio_captcha
               type: string
           required:
@@ -4330,6 +4418,28 @@ components:
               title: LemmyErrorType.error
               enum:
                 - cant_block_local_instance
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - url_without_domain
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - inbox_timeout
               type: string
           required:
             - error
@@ -4487,7 +4597,7 @@ components:
       properties:
         images:
           items:
-            $ref: '#/components/schemas/LocalImage'
+            $ref: '#/components/schemas/LocalImageView'
           title: ListMediaResponse.images
           type: array
       required:
@@ -4627,6 +4737,20 @@ components:
         - published
       additionalProperties: false
       title: LocalImage
+      type: object
+    LocalImageView:
+      properties:
+        local_image:
+          $ref: '#/components/schemas/LocalImage'
+          title: LocalImageView.local_image
+        person:
+          $ref: '#/components/schemas/Person'
+          title: LocalImageView.person
+      required:
+        - local_image
+        - person
+      additionalProperties: false
+      title: LocalImageView
       type: object
     LocalSite:
       properties:
@@ -6648,7 +6772,6 @@ components:
         - username
         - password
         - password_verify
-        - show_nsfw
       additionalProperties: false
       title: Register
       type: object
@@ -7073,6 +7196,9 @@ components:
         inbox_url:
           title: Site.inbox_url
           type: string
+        public_key:
+          title: Site.public_key
+          type: string
         instance_id:
           $ref: '#/components/schemas/InstanceId'
           title: Site.instance_id
@@ -7086,6 +7212,7 @@ components:
         - actor_id
         - last_refreshed_at
         - inbox_url
+        - public_key
         - instance_id
       additionalProperties: false
       title: Site

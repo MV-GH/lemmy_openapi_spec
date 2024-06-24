@@ -1008,6 +1008,16 @@ export type LemmyErrorType =
   | { error: "banned_from_community" }
   | { error: "couldnt_find_community" }
   | { error: "couldnt_find_person" }
+  | { error: "couldnt_find_comment" }
+  | { error: "couldnt_find_comment_report" }
+  | { error: "couldnt_find_post_report" }
+  | { error: "couldnt_find_private_message_report" }
+  | { error: "couldnt_find_local_user" }
+  | { error: "couldnt_find_person_mention" }
+  | { error: "couldnt_find_registration_application" }
+  | { error: "couldnt_find_comment_reply" }
+  | { error: "couldnt_find_private_message" }
+  | { error: "couldnt_find_activity" }
   | { error: "person_is_blocked" }
   | { error: "community_is_blocked" }
   | { error: "instance_is_blocked" }
@@ -1053,9 +1063,8 @@ export type LemmyErrorType =
   | { error: "person_is_banned_from_site"; message: string }
   | { error: "invalid_vote_value" }
   | { error: "page_does_not_specify_creator" }
-  | { error: "page_does_not_specify_group" }
-  | { error: "no_community_found_in_cc" }
   | { error: "no_email_setup" }
+  | { error: "local_site_not_setup" }
   | { error: "email_smtp_server_needs_a_port" }
   | { error: "missing_an_email" }
   | { error: "rate_limit_error" }
@@ -1116,7 +1125,6 @@ export type LemmyErrorType =
   | { error: "permissive_regex" }
   | { error: "invalid_regex" }
   | { error: "captcha_incorrect" }
-  | { error: "password_reset_limit_reached" }
   | { error: "couldnt_create_audio_captcha" }
   | { error: "invalid_url_scheme" }
   | { error: "couldnt_send_webmention" }
@@ -1128,6 +1136,8 @@ export type LemmyErrorType =
   | { error: "invalid_unix_time" }
   | { error: "invalid_bot_action" }
   | { error: "cant_block_local_instance" }
+  | { error: "url_without_domain" }
+  | { error: "inbox_timeout" }
   | { error: "unknown"; message: string };
 
 
@@ -1190,7 +1200,7 @@ export interface ListMedia {
 
 
 export interface ListMediaResponse {
-  images: Array<LocalImage>;
+  images: Array<LocalImageView>;
 }
 
 
@@ -1249,6 +1259,12 @@ export interface LocalImage {
   pictrs_alias: string;
   pictrs_delete_token: string;
   published: string;
+}
+
+
+export interface LocalImageView {
+  local_image: LocalImage;
+  person: Person;
 }
 
 
@@ -1975,7 +1991,7 @@ export interface Register {
   username: string;
   password: string;
   password_verify: string;
-  show_nsfw: boolean;
+  show_nsfw?: boolean;
   email?: string;
   captcha_uuid?: string;
   captcha_answer?: string;
@@ -2150,6 +2166,7 @@ export interface Site {
   actor_id: string;
   last_refreshed_at: string;
   inbox_url: string;
+  public_key: string;
   instance_id: InstanceId;
   content_warning?: string;
 }

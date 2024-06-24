@@ -1699,6 +1699,9 @@ components:
         inbox_url:
           title: Site.inbox_url
           type: string
+        public_key:
+          title: Site.public_key
+          type: string
         instance_id:
           $ref: '#/components/schemas/InstanceId'
           title: Site.instance_id
@@ -1712,6 +1715,7 @@ components:
         - actor_id
         - last_refreshed_at
         - inbox_url
+        - public_key
         - instance_id
       additionalProperties: false
       title: Site
@@ -6159,7 +6163,6 @@ components:
         - username
         - password
         - password_verify
-        - show_nsfw
       additionalProperties: false
       title: Register
       type: object
@@ -7136,11 +7139,25 @@ components:
       additionalProperties: false
       title: LocalImage
       type: object
+    LocalImageView:
+      properties:
+        local_image:
+          $ref: '#/components/schemas/LocalImage'
+          title: LocalImageView.local_image
+        person:
+          $ref: '#/components/schemas/Person'
+          title: LocalImageView.person
+      required:
+        - local_image
+        - person
+      additionalProperties: false
+      title: LocalImageView
+      type: object
     ListMediaResponse:
       properties:
         images:
           items:
-            $ref: '#/components/schemas/LocalImage'
+            $ref: '#/components/schemas/LocalImageView'
           title: ListMediaResponse.images
           type: array
       required:
