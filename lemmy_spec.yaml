@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Unofficial Lemmy OpenAPI Documentation
-  version: v0.19.5
+  version: v0.19.6
   license:
     name: AGPLv3
     url: https://www.gnu.org/licenses/agpl-3.0.en.html#license-text
@@ -1536,7 +1536,7 @@ paths:
       responses:
         '200':
           description: OK
-      summary: '[MANUAL] Logout your user, which clears the cookie and invalidates the auth token'
+      summary: Invalidate the currently used auth token.
   /post/like/list:
     get:
       tags:
@@ -1619,6 +1619,23 @@ paths:
         '200':
           description: OK
       summary: Hide a post from list views.
+  /admin/registration_application:
+    get:
+      tags:
+        - Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetRegistrationApplication'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationApplicationResponse'
+      summary: Get the application a user submitted when they first registered their account
 components:
   securitySchemes:
     bearerAuth:
@@ -4021,6 +4038,9 @@ components:
         limit:
           title: Search.limit
           type: integer
+        post_title_only:
+          title: Search.post_title_only
+          type: boolean
       required:
         - q
       additionalProperties: false
@@ -4120,6 +4140,28 @@ components:
       additionalProperties: false
       title: CommentView
       type: object
+    ImageDetails:
+      properties:
+        link:
+          title: ImageDetails.link
+          type: string
+        width:
+          title: ImageDetails.width
+          type: integer
+        height:
+          title: ImageDetails.height
+          type: integer
+        content_type:
+          title: ImageDetails.content_type
+          type: string
+      required:
+        - link
+        - width
+        - height
+        - content_type
+      additionalProperties: false
+      title: ImageDetails
+      type: object
     PostAggregates:
       properties:
         post_id:
@@ -4165,6 +4207,9 @@ components:
         community:
           $ref: '#/components/schemas/Community'
           title: PostView.community
+        image_details:
+          $ref: '#/components/schemas/ImageDetails'
+          title: PostView.image_details
         creator_banned_from_community:
           title: PostView.creator_banned_from_community
           type: boolean
@@ -4922,6 +4967,12 @@ components:
           type: boolean
         show_hidden:
           title: GetPosts.show_hidden
+          type: boolean
+        show_read:
+          title: GetPosts.show_read
+          type: boolean
+        show_nsfw:
+          title: GetPosts.show_nsfw
           type: boolean
         page_cursor:
           $ref: '#/components/schemas/PaginationCursor'
@@ -6739,11 +6790,14 @@ components:
       additionalProperties: false
       title: ListRegistrationApplications
       type: object
+    RegistrationApplicationId:
+      title: RegistrationApplicationId
+      type: integer
     RegistrationApplication:
       properties:
         id:
+          $ref: '#/components/schemas/RegistrationApplicationId'
           title: RegistrationApplication.id
-          type: integer
         local_user_id:
           $ref: '#/components/schemas/LocalUserId'
           title: RegistrationApplication.local_user_id
@@ -6803,8 +6857,8 @@ components:
     ApproveRegistrationApplication:
       properties:
         id:
+          $ref: '#/components/schemas/RegistrationApplicationId'
           title: ApproveRegistrationApplication.id
-          type: integer
         approve:
           title: ApproveRegistrationApplication.approve
           type: boolean
@@ -7180,4 +7234,14 @@ components:
         - hide
       additionalProperties: false
       title: HidePost
+      type: object
+    GetRegistrationApplication:
+      properties:
+        person_id:
+          $ref: '#/components/schemas/PersonId'
+          title: GetRegistrationApplication.person_id
+      required:
+        - person_id
+      additionalProperties: false
+      title: GetRegistrationApplication
       type: object

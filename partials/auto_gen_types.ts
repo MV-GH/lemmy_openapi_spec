@@ -87,7 +87,7 @@ export interface AdminPurgePostView {
 
 
 export interface ApproveRegistrationApplication {
-  id: bigint;
+  id: RegistrationApplicationId;
   approve: boolean;
   deny_reason?: string;
 }
@@ -841,6 +841,8 @@ export interface GetPosts {
   liked_only?: boolean;
   disliked_only?: boolean;
   show_hidden?: boolean;
+  show_read?: boolean;
+  show_nsfw?: boolean;
   page_cursor?: PaginationCursor;
 }
 
@@ -856,6 +858,11 @@ export interface GetPrivateMessages {
   page?: bigint;
   limit?: bigint;
   creator_id?: PersonId;
+}
+
+
+export interface GetRegistrationApplication {
+  person_id: PersonId;
 }
 
 
@@ -933,6 +940,14 @@ export interface HidePost {
 }
 
 
+export interface ImageDetails {
+  link: string;
+  width: bigint;
+  height: bigint;
+  content_type: string;
+}
+
+
 export interface Instance {
   id: InstanceId;
   domain: string;
@@ -1003,6 +1018,8 @@ export type LemmyErrorType =
   | { error: "not_top_admin" }
   | { error: "not_top_mod" }
   | { error: "not_logged_in" }
+  | { error: "not_higher_mod" }
+  | { error: "not_higher_admin" }
   | { error: "site_ban" }
   | { error: "deleted" }
   | { error: "banned_from_community" }
@@ -1138,7 +1155,9 @@ export type LemmyErrorType =
   | { error: "cant_block_local_instance" }
   | { error: "url_without_domain" }
   | { error: "inbox_timeout" }
-  | { error: "unknown"; message: string };
+  | { error: "unknown"; message: string }
+  | { error: "cant_delete_site" }
+  | { error: "url_length_overflow" };
 
 
 export interface LinkMetadata {
@@ -1719,9 +1738,6 @@ export interface PersonAggregates {
 }
 
 
-export type PersonBlockId = bigint;
-
-
 export interface PersonBlockView {
   person: Person;
   target: Person;
@@ -1874,6 +1890,7 @@ export interface PostView {
   post: Post;
   creator: Person;
   community: Community;
+  image_details?: ImageDetails;
   creator_banned_from_community: boolean;
   banned_from_community: boolean;
   creator_is_moderator: boolean;
@@ -2001,13 +2018,16 @@ export interface Register {
 
 
 export interface RegistrationApplication {
-  id: bigint;
+  id: RegistrationApplicationId;
   local_user_id: LocalUserId;
   answer: string;
   admin_id?: PersonId;
   deny_reason?: string;
   published: string;
 }
+
+
+export type RegistrationApplicationId = bigint;
 
 
 export interface RegistrationApplicationResponse {
@@ -2133,6 +2153,7 @@ export interface Search {
   listing_type?: ListingType;
   page?: bigint;
   limit?: bigint;
+  post_title_only?: boolean;
 }
 
 
