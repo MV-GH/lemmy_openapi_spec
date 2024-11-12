@@ -224,8 +224,8 @@ components:
     ApproveRegistrationApplication:
       properties:
         id:
+          $ref: '#/components/schemas/RegistrationApplicationId'
           title: ApproveRegistrationApplication.id
-          type: integer
         approve:
           title: ApproveRegistrationApplication.approve
           type: boolean
@@ -2298,6 +2298,12 @@ components:
         show_hidden:
           title: GetPosts.show_hidden
           type: boolean
+        show_read:
+          title: GetPosts.show_read
+          type: boolean
+        show_nsfw:
+          title: GetPosts.show_nsfw
+          type: boolean
         page_cursor:
           $ref: '#/components/schemas/PaginationCursor'
           title: GetPosts.page_cursor
@@ -2335,6 +2341,16 @@ components:
           title: GetPrivateMessages.creator_id
       additionalProperties: false
       title: GetPrivateMessages
+      type: object
+    GetRegistrationApplication:
+      properties:
+        person_id:
+          $ref: '#/components/schemas/PersonId'
+          title: GetRegistrationApplication.person_id
+      required:
+        - person_id
+      additionalProperties: false
+      title: GetRegistrationApplication
       type: object
     GetReplies:
       properties:
@@ -2527,6 +2543,28 @@ components:
         - hide
       additionalProperties: false
       title: HidePost
+      type: object
+    ImageDetails:
+      properties:
+        link:
+          title: ImageDetails.link
+          type: string
+        width:
+          title: ImageDetails.width
+          type: integer
+        height:
+          title: ImageDetails.height
+          type: integer
+        content_type:
+          title: ImageDetails.content_type
+          type: string
+      required:
+        - link
+        - width
+        - height
+        - content_type
+      additionalProperties: false
+      title: ImageDetails
       type: object
     Instance:
       properties:
@@ -2938,6 +2976,28 @@ components:
               title: LemmyErrorType.error
               enum:
                 - not_logged_in
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - not_higher_mod
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - not_higher_admin
               type: string
           required:
             - error
@@ -4458,6 +4518,28 @@ components:
           required:
             - error
             - message
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - cant_delete_site
+              type: string
+          required:
+            - error
+          additionalProperties: false
+          title: LemmyErrorType
+          type: object
+        - properties:
+            error:
+              title: LemmyErrorType.error
+              enum:
+                - url_length_overflow
+              type: string
+          required:
+            - error
           additionalProperties: false
           title: LemmyErrorType
           type: object
@@ -6008,9 +6090,6 @@ components:
       additionalProperties: false
       title: PersonAggregates
       type: object
-    PersonBlockId:
-      title: PersonBlockId
-      type: integer
     PersonBlockView:
       properties:
         person:
@@ -6441,6 +6520,9 @@ components:
         community:
           $ref: '#/components/schemas/Community'
           title: PostView.community
+        image_details:
+          $ref: '#/components/schemas/ImageDetails'
+          title: PostView.image_details
         creator_banned_from_community:
           title: PostView.creator_banned_from_community
           type: boolean
@@ -6778,8 +6860,8 @@ components:
     RegistrationApplication:
       properties:
         id:
+          $ref: '#/components/schemas/RegistrationApplicationId'
           title: RegistrationApplication.id
-          type: integer
         local_user_id:
           $ref: '#/components/schemas/LocalUserId'
           title: RegistrationApplication.local_user_id
@@ -6803,6 +6885,9 @@ components:
       additionalProperties: false
       title: RegistrationApplication
       type: object
+    RegistrationApplicationId:
+      title: RegistrationApplicationId
+      type: integer
     RegistrationApplicationResponse:
       properties:
         registration_application:
@@ -7112,6 +7197,9 @@ components:
         limit:
           title: Search.limit
           type: integer
+        post_title_only:
+          title: Search.post_title_only
+          type: boolean
       required:
         - q
       additionalProperties: false
