@@ -5,6 +5,7 @@ on:
       - lemmy_spec.yaml
     branches:
       - master
+  workflow_dispatch:
 
 permissions:
   contents: write
