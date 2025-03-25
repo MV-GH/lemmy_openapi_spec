@@ -28,10 +28,10 @@ jobs:
       - name: Set Corepack
         run: corepack enable
 
-      - name: Set Node.js 20.x
+      - name: Set Node.js 19.x
         uses: actions/setup-node@v3
         with:
-          node-version: 20.X
+          node-version: 19.X
       - uses: borales/actions-yarn@v4
         with:
           cmd: install
