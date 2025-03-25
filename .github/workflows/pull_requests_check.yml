@@ -23,7 +23,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set Node.js 16.x
+      - name: Set Corepack
+        run: corepack enable
+
+      - name: Set Node.js 18.x
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
