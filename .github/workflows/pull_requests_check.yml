@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Set Corepack
         run: corepack enable
@@ -29,7 +31,7 @@ jobs:
       - name: Set Node.js 18.x
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 18.15.0
 
       - name: Run install
         uses: borales/actions-yarn@v4
