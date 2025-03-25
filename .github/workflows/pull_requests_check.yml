@@ -10,9 +10,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Check OpenAPI lint
         uses: MV-GH/redocly-cli-github-action@master
         with:
           args: 'lint lemmy_spec.yaml --format github-actions'
+
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
+      - uses: borales/actions-yarn@v4
+        with:
+          cmd: run full_gen
+      - uses: borales/actions-yarn@v4
+        with:
+          cmd: run lint_spec
