@@ -1,4 +1,4 @@
-name: "Check lint"
+name: "CI"
 
 on:
   pull_request:
@@ -10,9 +10,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Check OpenAPI lint
         uses: MV-GH/redocly-cli-github-action@master
         with:
           args: 'lint lemmy_spec.yaml --format github-actions'
+
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Set Node.js 22.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.14.0
+      - name: Install dependencies
+        run: yarn install
+      - run: yarn full_gen
+      - run: yarn lint_spec
