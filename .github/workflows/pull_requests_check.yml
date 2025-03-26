@@ -31,7 +31,7 @@ jobs:
       - name: Set Node.js 22.x
         uses: actions/setup-node@v3
         with:
-          node-version: 18.17.0
+          node-version: 22.14.0
 #      - uses: borales/actions-yarn@v4
 #        with:
 #          cmd: install

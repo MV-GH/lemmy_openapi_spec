@@ -3,7 +3,7 @@
 
 __metadata:
   version: 8
-  cacheKey: 10c0
+  cacheKey: 10
 
 "@babel/code-frame@npm:^7.16.0":
   version: 7.26.2
