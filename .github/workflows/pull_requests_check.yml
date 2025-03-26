@@ -1,4 +1,4 @@
-name: "Check lint"
+name: "CI"
 
 on:
   pull_request:
@@ -25,23 +25,13 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Set Corepack
+      - name: Enable corepack
         run: corepack enable
 
       - name: Set Node.js 22.x
         uses: actions/setup-node@v3
         with:
           node-version: 22.14.0
-#      - uses: borales/actions-yarn@v4
-#        with:
-#          cmd: install
-#      - uses: borales/actions-yarn@v4
-#        with:
-#          cmd: full_gen
-#      - uses: borales/actions-yarn@v4
-#        with:
-#          cmd: lint_spec
-
       - name: Install dependencies
         run: yarn install
       - run: yarn full_gen
