@@ -5114,6 +5114,9 @@ components:
         collapse_bot_comments:
           title: LocalUser.collapse_bot_comments
           type: boolean
+        last_donation_notification:
+          title: LocalUser.last_donation_notification
+          type: string
       required:
         - id
         - person_id
@@ -5139,6 +5142,7 @@ components:
         - enable_keyboard_navigation
         - enable_animated_images
         - collapse_bot_comments
+        - last_donation_notification
       additionalProperties: false
       title: LocalUser
       type: object
