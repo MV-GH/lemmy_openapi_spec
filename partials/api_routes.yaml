@@ -1324,7 +1324,7 @@ paths:
     post:
       tags:
         - User
-      operationId: donation_dialog_shown
+      operationId: donationDialogShown
       responses:
         200:
           description: Ok
