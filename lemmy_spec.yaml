@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Unofficial Lemmy OpenAPI Documentation
-  version: v0.19.6
+  version: v0.19.11
   license:
     name: AGPLv3
     url: https://www.gnu.org/licenses/agpl-3.0.en.html#license-text
@@ -1265,6 +1265,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/GetSiteResponse'
       summary: Leave the Site admins.
+  /user/donation_dialog_shown:
+    post:
+      tags:
+        - User
+      operationId: donation_dialog_shown
+      responses:
+        '200':
+          description: Ok
+      summary: Mark donation dialog as shown.
   /admin/add:
     post:
       tags:
@@ -2210,6 +2219,9 @@ components:
         collapse_bot_comments:
           title: LocalUser.collapse_bot_comments
           type: boolean
+        last_donation_notification:
+          title: LocalUser.last_donation_notification
+          type: string
       required:
         - id
         - person_id
@@ -2235,6 +2247,7 @@ components:
         - enable_keyboard_navigation
         - enable_animated_images
         - collapse_bot_comments
+        - last_donation_notification
       additionalProperties: false
       title: LocalUser
       type: object
