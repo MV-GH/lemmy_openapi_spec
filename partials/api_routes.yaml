@@ -84,8 +84,8 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/CreateSite'
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           content:
             application/json:
               schema:
@@ -189,8 +189,8 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/CreateCommunity'
       responses:
-        "201":
-          description: CREATED
+        "200":
+          description: OK
           content:
             application/json:
               schema:
@@ -271,7 +271,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/BlockCommunity'
       responses:
-        "201":
+        "200":
           description: OK
           content:
             application/json:
@@ -424,8 +424,8 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/CreatePost'
       responses:
-        201:
-          description: Created
+        200:
+          description: OK
           content:
             application/json:
               schema:
@@ -459,7 +459,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/DeletePost'
       responses:
-        201:
+        200:
           description: OK
           content:
             application/json:
@@ -476,7 +476,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/RemovePost'
       responses:
-        201:
+        200:
           description: OK
           content:
             application/json:
@@ -506,7 +506,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/LockPost'
       responses:
-        201:
+        200:
           description: OK
           content:
             application/json:
@@ -523,7 +523,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/FeaturePost'
       responses:
-        201:
+        200:
           description: OK
           content:
             application/json:
@@ -541,7 +541,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/CreatePostLike'
       responses:
-        201:
+        200:
           description: OK
           content:
             application/json:
@@ -575,7 +575,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/CreatePostReport'
       responses:
-        201:
+        200:
           description: OK
           content:
             application/json:
@@ -782,7 +782,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/CreateCommentLike'
       responses:
-        201:
+        200:
           description: OK
           content:
             application/json:
@@ -816,7 +816,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/CreateCommentReport'
       responses:
-        201:
+        200:
           description: OK
           content:
             application/json:
@@ -885,7 +885,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/CreatePrivateMessage'
       responses:
-        201:
+        200:
           description: OK
           content:
             application/json:
@@ -919,7 +919,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/DeletePrivateMessage'
       responses:
-        201:
+        200:
           description: OK
           content:
             application/json:
@@ -936,7 +936,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/MarkPrivateMessageAsRead'
       responses:
-        201:
+        200:
           description: OK
           content:
             application/json:
@@ -953,7 +953,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/CreatePrivateMessageReport'
       responses:
-        201:
+        200:
           description: OK
           content:
             application/json:
@@ -1023,8 +1023,8 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/Register'
       responses:
-        201:
-          description: CREATED
+        200:
+          description: OK
           content:
             application/json:
               schema:
@@ -1079,7 +1079,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/MarkPersonMentionAsRead'
       responses:
-        201:
+        200:
           description: OK
           content:
             application/json:
@@ -1115,7 +1115,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/BanPerson'
       responses:
-        201:
+        200:
           description: OK
           content:
             application/json:
@@ -1147,7 +1147,7 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/BlockPerson'
       responses:
-        201:
+        200:
           description: OK
           content:
             application/json:
@@ -1164,8 +1164,8 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/Login'
       responses:
-        201:
-          description: CREATED
+        200:
+          description: OK
           content:
             application/json:
               schema:
@@ -1224,8 +1224,8 @@ paths:
         - User
       operationId: markAllAsRead
       responses:
-        201:
-          description: CREATED
+        200:
+          description: OK
           content:
             application/json:
               schema:
@@ -1351,8 +1351,8 @@ paths:
       tags:
         - Admin
       responses:
-        201:
-          description: CREATED
+        200:
+          description: OK
           content:
             application/json:
               schema:
@@ -1369,8 +1369,8 @@ paths:
           schema:
             $ref: 'components.yaml#/components/schemas/ListRegistrationApplications'
       responses:
-        201:
-          description: CREATED
+        200:
+          description: OK
           content:
             application/json:
               schema:
@@ -1471,8 +1471,8 @@ paths:
             schema:
               $ref: 'components.yaml#/components/schemas/CreateCustomEmoji'
       responses:
-        201:
-          description: Created
+        200:
+          description: OK
           content:
             application/json:
               schema:
