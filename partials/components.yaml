@@ -279,18 +279,6 @@ components:
       additionalProperties: false
       title: BanFromCommunityResponse
       type: object
-    BannedPersonsResponse:
-      properties:
-        banned:
-          items:
-            $ref: '#/components/schemas/PersonView'
-          title: BannedPersonsResponse.banned
-          type: array
-      required:
-        - banned
-      additionalProperties: false
-      title: BannedPersonsResponse
-      type: object
     BanPerson:
       properties:
         person_id:
@@ -327,6 +315,18 @@ components:
         - banned
       additionalProperties: false
       title: BanPersonResponse
+      type: object
+    BannedPersonsResponse:
+      properties:
+        banned:
+          items:
+            $ref: '#/components/schemas/PersonView'
+          title: BannedPersonsResponse.banned
+          type: array
+      required:
+        - banned
+      additionalProperties: false
+      title: BannedPersonsResponse
       type: object
     BlockCommunity:
       properties:
@@ -4656,14 +4656,6 @@ components:
       additionalProperties: false
       title: ListCommunitiesResponse
       type: object
-    ListingType:
-      enum:
-        - All
-        - Local
-        - Subscribed
-        - ModeratorView
-      title: ListingType
-      type: string
     ListMedia:
       properties:
         page:
@@ -4799,6 +4791,14 @@ components:
       additionalProperties: false
       title: ListRegistrationApplicationsResponse
       type: object
+    ListingType:
+      enum:
+        - All
+        - Local
+        - Subscribed
+        - ModeratorView
+      title: ListingType
+      type: string
     LocalImage:
       properties:
         local_user_id:
@@ -5667,57 +5667,6 @@ components:
       additionalProperties: false
       title: ModLockPostView
       type: object
-    ModlogActionType:
-      enum:
-        - All
-        - ModRemovePost
-        - ModLockPost
-        - ModFeaturePost
-        - ModRemoveComment
-        - ModRemoveCommunity
-        - ModBanFromCommunity
-        - ModAddCommunity
-        - ModTransferCommunity
-        - ModAdd
-        - ModBan
-        - ModHideCommunity
-        - AdminPurgePerson
-        - AdminPurgeCommunity
-        - AdminPurgePost
-        - AdminPurgeComment
-      title: ModlogActionType
-      type: string
-    ModlogListParams:
-      properties:
-        community_id:
-          $ref: '#/components/schemas/CommunityId'
-          title: ModlogListParams.community_id
-        mod_person_id:
-          $ref: '#/components/schemas/PersonId'
-          title: ModlogListParams.mod_person_id
-        other_person_id:
-          $ref: '#/components/schemas/PersonId'
-          title: ModlogListParams.other_person_id
-        post_id:
-          $ref: '#/components/schemas/PostId'
-          title: ModlogListParams.post_id
-        comment_id:
-          $ref: '#/components/schemas/CommentId'
-          title: ModlogListParams.comment_id
-        page:
-          title: ModlogListParams.page
-          type: integer
-        limit:
-          title: ModlogListParams.limit
-          type: integer
-        hide_modlog_names:
-          title: ModlogListParams.hide_modlog_names
-          type: boolean
-      required:
-        - hide_modlog_names
-      additionalProperties: false
-      title: ModlogListParams
-      type: object
     ModRemoveComment:
       properties:
         id:
@@ -5918,6 +5867,57 @@ components:
         - modded_person
       additionalProperties: false
       title: ModTransferCommunityView
+      type: object
+    ModlogActionType:
+      enum:
+        - All
+        - ModRemovePost
+        - ModLockPost
+        - ModFeaturePost
+        - ModRemoveComment
+        - ModRemoveCommunity
+        - ModBanFromCommunity
+        - ModAddCommunity
+        - ModTransferCommunity
+        - ModAdd
+        - ModBan
+        - ModHideCommunity
+        - AdminPurgePerson
+        - AdminPurgeCommunity
+        - AdminPurgePost
+        - AdminPurgeComment
+      title: ModlogActionType
+      type: string
+    ModlogListParams:
+      properties:
+        community_id:
+          $ref: '#/components/schemas/CommunityId'
+          title: ModlogListParams.community_id
+        mod_person_id:
+          $ref: '#/components/schemas/PersonId'
+          title: ModlogListParams.mod_person_id
+        other_person_id:
+          $ref: '#/components/schemas/PersonId'
+          title: ModlogListParams.other_person_id
+        post_id:
+          $ref: '#/components/schemas/PostId'
+          title: ModlogListParams.post_id
+        comment_id:
+          $ref: '#/components/schemas/CommentId'
+          title: ModlogListParams.comment_id
+        page:
+          title: ModlogListParams.page
+          type: integer
+        limit:
+          title: ModlogListParams.limit
+          type: integer
+        hide_modlog_names:
+          title: ModlogListParams.hide_modlog_names
+          type: boolean
+      required:
+        - hide_modlog_names
+      additionalProperties: false
+      title: ModlogListParams
       type: object
     MyUserInfo:
       properties:
@@ -6717,18 +6717,6 @@ components:
       additionalProperties: false
       title: PrivateMessageResponse
       type: object
-    PrivateMessagesResponse:
-      properties:
-        private_messages:
-          items:
-            $ref: '#/components/schemas/PrivateMessageView'
-          title: PrivateMessagesResponse.private_messages
-          type: array
-      required:
-        - private_messages
-      additionalProperties: false
-      title: PrivateMessagesResponse
-      type: object
     PrivateMessageView:
       properties:
         private_message:
@@ -6746,6 +6734,18 @@ components:
         - recipient
       additionalProperties: false
       title: PrivateMessageView
+      type: object
+    PrivateMessagesResponse:
+      properties:
+        private_messages:
+          items:
+            $ref: '#/components/schemas/PrivateMessageView'
+          title: PrivateMessagesResponse.private_messages
+          type: array
+      required:
+        - private_messages
+      additionalProperties: false
+      title: PrivateMessagesResponse
       type: object
     PurgeComment:
       properties:

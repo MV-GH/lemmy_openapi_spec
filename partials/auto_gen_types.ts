@@ -109,11 +109,6 @@ export interface BanFromCommunityResponse {
 }
 
 
-export interface BannedPersonsResponse {
-  banned: Array<PersonView>;
-}
-
-
 export interface BanPerson {
   person_id: PersonId;
   ban: boolean;
@@ -126,6 +121,11 @@ export interface BanPerson {
 export interface BanPersonResponse {
   person_view: PersonView;
   banned: boolean;
+}
+
+
+export interface BannedPersonsResponse {
+  banned: Array<PersonView>;
 }
 
 
@@ -1209,9 +1209,6 @@ export interface ListCommunitiesResponse {
 }
 
 
-export type ListingType = "All" | "Local" | "Subscribed" | "ModeratorView";
-
-
 export interface ListMedia {
   page?: bigint;
   limit?: bigint;
@@ -1271,6 +1268,9 @@ export interface ListRegistrationApplications {
 export interface ListRegistrationApplicationsResponse {
   registration_applications: Array<RegistrationApplicationView>;
 }
+
+
+export type ListingType = "All" | "Local" | "Subscribed" | "ModeratorView";
 
 
 export interface LocalImage {
@@ -1575,37 +1575,6 @@ export interface ModLockPostView {
 }
 
 
-export type ModlogActionType =
-  | "All"
-  | "ModRemovePost"
-  | "ModLockPost"
-  | "ModFeaturePost"
-  | "ModRemoveComment"
-  | "ModRemoveCommunity"
-  | "ModBanFromCommunity"
-  | "ModAddCommunity"
-  | "ModTransferCommunity"
-  | "ModAdd"
-  | "ModBan"
-  | "ModHideCommunity"
-  | "AdminPurgePerson"
-  | "AdminPurgeCommunity"
-  | "AdminPurgePost"
-  | "AdminPurgeComment";
-
-
-export interface ModlogListParams {
-  community_id?: CommunityId;
-  mod_person_id?: PersonId;
-  other_person_id?: PersonId;
-  post_id?: PostId;
-  comment_id?: CommentId;
-  page?: bigint;
-  limit?: bigint;
-  hide_modlog_names: boolean;
-}
-
-
 export interface ModRemoveComment {
   id: bigint;
   mod_person_id: PersonId;
@@ -1675,6 +1644,37 @@ export interface ModTransferCommunityView {
   moderator?: Person;
   community: Community;
   modded_person: Person;
+}
+
+
+export type ModlogActionType =
+  | "All"
+  | "ModRemovePost"
+  | "ModLockPost"
+  | "ModFeaturePost"
+  | "ModRemoveComment"
+  | "ModRemoveCommunity"
+  | "ModBanFromCommunity"
+  | "ModAddCommunity"
+  | "ModTransferCommunity"
+  | "ModAdd"
+  | "ModBan"
+  | "ModHideCommunity"
+  | "AdminPurgePerson"
+  | "AdminPurgeCommunity"
+  | "AdminPurgePost"
+  | "AdminPurgeComment";
+
+
+export interface ModlogListParams {
+  community_id?: CommunityId;
+  mod_person_id?: PersonId;
+  other_person_id?: PersonId;
+  post_id?: PostId;
+  comment_id?: CommentId;
+  page?: bigint;
+  limit?: bigint;
+  hide_modlog_names: boolean;
 }
 
 
@@ -1959,15 +1959,15 @@ export interface PrivateMessageResponse {
 }
 
 
-export interface PrivateMessagesResponse {
-  private_messages: Array<PrivateMessageView>;
-}
-
-
 export interface PrivateMessageView {
   private_message: PrivateMessage;
   creator: Person;
   recipient: Person;
+}
+
+
+export interface PrivateMessagesResponse {
+  private_messages: Array<PrivateMessageView>;
 }
 
 
