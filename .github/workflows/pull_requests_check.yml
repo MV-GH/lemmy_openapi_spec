@@ -36,3 +36,6 @@ jobs:
         run: yarn install
       - run: yarn full_gen
       - run: yarn lint_spec
+
+      - name: Verify that generated files match the committed versions
+        run: git diff --exit-code
